@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+  :root{
+    --bg:#050607;
+    --panel:rgba(255,255,255,.06);
+    --panel2:rgba(255,255,255,.08);
+    --border:rgba(255,255,255,.12);
+    --text:rgba(255,255,255,.92);
+    --muted:rgba(255,255,255,.65);
+    --muted2:rgba(255,255,255,.45);
+    --accent:#ff2d2d;
+    --shadow:0 18px 60px rgba(0,0,0,.55);
+    --radius:18px;
+  }
+
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    background: radial-gradient(1200px 600px at 20% 20%, rgba(255,45,45,.10), transparent 55%),
+                radial-gradient(900px 500px at 80% 30%, rgba(90,200,250,.08), transparent 60%),
+                linear-gradient(180deg, #030405 0%, #07090b 100%);
+    color:var(--text);
+    font-family: "Open Sans", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    overflow-x:hidden;
+  }
+
+  /* Premium header */
+  .topbar{
+    position:sticky;
+    top:0;
+    z-index:50;
+    padding:18px 22px;
+    backdrop-filter: blur(14px);
+    background: linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.25));
+    border-bottom:1px solid rgba(255,255,255,.08);
+  }
+  .topbar-inner{
+    max-width:1200px;
+    margin:0 auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+  }
+
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    min-width:260px;
+  }
+  .mark{
+    width:42px;
+    height:42px;
+    border-radius:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background: rgba(255,45,45,.08);
+    border:1px solid rgba(255,45,45,.25);
+}
+  .mark img{width:28px;height:28px;display:block}
+  .brand h1{
+    font-size:16px;
+    margin:0;
+    letter-spacing:.2px;
+    font-weight:700;
+    line-height:1.1;
+  }
+  .brand p{
+    margin:2px 0 0;
+    font-size:12.5px;
+    color:var(--muted);
+  }
+
+  .actions{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+    justify-content:flex-end;
+  }
+  .btn{
+    appearance:none;
+    border:1px solid var(--border);
+    background: var(--panel);
+    color:var(--text);
+    padding:10px 12px;
+    border-radius:12px;
+    font-size:13px;
+    font-weight:600;
+    cursor:pointer;
+    transition: transform .12s ease, background .12s ease, border-color .12s ease;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    user-select:none;
+    text-decoration:none;
+  }
+  .btn:hover{
+    transform: translateY(-1px);
+    background: var(--panel2);
+    border-color: rgba(255,255,255,.18);
+  }
+  .btn.primary{
+    background: rgba(255,45,45,.14);
+    border-color: rgba(255,45,45,.38);
+  }
+  .btn.primary:hover{
+    background: rgba(255,45,45,.18);
+    border-color: rgba(255,45,45,.55);
+  }
+  .btn .dot{
+    width:8px;height:8px;border-radius:99px;background:var(--accent);
+    box-shadow:0 0 0 4px rgba(255,45,45,.18);
+  }
+
+  /* Layout */
+  .page{
+    max-width:1200px;
+    margin:0 auto;
+    padding:22px;
+    display:grid;
+    grid-template-columns: 340px 1fr;
+    gap:18px;
+  }
+
+  .card{
+    background: rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.10);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow:hidden;
+  }
+
+  .sidebar{
+    padding:18px;
+  }
+  .title{
+    font-size:20px;
+    margin:0 0 10px;
+    font-weight:800;
+    letter-spacing:.2px;
+  }
+  .subtitle{
+    font-size:13.5px;
+    color:var(--muted);
+    margin:0 0 16px;
+    line-height:1.55;
+  }
+
+  .info{
+    display:grid;
+    gap:10px;
+    margin-top:14px;
+  }
+  .row{
+    display:flex;
+    gap:10px;
+    align-items:flex-start;
+    padding:10px 12px;
+    border-radius:14px;
+    background: rgba(0,0,0,.22);
+    border:1px solid rgba(255,255,255,.08);
+  }
+  .icon{
+    width:28px;height:28px;border-radius:10px;
+    display:grid;place-items:center;
+    background: rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.10);
+    flex:0 0 auto;
+    font-size:13px;
+    color:var(--muted);
+  }
+  .row b{display:block;font-size:12px;color:var(--muted2);font-weight:700}
+  .row span{display:block;font-size:13.5px;color:var(--text);margin-top:2px;word-break:break-word}
+
+  .chips{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-top:14px;
+  }
+  .chip{
+    font-size:12px;
+    padding:7px 10px;
+    border-radius:999px;
+    background: rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.10);
+    color:var(--muted);
+  }
+
+  .viewer{
+    min-height: calc(100vh - 120px);
+    display:flex;
+    flex-direction:column;
+  }
+  .viewer-head{
+    padding:14px 16px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    border-bottom:1px solid rgba(255,255,255,.08);
+    background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
+  }
+  .viewer-head h2{
+    margin:0;
+    font-size:14px;
+    letter-spacing:.2px;
+  }
+  .viewer-head p{
+    margin:2px 0 0;
+    font-size:12px;
+    color:var(--muted);
+  }
+
+  .iframe-wrap{
+    flex:1;
+    padding:12px;
+  }
+  .iframe{
+    width:100%;
+    height:100%;
+    min-height: 720px;
+    border:none;
+    border-radius: 14px;
+    background: rgba(0,0,0,.18);
+  }
+
+  /* Responsive */
+  @media (max-width: 980px){
+    .page{grid-template-columns:1fr}
+    .brand{min-width:unset}
+    .viewer{min-height:auto}
+  }
+</style>
+<head>
+  <title>Dheeraj Allu Resume</title>
+  <meta charset="UTF-8">
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Digital resume of Dheeraj Allu, a proficient UI/UX Designer with extensive experience in creating user-centric designs. Download the resume or view it online.">
+  <meta name="keywords" content="Dheeraj Allu, UI/UX Designer, Digital Resume, Online Resume, Design Portfolio, Resume Download">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://dheerajallu.art/resume">
+  <meta property="og:title" content="Dheeraj Allu - UI/UX Designer Resume">
+  <meta property="og:description" content="View and download the digital resume of Dheeraj Allu, showcasing his skills and experiences in UI/UX design.">
+  <meta property="og:image" content="https://dheerajallu.art/images/resume-preview.jpg">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://dheerajallu.art/resume">
+  <meta property="twitter:title" content="Dheeraj Allu - UI/UX Designer Resume">
+  <meta property="twitter:description" content="View and download the digital resume of Dheeraj Allu, showcasing his skills and experiences in UI/UX design.">
+  <meta property="twitter:image" content="https://dheerajallu.art/images/resume-twitter.jpg">
+  <link rel="icon" type="image/png" href="images/robin-hood.png" />
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript"></script>
+  <link
+    href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic|Open+Sans:300,400,500,700|Waiting+for+the+Sunrise|Shadows+Into+Light"
+    rel="stylesheet" type="text/css" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" />
+  <link rel="stylesheet" href="css/resume.css" />
+  <link rel="stylesheet" href="css/Resume-1.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    $(document).on('click', '#downloadFile', function () {
+      $('#customdownload').click()
+    })
+  </script>
+</head>
+
+<body>
+  <!-- Hidden download link -->
+  <a href="./ux_ui resume.pdf" id="customdownload" download="Dheeraj Allu(UI/UX)-resume" style="display:none;">
+    Download
+  </a>
+
+  <!-- Premium sticky header -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="mark">
+          <img src="robin-hood.png" alt="AD" style="
+           width:28px;
+           height:28px;
+           object-fit:contain;
+           display:block;
+           ">
+        </div>
+        <div>
+          <h1>Dheeraj Allu</h1>
+          <p>UI/UX Designer • Resume</p>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn primary" id="downloadFile">
+          <span class="dot"></span>
+          Download PDF
+        </button>
+
+        <a class="btn" href="mailto:dheerajallu27@gmail.com">
+          Email
+        </a>
+
+        <a class="btn" href="home.html">
+          Back to Portfolio
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page -->
+  <main class="page">
+    <!-- Left info panel -->
+    <section class="card sidebar">
+      <h2 class="title">Quick Info</h2>
+      <p class="subtitle">
+        Turning complex ideas into simple, intuitive digital experiences.
+      </p>
+
+      <div class="info">
+        <div class="row">
+          <div class="icon">✉</div>
+          <div>
+            <b>Email</b>
+            <span>dheerajallu27@gmail.com</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="chips">
+        <span class="chip">Figma</span>
+        <span class="chip">Prototyping</span>
+        <span class="chip">Design Systems</span>
+        <span class="chip">User Flows</span>
+        <span class="chip">Wireframing</span>
+        <span class="chip">Usability Testing</span>
+      </div>
+    </section>
+
+    <!-- Right viewer -->
+    <section class="card viewer">
+      <div class="viewer-head">
+        <div>
+          <h2>Resume Preview</h2>
+          <p>View in browser or download the PDF.</p>
+        </div>
+        <div class="actions">
+          <button class="btn primary" id="downloadFile2">
+            <span class="dot"></span>
+            Download
+          </button>
+        </div>
+      </div>
+
+      <div class="iframe-wrap">
+        <iframe
+          class="iframe"
+          src="ux_ui resume.pdf">
+        </iframe>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    // Download buttons
+    $(document).on('click', '#downloadFile, #downloadFile2', function () {
+      document.getElementById('customdownload').click();
+    });
+
+    // Remove .html extension from URLs
+    window.history.replaceState(null, null, window.location.pathname.replace(/\.html/g, ''));
+  </script>
+</body>
+
+</html>
