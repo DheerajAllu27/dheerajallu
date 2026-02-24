@@ -264,3 +264,38 @@ body {
   pointer-events:none;
   z-index: 0;
 }
+/* MOBILE FIX */
+@media (max-width: 768px){
+
+  /* remove empathy image spacing */
+  .dark_bg_1,
+  #about{
+    padding-right: 20px !important;
+    background-position: center top !important;
+    background-size: contain !important;
+  }
+
+  /* fix big heading */
+  .big-title{
+    font-size: 34px !important;
+    line-height: 42px !important;
+    padding-right: 0 !important;
+  }
+
+  /* fix text container */
+  .col-sm-8{
+    width: 100% !important;
+  }
+
+  /* fix section height */
+  .creative-stuff{
+    height: auto !important;
+    padding: 60px 20px !important;
+  }
+
+  /* prevent overflow */
+  body{
+    overflow-x: hidden;
+  }
+
+}
