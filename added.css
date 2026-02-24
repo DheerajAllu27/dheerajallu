@@ -228,3 +228,26 @@ body {
   .cards-container{ grid-template-columns: 1fr; }
   .card-img{ height: 280px; }
 }
+/* Fix overlap for the "What's Design For Me?" heading */
+.creative-background-image .cta_content h1{
+  font-size: clamp(42px, 5vw, 72px) !important;
+  line-height: 1.05 !important;
+  margin: 0 0 18px !important;
+  padding: 0 !important;   /* remove huge inline padding effect */
+}
+
+/* Add spacing so next content starts after the title */
+.creative-background-image{
+  padding-top: 60px !important;
+  padding-bottom: 60px !important;
+}
+
+/* If your paragraph is too close to the title */
+.creative-background-image .cta_content h4{
+  margin-top: 0 !important;
+}
+.cs-title{
+  color:#fff;
+  font-family:'Josefin Sans', sans-serif;
+  font-weight:400;
+}
