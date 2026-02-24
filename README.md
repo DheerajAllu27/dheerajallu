@@ -9,7 +9,6 @@ The portfolio includes:
 - Home Page
 - About Me Section
 - Case Studies
-- Photography
 - Resume
 
 It's built using HTML, CSS, and JavaScript, and utilizes various fonts and icons to create an engaging user experience.
@@ -24,7 +23,7 @@ It's built using HTML, CSS, and JavaScript, and utilizes various fonts and icons
 
 For any inquiries or collaboration, please contact:
 
-- **Email**: [dheerajallu@proton.me](mailto:dheerajallu@proton.me)
+- **Email**: [dheerajallu27@gmail.com](mailto:dheerajallu@proton.me)
 - **LinkedIn**: [dheerajallu](https://www.linkedin.com/in/dheerajallu)
 
 ## Owner
