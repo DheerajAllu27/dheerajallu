@@ -226,28 +226,41 @@ body {
 
 @media (max-width: 900px){
   .cards-container{ grid-template-columns: 1fr; }
-  .card-img{ height: 280px; }
+  .card-img{ height: 250px; }
 }
-/* Fix overlap for the "What's Design For Me?" heading */
-.creative-background-image .cta_content h1{
-  font-size: clamp(42px, 5vw, 72px) !important;
-  line-height: 1.05 !important;
-  margin: 0 0 18px !important;
-  padding: 0 !important;   /* remove huge inline padding effect */
-}
-
-/* Add spacing so next content starts after the title */
-.creative-background-image{
-  padding-top: 60px !important;
-  padding-bottom: 60px !important;
-}
-
-/* If your paragraph is too close to the title */
-.creative-background-image .cta_content h4{
-  margin-top: 0 !important;
-}
-.cs-title{
+.big-title{
   color:#fff;
-  font-family:'Josefin Sans', sans-serif;
+  font-family:'Josefin Sans',sans-serif;
   font-weight:400;
+
+  font-size: clamp(45px, 5vw, 80px);
+  line-height: 0.5;
+
+  margin: 35px 0 35px;
+  padding-left: 2rem;
+  padding-right: 340px;   /* 👈 prevents overlap with empathy image */
+
+  max-width: 1250px;
+}
+.empathy-full::before{
+  content:"";
+  position:absolute;
+  top:0;
+  bottom:0;
+  right:0;
+
+  width: 340px;
+
+  /* IMPORTANT: match the exact folder case you used elsewhere */
+  background-image: url("./Pics/home/banner.png");
+
+  background-repeat: no-repeat;
+  background-position: right bottom;
+
+  /* THIS is the key: full height without “half image” */
+  background-size: auto 100%;
+
+  opacity: .35;
+  pointer-events:none;
+  z-index: 0;
 }

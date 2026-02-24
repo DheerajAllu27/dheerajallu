@@ -824,7 +824,7 @@ a:hover{
 .creative-background-image{
     background-image: url('../Pics/Home/bg-d.png');
     background-repeat: no-repeat;
-    background-size: 100%;
+    background-size: 0%;
     background-position: 452px 0;
 }
 
@@ -940,7 +940,7 @@ video {
     margin-bottom: 6rem;
     height: 35rem;
     border-radius: 20rem;
-    padding: 02rem 18rem;
+    padding: 02rem 10rem;
     align-items: center;
     display: flex;
 }
