@@ -798,7 +798,7 @@ a:hover{
 }
 
 .explore_section{
-    background: url('../Pics/Home/lyt\ bg.png');
+    background: url('../pics/Home/lyt\ bg.png');
     position: relative;
     background-size: cover;
     background-attachment: fixed;
@@ -822,7 +822,7 @@ a:hover{
 }
 
 .creative-background-image{
-    background-image: url('../Pics/Home/bg-d.png');
+    background-image: url('../pics/Home/bg-d.png');
     background-repeat: no-repeat;
     background-size: 0%;
     background-position: 452px 0;

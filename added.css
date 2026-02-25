@@ -252,7 +252,7 @@ body {
   width: 340px;
 
   /* IMPORTANT: match the exact folder case you used elsewhere */
-  background-image: url("./Pics/home/banner.png");
+  background-image: url("./pics/home/banner.png");
 
   background-repeat: no-repeat;
   background-position: right bottom;
