@@ -1144,3 +1144,163 @@ body {
 #contact .contact-left *{
   opacity: 1 !important;
 }
+/* Fix hero subtitle font consistency */
+.sub_title,
+.sub_title p,
+.sub_title div{
+  font-family: 'Josefin Sans', sans-serif !important;
+  font-weight: 400;
+  letter-spacing: .08em;
+}
+.sub_title{
+  font-size: 14px;
+  letter-spacing: .12em;
+  opacity: .85;
+}
+/* Typewriter text */
+#typewriter{
+  color: #ff2a2a;
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 700;
+}
+
+/* Blinking cursor */
+.cursor{
+  display:inline-block;
+  margin-left:2px;
+  color:#ff2a2a;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink{
+  0%,50%,100%{opacity:1;}
+  25%,75%{opacity:0;}
+}
+.cursor{
+  display:inline-block;
+  width:1.5px;          /* ← thickness (change this) */
+  height: 0.9em;em;
+  background:#ff2a2a;
+  margin-left:4px;
+  animation: blink 1s infinite;
+}
+/* ===========================
+   Insights – Premium Cards
+   =========================== */
+
+.insights{
+  padding: 70px 15px 80px 10px;
+  background: #000;
+}
+
+.insights-header{
+  max-width: 1100px;
+  margin: 0 auto 26px auto;
+}
+
+.insights-title{
+  color: #fff;
+  font-size: 44px;
+  line-height: 1.1;
+  margin: 0 0 10px 0;
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+.insights-subtitle{
+  color: rgba(255,255,255,.72);
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.insights-grid{
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+/* Insight Card base (black) */
+.insight-card{
+  position: relative;
+  overflow: hidden;
+  display: block;
+
+  background: #0a0a0a;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 18px;
+  padding: 18px 18px 16px 18px;
+
+  text-decoration: none !important;
+  color: #fff;
+
+  box-shadow: 0 18px 45px rgba(0,0,0,.55);
+  transform: translateY(0);
+  transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+}
+
+.insight-card:hover{
+  transform: translateY(-6px);
+  border-color: rgba(255,255,255,.14);
+  box-shadow: 0 24px 65px rgba(0,0,0,.7);
+}
+
+.insight-card *{
+  position: relative;
+  z-index: 2;
+}
+
+/* Top row */
+.insight-top{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.insight-pill{
+  font-size: 12px;
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.10);
+  color: rgba(255,255,255,.92);
+}
+
+.insight-date{
+  font-size: 13px;
+  color: rgba(255,255,255,.65);
+}
+
+/* Title + preview */
+.insight-h{
+  font-size: 18px;
+  line-height: 1.35;
+  margin: 0 0 10px 0;
+  color: rgba(255,255,255,.92);
+}
+
+.insight-p{
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(255,255,255,.74);
+  margin: 0 0 14px 0;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.insight-cta{
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255,255,255,.92);
+}
+
+/* Responsive */
+@media (max-width: 992px){
+  .insights-grid{ grid-template-columns: 1fr; }
+  .insights-title{ font-size: 38px; }
+}

@@ -119,23 +119,15 @@
           <div class="col-md-12">
             <div class="banner_content" style="font-family: 'Josefin Sans', sans-serif !important">
               <span class="sm_title" style="font-family: 'Josefin Sans', sans-serif !important"> Hey, </span>
-              <h1 class="cd-headline clip">
-                <span class="fw_800" style="
-                        font-family: 'Josefin Sans', sans-serif !important;
-                        color: #f70e0e;
-                      "> I'm </span>
-                <span class="cd-words-wrapper">
-                  <b class="is-visible fw_800 main-title-name" style="
-                          font-family: 'Josefin Sans', sans-serif !important;
-                        "> Dheeraj Allu </b>
-                </span>
-              </h1>
+              <h1 class="hero-title">
+  <span class="fw_800">I’m </span>
+  <span id="typewriter" class="main-title-name"></span>
+  <span class="cursor"></span>
+</h1>
               <div class="sub_title" style="font-family: 'Josefin Sans', sans-serif !important">
-                <span> Product Designer | Designing clear user experiences and thoughtful interfaces for complex systems. </span>
+                <span> Designing clarity !N complex systems. </span>
               </div>
               <div>
-                <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@1,600&amp;display=swap"
-                  rel="stylesheet" />
                 <div class="social-links">
                   <a href="https://www.linkedin.com/in/dheeraj-allu-/" target="_blank">
                     <div class="social-btn flex-center" id="linkedin">
@@ -711,51 +703,70 @@ I test, improve, and collaborate to ensure the final experience works seamlessly
 </section>
 <section class="insights" id="insights">
   <div class="container-fluid">
+
     <div class="insights-header">
       <h2 class="insights-title">Insights</h2>
-      <p class="insights-subtitle">Short reads on enterprise UX, systems, and AI product thinking.</p>
+      <p class="insights-subtitle">Thoughts on design, research, and building clarity in complex systems.</p>
     </div>
 
     <div class="insights-grid">
+
+      <!-- Insight 1 -->
       <a class="insight-card case-glow" href="./blog_designmindset.html">
         <div class="case-glow-bg"></div>
+
         <div class="insight-top">
           <span class="insight-pill">Design</span>
           <span class="insight-date">5 min read</span>
         </div>
+
         <h3 class="insight-h">Life-Changing Lessons That Redefined How I Design</h3>
+
         <p class="insight-p">
-          The shifts that moved my work from “clean screens” to simplifying real workflows—especially in enterprise products.
+          The shifts that moved my work from “clean screens” to simplifying real workflows—especially in complex products.
         </p>
+
         <div class="insight-cta">Read article →</div>
       </a>
 
-      <a class="insight-card case-glow" href="./blog_enterpriseux.html">
+      <!-- Insight 2 -->
+      <a class="insight-card case-glow" href="./blog_researchmindset.html">
         <div class="case-glow-bg"></div>
+
         <div class="insight-top">
-          <span class="insight-pill">Enterprise</span>
+          <span class="insight-pill">Research</span>
           <span class="insight-date">6–7 min read</span>
         </div>
-        <h3 class="insight-h">Designing for Enterprise Software Is a Different Game</h3>
+
+        <h3 class="insight-h">Research Isn’t a Phase. It’s How You See Everything.</h3>
+
         <p class="insight-p">
-          Why enterprise UX prioritizes speed, clarity, error-prevention, and role-based flows—more than “engagement”.
+          Research isn’t just interviews and notes. It’s noticing hesitation, friction, and the gap between what users say and what they mean.
         </p>
+
         <div class="insight-cta">Read article →</div>
       </a>
 
-      <a class="insight-card case-glow" href="./blog_aiux.html">
+      <!-- Insight 3 -->
+      <a class="insight-card case-glow" href="./blog_visualhierarchy.html">
         <div class="case-glow-bg"></div>
+
         <div class="insight-top">
-          <span class="insight-pill">AI + UX</span>
-          <span class="insight-date">7–8 min read</span>
+          <span class="insight-pill">Visual</span>
+          <span class="insight-date">6 min read</span>
         </div>
-        <h3 class="insight-h">UX in AI Products: Trust, Control, and Explainability</h3>
+
+        <h3 class="insight-h">Visual Hierarchy Is How Design Speaks Without Words</h3>
+
         <p class="insight-p">
-          AI isn’t just a feature. UX needs to make it understandable, steerable, and safe—so users actually adopt it.
+          Before users read, they scan. Typography, spacing, and color guide attention—and reduce cognitive load without saying a word.
         </p>
+
         <div class="insight-cta">Read article →</div>
       </a>
+
     </div>
+
   </div>
 </section>
 <section class="dark_bg_1" id="contact" style="padding: 3rem 0 0">
@@ -802,36 +813,96 @@ I test, improve, and collaborate to ensure the final experience works seamlessly
   </div>
 </footer>
 <script>
-const cards = document.querySelectorAll('.case-glow');
+const words = [
+  "Dheeraj Allu",
+  "Product Designer"
+];
 
-cards.forEach(card => {
+let wordIndex = 0;
+let charIndex = 0;
+let isDeleting = false;
 
-  card.addEventListener('mousemove', e => {
+const typewriter = document.getElementById("typewriter");
 
-    const rect = card.getBoundingClientRect();
+function typeEffect() {
 
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+  const currentWord = words[wordIndex];
 
-    card.style.setProperty('--mx', (x / rect.width) * 100 + '%');
-    card.style.setProperty('--my', (y / rect.height) * 100 + '%');
+  if (isDeleting) {
+    charIndex--;
+  } else {
+    charIndex++;
+  }
 
-    const px = (x / rect.width) - 0.5;
-    const py = (y / rect.height) - 0.5;
+  typewriter.textContent = currentWord.substring(0, charIndex);
 
-    card.style.transform =
-      `translateY(-8px)
-       perspective(900px)
-       rotateX(${py * -8}deg)
-       rotateY(${px * 8}deg)`;
+  let speed = isDeleting ? 50 : 100;
 
+  if (!isDeleting && charIndex === currentWord.length) {
+    speed = 1200; // pause after typing
+    isDeleting = true;
+  }
+
+  else if (isDeleting && charIndex === 0) {
+    isDeleting = false;
+    wordIndex = (wordIndex + 1) % words.length;
+    speed = 300;
+  }
+
+  setTimeout(typeEffect, speed);
+}
+
+typeEffect();
+</script>
+<script>
+(function () {
+  const cards = document.querySelectorAll('.case-glow');
+  if (!cards.length) return;
+
+  cards.forEach((card) => {
+    let rafId = null;
+
+    function onMove(e){
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      // Mouse-follow glow position
+      card.style.setProperty('--mx', (x / rect.width) * 100 + '%');
+      card.style.setProperty('--my', (y / rect.height) * 100 + '%');
+
+      // Subtle parallax tilt
+      const px = (x / rect.width) - 0.5;
+      const py = (y / rect.height) - 0.5;
+
+      const tiltX = (py * -5).toFixed(2);
+      const tiltY = (px * 5).toFixed(2);
+
+      card.style.transform =
+        `translateY(-8px) perspective(900px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
+    }
+
+    card.addEventListener('mousemove', (e) => {
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => onMove(e));
+    });
+
+    card.addEventListener('mouseenter', () => {
+      // Make glow visible immediately on hover
+      const glow = card.querySelector('.case-glow-bg');
+      if (glow) glow.style.opacity = '1';
+    });
+
+    card.addEventListener('mouseleave', () => {
+      card.style.removeProperty('--mx');
+      card.style.removeProperty('--my');
+      card.style.transform = '';
+
+      const glow = card.querySelector('.case-glow-bg');
+      if (glow) glow.style.opacity = '';
+    });
   });
-
-  card.addEventListener('mouseleave', () => {
-    card.style.transform = '';
-  });
-
-});
+})();
 </script>
 <script src="js/main.js"></script>
 
