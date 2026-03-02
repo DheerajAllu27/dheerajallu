@@ -129,12 +129,13 @@
               </div>
               <div>
                 <div class="social-links">
-                  <a href="https://www.linkedin.com/in/dheeraj-allu-/" target="_blank">
-                    <div class="social-btn flex-center" id="linkedin">
-                      <img alt="LinkedIn" height="24" src="pics/svg/linkedin.svg" width="24" />
-                      <span> /dheerajallu </span>
-                    </div>
-                  </a>
+                  <a href="https://www.linkedin.com/in/dheeraj-allu-/" 
+   target="_blank" 
+   rel="noopener"
+   class="hero-in"
+   aria-label="LinkedIn">
+  in
+</a>
                 </div>
               </div>
             </div>
@@ -720,7 +721,7 @@ I test, improve, and collaborate to ensure the final experience works seamlessly
           <span class="insight-date">5 min read</span>
         </div>
 
-        <h3 class="insight-h">Life-Changing Lessons That Redefined How I Design</h3>
+        <h3 class="insight-h">Tranformative Insights That Redefined How I Design</h3>
 
         <p class="insight-p">
           The shifts that moved my work from “clean screens” to simplifying real workflows—especially in complex products.
@@ -782,9 +783,33 @@ I test, improve, and collaborate to ensure the final experience works seamlessly
             <p class="contact-sub">Design conversations are always welcome — ideas don’t follow office hours.</p>
           </div>
 
-          <div class="contact-right">
-            <a class="contact-chip" href="mailto:dheerajallu27@gmail.com">dheerajallu27@gmail.com</a>
-          </div>
+        <div class="contact-right">
+
+<div class="contact-actions">
+
+  <!-- Gmail -->
+  <a class="glossy-pill" href="mailto:dheerajallu27@gmail.com" aria-label="Email Dheeraj">
+    <span class="pill-icon" aria-hidden="true">
+      <!-- Mail icon (white) -->
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18">
+        <path fill="currentColor" d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4.2-8 5.2-8-5.2V6l8 5.2L20 6v2.2Z"/>
+      </svg>
+    </span>
+    <span class="pill-text">dheerajallu27@gmail.com</span>
+  </a>
+
+  <!-- LinkedIn -->
+  <a class="glossy-pill glossy-pill--linkedin"
+     href="https://www.linkedin.com/in/dheeraj-allu-/"
+     target="_blank" rel="noopener"
+     aria-label="Dheeraj on LinkedIn">
+    <span class="in-mark" aria-hidden="true">in</span>
+    <span class="pill-text">LinkedIn</span>
+  </a>
+
+</div>
+
+</div>
         </div>
         <!-- /NEW CONTENT -->
 
@@ -814,8 +839,8 @@ I test, improve, and collaborate to ensure the final experience works seamlessly
 </footer>
 <script>
 const words = [
-  "Dheeraj",
-  "a Product Designer"
+  "Dheeraj,",
+  "a Product Designer."
 ];
 
 let wordIndex = 0;

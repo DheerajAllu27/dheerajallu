@@ -1304,3 +1304,279 @@ body {
   .insights-grid{ grid-template-columns: 1fr; }
   .insights-title{ font-size: 38px; }
 }
+.contact-chip {
+  display: inline-flex;
+  align-items: center;
+}
+.contact-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.contact-chip .icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contact-chip svg {
+  display: block;
+}
+/* only affects the icon button version */
+.contact-chip--icon{
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start !important;  /* kills space-between */
+  gap: 10px;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+/* icon wrapper */
+.contact-chip--icon .contact-icon{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* svg baseline fix */
+.contact-chip--icon svg{
+  display: block;
+}
+
+/* text baseline fix */
+.contact-chip--icon .contact-label{
+  display: block;
+  line-height: 1;
+}
+.contact-right{
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Base pill */
+.contact-pill{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 26px;
+  background: #000;
+  color: #fff;
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 14px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Icon pill */
+.contact-pill--icon{
+  width: 48px;
+  height: 48px;
+  padding: 0;
+}
+
+/* Remove SVG baseline shift */
+.contact-pill svg{
+  display: block;
+}
+/* Right side: actions group */
+.contact-actions{
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* Base button */
+.contact-btn{
+  height: 46px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+  color: #fff;
+  border-radius: 999px;
+  text-decoration: none;
+  padding: 0 22px;
+  box-shadow: 0 10px 22px rgba(0,0,0,0.18);
+  transition: transform 180ms ease, box-shadow 180ms ease, opacity 180ms ease;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1;
+}
+
+/* Email text */
+.contact-btn__text{
+  font-size: 13.5px;
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+  opacity: 0.95;
+}
+
+/* Icon-only button */
+.contact-btn--icon{
+  width: 46px;
+  padding: 0;
+}
+
+/* SVG baseline fix */
+.contact-btn__icon{
+  display: block;
+  color: #fff;
+  opacity: 0.95;
+}
+
+/* Premium hover */
+.contact-btn:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(0,0,0,0.22);
+}
+
+.contact-btn:active{
+  transform: translateY(0px);
+  box-shadow: 0 10px 22px rgba(0,0,0,0.18);
+}
+/* Buttons wrapper: same alignment as the mock */
+.contact-actions{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;                 /* exact spacing between pills */
+}
+
+/* Base glossy pill (85% scale vs your earlier big pills) */
+.glossy-pill{
+  height: 46px;              /* 85% feel */
+  padding: 0 22px;           /* 85% feel */
+  border-radius: 999px;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+
+  font-family: inherit;      /* match site */
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  line-height: 1;
+  white-space: nowrap;
+
+  color: #fff;
+  text-decoration: none;
+
+  /* premium glossy look */
+  background: linear-gradient(180deg, #2b2b2b 0%, #0c0c0c 55%, #000 100%);
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow:
+    0 14px 26px rgba(0,0,0,0.28),
+    inset 0 1px 0 rgba(255,255,255,0.14),
+    inset 0 -1px 0 rgba(0,0,0,0.6);
+}
+
+/* subtle highlight ring like the mock */
+.glossy-pill::after{
+  content:"";
+  position:absolute;
+  inset: 3px;
+  border-radius: 999px;
+  pointer-events:none;
+  box-shadow: inset 0 1px 10px rgba(255,255,255,0.06);
+  opacity: 0.9;
+}
+
+/* required because we used ::after */
+.glossy-pill{
+  position: relative;
+}
+
+/* icon alignment fix */
+.pill-icon{
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.10);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+}
+
+.pill-icon svg{
+  display: block;
+  color: #fff;
+  opacity: 0.95;
+}
+
+/* LinkedIn “in” mark (white, no blue) */
+.in-mark{
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family: inherit;      /* match site */
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.10);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+
+  color: #fff;
+}
+
+/* Optional hover (premium but not loud) */
+.glossy-pill:hover{
+  transform: translateY(-2px);
+  box-shadow:
+    0 18px 34px rgba(0,0,0,0.34),
+    inset 0 1px 0 rgba(255,255,255,0.16),
+    inset 0 -1px 0 rgba(0,0,0,0.6);
+}
+
+.glossy-pill:active{
+  transform: translateY(0px);
+}
+.glossy-pill,
+.glossy-pill:hover,
+.glossy-pill:focus,
+.glossy-pill:active {
+  color: #ffffff !important;
+}
+/* Hero LinkedIn minimal mark */
+.hero-in{
+  width: 44px;
+  height: 44px;
+  border-radius: 12px; /* slightly rounded, not full circle */
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family: inherit;
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+
+  background: rgba(255,255,255,0.08);
+  color: #ffffff;
+  text-decoration: none;
+
+  border: 1px solid rgba(255,255,255,0.12);
+
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+/* Hover — subtle */
+.hero-in:hover{
+  transform: translateY(-3px);
+  background: rgba(255,255,255,0.12);
+  color: #ffffff; /* lock white */
+}
