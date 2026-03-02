@@ -1034,5 +1034,9 @@ footer a {
 .figma-icon{
     height: 36.6px;
 }
-
+.nav-logo {
+    height: 50px;
+    width: auto;
+    display: block;
+}
 
