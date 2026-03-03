@@ -136,7 +136,5 @@
 	});
 	/*END PRELOADER JS*/
 
-	/*START WOW ANIMATION JS*/
-	new WOW().init();
-	/*END WOW ANIMATION JS*/
+
 })(jQuery);
