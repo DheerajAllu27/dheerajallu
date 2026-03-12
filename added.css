@@ -1754,3 +1754,117 @@ section {
         font-size: 14px;
     }
 }
+/* =========================================
+   SAFE MOBILE-ONLY FIXES
+   Paste at bottom of added.css
+   ========================================= */
+
+@media only screen and (max-width: 767px) {
+
+  html, body {
+    overflow-x: hidden;
+  }
+
+  /* Hero text area */
+  .main_banner {
+    min-height: auto !important;
+    padding-top: 90px !important;
+    padding-bottom: 20px !important;
+  }
+
+  .banner_content h1 {
+    font-size: 42px !important;
+    line-height: 1.1 !important;
+  }
+
+  .banner_content .sm_title {
+    font-size: 20px !important;
+  }
+
+  .sub_title,
+  .sub_title span {
+    font-size: 12px !important;
+    line-height: 1.6 !important;
+    white-space: normal !important;
+  }
+
+  /* Hide the big vertical UX text on phones */
+  .moto {
+    display: none !important;
+  }
+
+  /* Let the middle section stack better */
+  .b,
+  .avatar,
+  .avatar-left {
+    width: 100% !important;
+    float: none !important;
+    text-align: center !important;
+  }
+
+  .moto_heading {
+    min-height: auto !important;
+  }
+
+  .passion {
+    position: relative !important;
+    top: auto !important;
+    transform: none !important;
+    text-align: center !important;
+    margin-bottom: 20px !important;
+  }
+
+  .passion img,
+  .avatar svg,
+  .avatar img {
+    max-width: 80% !important;
+    height: auto !important;
+    margin: 0 auto !important;
+  }
+
+  /* Case study cards */
+  .home-cs-grid {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+
+  .case-card-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+
+  /* Contact section: fix white circle/blob */
+  .contact-background {
+    height: auto !important;
+    border-radius: 28px !important;
+    overflow: hidden !important;
+  }
+
+  .contact-card {
+    display: block !important;
+    padding: 28px 20px !important;
+  }
+
+  .contact-title {
+    font-size: 34px !important;
+    line-height: 1.05 !important;
+  }
+
+  .contact-sub {
+    font-size: 15px !important;
+    line-height: 1.7 !important;
+  }
+
+  .contact-actions {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    align-items: stretch !important;
+  }
+
+  .glossy-pill {
+    width: 100% !important;
+    max-width: 100% !important;
+    justify-content: flex-start !important;
+  }
+}
