@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=1080,height=1080"/>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400;500&display=swap');
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{width:1080px;height:1080px;overflow:hidden}
+body{width:1080px;height:1080px;overflow:hidden;background:#050508;position:relative}
+
+/* ═══ GLOBAL ═══ */
+.f{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;pointer-events:none;padding:80px}
+.f.on{opacity:1}
+.sr{font-family:'Instrument Serif',Georgia,serif}
+.sn{font-family:'DM Sans',sans-serif}
+.mn{font-family:'IBM Plex Mono',monospace}
+
+/* ═══ AMBIENT ═══ */
+.ambient{position:absolute;inset:0;pointer-events:none;z-index:0}
+.amb-dot{position:absolute;border-radius:50%;opacity:0;animation:float linear infinite}
+@keyframes float{0%{transform:translateY(0);opacity:0}8%{opacity:var(--o,.15)}85%{opacity:var(--o,.15)}100%{transform:translateY(calc(-1080px - 20px));opacity:0}}
+
+/* ═══ F1: THE HOOK ═══ */
+#f1{padding:90px 80px;align-items:flex-start;justify-content:flex-end}
+#f1 .top-tag{position:absolute;top:60px;left:80px;font-size:11px;letter-spacing:5px;text-transform:uppercase;color:#3a3a3a;opacity:0}
+#f1 .main-text{font-size:78px;color:#f0ece4;line-height:1.05;text-align:left}
+#f1 .main-text .w{display:inline-block;opacity:0;transform:translateY(60px);filter:blur(6px)}
+#f1 .main-text .red{color:#c0392b}
+#f1 .sub-text{font-size:28px;color:#555;margin-top:28px;line-height:1.5;text-align:left;opacity:0;font-style:italic}
+#f1 .line{position:absolute;bottom:80px;left:80px;width:0;height:2px;background:linear-gradient(90deg,#c0392b,transparent)}
+
+/* ═══ F2: THE SHIFT ═══ */
+#f2{padding:60px}
+#f2 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;width:100%;opacity:0;transform:translateY(20px)}
+#f2 .cell{
+  height:160px;border-radius:16px;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:10px;
+  border:1px solid #1a1a22;
+  position:relative;overflow:hidden;
+}
+#f2 .cell::before{content:'';position:absolute;inset:0;opacity:.06}
+#f2 .cell .em{font-size:40px}
+#f2 .cell .nm{font-size:14px;color:#c4c4c4;letter-spacing:1px}
+#f2 .cell .clr{font-size:11px;color:#6a6a6a;margin-top:2px}
+#f2 .tagline{font-size:52px;color:#f0ece4;text-align:center;margin-bottom:48px;line-height:1.15;opacity:0}
+#f2 .tagline em{font-style:italic;color:#808080}
+
+/* ═══ F3: THE REVEAL ═══ */
+#f3{padding:60px;gap:0}
+#f3 .q{font-size:44px;color:#606060;font-style:italic;text-align:center;line-height:1.3;opacity:0}
+#f3 .logo-block{margin-top:48px;display:flex;flex-direction:column;align-items:center;opacity:0;transform:scale(.6)}
+#f3 .diamond{width:160px;height:160px;position:relative}
+#f3 .diamond .r{position:absolute;top:50%;left:50%;border-radius:5px}
+#f3 .diamond .r1{width:110px;height:110px;border:2.5px solid #9b7aff;transform:translate(-50%,-50%) rotate(45deg)}
+#f3 .diamond .r2{width:72px;height:72px;border:2px solid #c49bff;transform:translate(-50%,-50%) rotate(45deg);opacity:.45}
+#f3 .diamond .r3{width:40px;height:40px;border:1.5px solid #5ed4d4;transform:translate(-50%,-50%) rotate(45deg);opacity:.25}
+#f3 .diamond .core{position:absolute;top:50%;left:50%;width:14px;height:14px;border-radius:50%;background:#9b7aff;transform:translate(-50%,-50%);box-shadow:0 0 40px #9b7aff,0 0 100px rgba(155,122,255,.35)}
+#f3 .name{font-size:88px;color:#f0ece4;letter-spacing:6px;margin-top:24px;text-align:center}
+#f3 .name .dot{color:#9b7aff}
+#f3 .name em{font-style:italic;background:linear-gradient(135deg,#9b7aff,#c49bff,#5ed4d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+#f3 .desc{font-size:15px;letter-spacing:5px;text-transform:uppercase;color:#5a5a5a;margin-top:12px}
+
+/* ═══ F4: THE PRODUCT ═══ */
+#f4{padding:40px 40px 50px;justify-content:flex-start;padding-top:50px}
+#f4 .screen-label{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:#5a5a5a;margin-bottom:16px;opacity:0}
+#f4 .screen{
+  width:1000px;height:620px;
+  background:#0a0a0e;border-radius:14px;
+  border:1px solid #1c1c22;overflow:hidden;
+  box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.03);
+  opacity:0;transform:perspective(1000px) rotateX(4deg) translateY(20px);
+}
+#f4 .bar{height:32px;background:#0e0e14;border-bottom:1px solid #1c1c22;display:flex;align-items:center;padding:0 12px;gap:5px}
+#f4 .d{width:8px;height:8px;border-radius:50%}
+#f4 .dr{background:#ff5f56}#f4 .dy{background:#ffbd2e}#f4 .dg{background:#27c93f}
+#f4 .url{margin-left:8px;font-size:10px;color:#3a3a3a}
+#f4 .body{display:flex;height:calc(100% - 32px)}
+#f4 .sb{width:42px;background:#08080c;border-right:1px solid #1c1c22;display:flex;flex-direction:column;align-items:center;padding:10px 0;gap:8px}
+#f4 .si{width:20px;height:20px;border-radius:5px;background:#141418}
+#f4 .si.on{background:rgba(94,212,212,.1);border:1px solid rgba(94,212,212,.2)}
+#f4 .mn-area{flex:1;padding:18px 22px;display:flex;flex-direction:column}
+#f4 .hl{font-size:28px;color:#f0ece4;line-height:1.15;margin-bottom:14px}
+#f4 .hl span{color:#5ed4d4}
+#f4 .lb{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#5a5a5a;margin:8px 0 5px}
+#f4 .ar{display:flex;gap:5px;flex-wrap:wrap}
+#f4 .ag{padding:5px 12px;border-radius:14px;background:#0c1a20;border:1px solid #163030;color:#5ed4d4;font-size:10px}
+#f4 .pr{padding:7px 12px;border-radius:6px;background:#131318;border:1px solid #1a1a22;font-size:11px;color:#b0b0b0;margin-bottom:3px;text-align:left}
+#f4 .it{padding:4px 10px;border-radius:4px;background:#0e0e14;border:1px solid #1a1a22;font-size:9px;color:#808080}
+#f4 .rp{width:210px;background:#08080c;border-left:1px solid #1c1c22;padding:14px;display:flex;flex-direction:column}
+#f4 .rl{font-size:7px;letter-spacing:2px;text-transform:uppercase;color:#5a5a5a;margin-bottom:6px}
+#f4 .bb{padding:7px 10px;border-radius:8px;font-size:9px;line-height:1.4;margin-bottom:5px}
+#f4 .bu{background:#141420;color:#c4c4c4;max-width:85%;align-self:flex-end;border-bottom-right-radius:2px}
+#f4 .ba{background:#0c1a20;color:#5ed4d4;border:1px solid #163030;max-width:85%;border-bottom-left-radius:2px}
+#f4 .stats{display:flex;gap:32px;margin-top:20px;justify-content:center;opacity:0}
+#f4 .st{text-align:center}
+#f4 .st .v{font-size:36px;color:#9b7aff}
+#f4 .st .l{font-size:12px;color:#808080;margin-top:2px}
+
+/* ═══ F5: CTA ═══ */
+#f5{padding:80px}
+#f5 .fin-logo{width:80px;height:80px;position:relative;margin-bottom:36px;opacity:0;transform:scale(.5)}
+#f5 .fin-logo .r{position:absolute;top:50%;left:50%;border-radius:3px}
+#f5 .fin-logo .r1{width:52px;height:52px;border:2px solid #9b7aff;transform:translate(-50%,-50%) rotate(45deg)}
+#f5 .fin-logo .r2{width:34px;height:34px;border:1.5px solid #c49bff;transform:translate(-50%,-50%) rotate(45deg);opacity:.4}
+#f5 .fin-logo .core{position:absolute;top:50%;left:50%;width:8px;height:8px;border-radius:50%;background:#9b7aff;transform:translate(-50%,-50%);box-shadow:0 0 24px #9b7aff,0 0 60px rgba(155,122,255,.3)}
+#f5 .cta1{font-size:16px;letter-spacing:6px;text-transform:uppercase;color:#808080;opacity:0}
+#f5 .cta2{font-size:52px;color:#f0ece4;margin-top:14px;opacity:0;letter-spacing:2px}
+#f5 .cta2 span{background:linear-gradient(135deg,#9b7aff,#5ed4d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+#f5 .cta3{font-size:14px;color:#5a5a5a;margin-top:20px;letter-spacing:3px;text-transform:uppercase;opacity:0}
+</style>
+</head>
+<body>
+
+<!-- AMBIENT PARTICLES -->
+<div class="ambient" id="amb"></div>
+
+<!-- F1: HOOK -->
+<div class="f on" id="f1">
+  <div class="top-tag mn" id="f1tag">The problem with AI today</div>
+  <div class="main-text sr" id="f1main">
+    <span class="w">Every</span> <span class="w">professional</span><br>
+    <span class="w">opens</span> <span class="w">the</span> <span class="w red">same</span><br>
+    <span class="w red">blank</span> <span class="w red">box.</span>
+  </div>
+  <div class="sub-text sr" id="f1sub">A surgeon. A lawyer. A software engineer.<br>Same interface. Same confusion.</div>
+  <div class="line" id="f1line"></div>
+</div>
+
+<!-- F2: THE SHIFT -->
+<div class="f" id="f2">
+  <div class="tagline sr" id="f2tag">Different professions.<br><em>Different needs.</em></div>
+  <div class="grid sn" id="f2grid">
+    <div class="cell" style="background:#08080e"><div class="em">⚖</div><div class="nm">Lawyer</div><div class="clr mn">Westlaw · Clio · DocuSign</div></div>
+    <div class="cell" style="background:#080e0c"><div class="em">💻</div><div class="nm">Engineer</div><div class="clr mn">GitHub · Docker · Jira</div></div>
+    <div class="cell" style="background:#0e0808"><div class="em">🩺</div><div class="nm">Doctor</div><div class="clr mn">Epic · PubMed · UpToDate</div></div>
+    <div class="cell" style="background:#08080e"><div class="em">📊</div><div class="nm">Analyst</div><div class="clr mn">Bloomberg · Tableau · Excel</div></div>
+    <div class="cell" style="background:#0e080c"><div class="em">🎨</div><div class="nm">Designer</div><div class="clr mn">Figma · Framer · Miro</div></div>
+    <div class="cell" style="background:#0c080e"><div class="em">📚</div><div class="nm">Educator</div><div class="clr mn">Canvas · Kahoot · Notion</div></div>
+  </div>
+</div>
+
+<!-- F3: THE REVEAL -->
+<div class="f" id="f3">
+  <div class="q sr" id="f3q">What if the AI<br>reshaped itself around<br><em style="color:#f0ece4">your profession?</em></div>
+  <div class="logo-block" id="f3logo">
+    <div class="diamond">
+      <div class="r r1"></div><div class="r r2"></div><div class="r r3"></div><div class="core"></div>
+    </div>
+    <div class="name sr">D<span class="dot">.</span><em>AI</em></div>
+    <div class="desc mn">Adaptive AI Interfaces</div>
+  </div>
+</div>
+
+<!-- F4: THE PRODUCT -->
+<div class="f" id="f4">
+  <div class="screen-label mn" id="f4label">Engineer persona · Live prototype</div>
+  <div class="screen" id="f4screen">
+    <div class="bar"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div><span class="url mn">d.ai / engineer</span></div>
+    <div class="body">
+      <div class="sb"><div class="si on"></div><div class="si"></div><div class="si"></div></div>
+      <div class="mn-area">
+        <div class="hl sr">What will you<br><span class="mn">build today?</span></div>
+        <div class="lb mn">Pro Agents</div>
+        <div class="ar sn"><div class="ag">◉ Code Review</div><div class="ag">◉ Debug AI</div><div class="ag">◉ Doc Writer</div><div class="ag">◉ Test Gen</div><div class="ag">◉ DevOps</div></div>
+        <div class="lb mn">✦ Smart Prompts</div>
+        <div class="sn"><div class="pr">Review this PR for bugs</div><div class="pr">Write Jest tests for this module</div><div class="pr">Explain this stack trace</div><div class="pr">Draft RFC for this API endpoint</div></div>
+        <div class="lb mn">Integrations</div>
+        <div class="ar sn"><div class="it">GitHub</div><div class="it">Vercel</div><div class="it">Jira</div><div class="it">Docker</div><div class="it">GitLab</div></div>
+      </div>
+      <div class="rp">
+        <div class="rl mn">Live Preview</div>
+        <div class="bb bu sn">Review this PR for memory leaks</div>
+        <div class="bb ba sn">Found 2 issues in allocFn() — memory not freed. Lines 84 & 102.</div>
+        <div style="margin-top:auto">
+          <div class="rl mn">Orchestration</div>
+          <div class="mn" style="font-size:7px;color:#5a5a5a">Intent → Decompose → Dispatch → Synth</div>
+          <div style="margin-top:6px">
+            <div class="rl mn">Active Agents</div>
+            <div style="font-size:8px;color:#5ed4d4;display:flex;flex-direction:column;gap:3px">
+              <div style="display:flex;align-items:center;gap:4px"><span style="width:3px;height:3px;border-radius:50%;background:#5ed4d4;flex-shrink:0"></span>Code Review</div>
+              <div style="display:flex;align-items:center;gap:4px"><span style="width:3px;height:3px;border-radius:50%;background:#5ed4d4;flex-shrink:0"></span>Debug AI</div>
+              <div style="display:flex;align-items:center;gap:4px"><span style="width:3px;height:3px;border-radius:50%;background:#5ed4d4;flex-shrink:0"></span>Memory Profiler</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="stats sn" id="f4stats">
+    <div class="st"><div class="v sr">∞</div><div class="l">AI Personas</div></div>
+    <div class="st"><div class="v sr">✦</div><div class="l">Smart Prompts</div></div>
+    <div class="st"><div class="v sr">⚡</div><div class="l">Agent Orchestration</div></div>
+  </div>
+</div>
+
+<!-- F5: CTA -->
+<div class="f" id="f5">
+  <div class="fin-logo" id="f5logo"><div class="r r1"></div><div class="r r2"></div><div class="core"></div></div>
+  <div class="cta1 mn" id="f5c1">Full case study</div>
+  <div class="cta2 sr" id="f5c2">dheerajallu<span>.art</span></div>
+  <div class="cta3 mn" id="f5c3">Product Design · AI Interfaces · 2025</div>
+</div>
+
+<script>
+// ═══ AMBIENT PARTICLES ═══
+const amb=document.getElementById('amb');
+const colors=['#9b7aff','#5ed4d4','#d4a853','#5dcc8c','#e080c0'];
+for(let i=0;i<20;i++){
+  const d=document.createElement('div');
+  d.className='amb-dot';
+  const c=colors[Math.random()*5|0];
+  const s=.4+Math.random()*.8;
+  const dur=20+Math.random()*30;
+  const del=Math.random()*dur;
+  d.style.cssText=`width:${s*2}px;height:${s*2}px;background:${c};left:${Math.random()*1080}px;bottom:-10px;--o:${(.08+Math.random()*.1).toFixed(2)};animation-duration:${dur}s;animation-delay:-${del}s`;
+  amb.appendChild(d);
+}
+
+// ═══ ENGINE ═══
+const $=id=>document.getElementById(id);
+const W=ms=>new Promise(r=>setTimeout(r,ms));
+
+function a(el,props,dur,ease='ease',delay=0){
+  return new Promise(r=>{
+    setTimeout(()=>{
+      el.style.transition=Object.keys(props).map(k=>`${k} ${dur}ms ${ease}`).join(',');
+      Object.assign(el.style,props);
+      setTimeout(r,dur);
+    },delay);
+  });
+}
+
+function show(id){document.querySelectorAll('.f').forEach(f=>f.classList.remove('on'));$(id).classList.add('on')}
+
+async function fade(fromId,toId,dur=500){
+  const from=$(fromId),to=$(toId);
+  to.style.opacity='0';to.classList.add('on');
+  await W(30);
+  from.style.transition=`opacity ${dur}ms ease`;to.style.transition=`opacity ${dur}ms ease`;
+  from.style.opacity='0';to.style.opacity='1';
+  await W(dur);
+  from.classList.remove('on');from.style.transition='none';from.style.opacity='';
+  to.style.transition='none';to.style.opacity='';
+}
+
+// ═══ MAIN TIMELINE ═══
+async function run(){
+  // Reset everything
+  show('f1');
+  document.querySelectorAll('#f1 .w').forEach(w=>{w.style.transition='none';w.style.opacity='0';w.style.transform='translateY(60px)';w.style.filter='blur(6px)'});
+  ['f1tag','f1sub'].forEach(id=>{$(id).style.transition='none';$(id).style.opacity='0'});
+  $('f1line').style.transition='none';$('f1line').style.width='0';
+  $('f2tag').style.transition='none';$('f2tag').style.opacity='0';
+  $('f2grid').style.transition='none';$('f2grid').style.opacity='0';$('f2grid').style.transform='translateY(20px)';
+  $('f3q').style.transition='none';$('f3q').style.opacity='0';
+  $('f3logo').style.transition='none';$('f3logo').style.opacity='0';$('f3logo').style.transform='scale(.6)';
+  $('f4label').style.transition='none';$('f4label').style.opacity='0';
+  $('f4screen').style.transition='none';$('f4screen').style.opacity='0';$('f4screen').style.transform='perspective(1000px) rotateX(4deg) translateY(20px)';
+  $('f4stats').style.transition='none';$('f4stats').style.opacity='0';
+  ['f5logo','f5c1','f5c2','f5c3'].forEach(id=>{$(id).style.transition='none';$(id).style.opacity='0'});
+  $('f5logo').style.transform='scale(.5)';
+
+  await W(400);
+
+  // ── F1: HOOK ──
+  await a($('f1tag'),{opacity:'1'},400);
+  const words=document.querySelectorAll('#f1 .w');
+  for(let i=0;i<words.length;i++){
+    await W(i===0?200:80);
+    words[i].style.transition='all .45s cubic-bezier(.34,1.56,.64,1)';
+    words[i].style.opacity='1';words[i].style.transform='translateY(0)';words[i].style.filter='blur(0)';
+  }
+  await W(300);
+  await a($('f1sub'),{opacity:'1'},500);
+  await a($('f1line'),{width:'200px'},600,'ease');
+  await W(1200);
+
+  // ── F2: PROFESSIONS ──
+  await fade('f1','f2',400);
+  await W(100);
+  await a($('f2tag'),{opacity:'1'},500);
+  await W(400);
+  await a($('f2grid'),{opacity:'1',transform:'translateY(0)'},600,'cubic-bezier(.4,0,.2,1)');
+  await W(2000);
+
+  // ── F3: REVEAL ──
+  await fade('f2','f3',400);
+  await W(200);
+  await a($('f3q'),{opacity:'1'},600);
+  await W(800);
+  await a($('f3logo'),{opacity:'1',transform:'scale(1)'},700,'cubic-bezier(.34,1.56,.64,1)');
+  await W(1800);
+
+  // ── F4: PRODUCT ──
+  await fade('f3','f4',400);
+  await W(100);
+  await a($('f4label'),{opacity:'1'},300);
+  await a($('f4screen'),{opacity:'1',transform:'perspective(1000px) rotateX(0) translateY(0)'},800,'cubic-bezier(.4,0,.2,1)');
+  await W(1000);
+  await a($('f4stats'),{opacity:'1'},400);
+  await W(2000);
+
+  // ── F5: CTA ──
+  await fade('f4','f5',400);
+  await W(200);
+  await a($('f5logo'),{opacity:'1',transform:'scale(1)'},500,'cubic-bezier(.34,1.56,.64,1)');
+  await W(100);
+  await a($('f5c1'),{opacity:'1'},350);
+  await W(80);
+  await a($('f5c2'),{opacity:'1'},400);
+  await W(80);
+  await a($('f5c3'),{opacity:'1'},350);
+  await W(3500);
+
+  run();
+}
+
+document.fonts.ready.then(()=>setTimeout(run,300));
+</script>
+</body>
+</html>
