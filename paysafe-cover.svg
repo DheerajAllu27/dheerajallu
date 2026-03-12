@@ -1,0 +1,180 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <linearGradient id="bgG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#080a10"/>
+      <stop offset="100%" stop-color="#040508"/>
+    </linearGradient>
+    <linearGradient id="acG" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#4ecdc4"/>
+      <stop offset="50%" stop-color="#44b8d6"/>
+      <stop offset="100%" stop-color="#667eea"/>
+    </linearGradient>
+    <linearGradient id="lineG" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="transparent"/>
+      <stop offset="30%" stop-color="#4ecdc4" stop-opacity=".25"/>
+      <stop offset="50%" stop-color="#44b8d6" stop-opacity=".4"/>
+      <stop offset="70%" stop-color="#667eea" stop-opacity=".25"/>
+      <stop offset="100%" stop-color="transparent"/>
+    </linearGradient>
+    <linearGradient id="shieldG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4ecdc4"/>
+      <stop offset="100%" stop-color="#667eea"/>
+    </linearGradient>
+    <radialGradient id="glow1" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#4ecdc4" stop-opacity=".07"/>
+      <stop offset="100%" stop-color="#4ecdc4" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#667eea" stop-opacity=".04"/>
+      <stop offset="100%" stop-color="#667eea" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="coreG" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#4ecdc4" stop-opacity=".6"/>
+      <stop offset="40%" stop-color="#4ecdc4" stop-opacity=".15"/>
+      <stop offset="100%" stop-color="#4ecdc4" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="sGlow">
+      <feGaussianBlur stdDeviation="2.5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="bGlow">
+      <feGaussianBlur stdDeviation="18"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1600" height="900" fill="url(#bgG)"/>
+
+  <!-- Ambient glows -->
+  <ellipse cx="800" cy="320" rx="550" ry="350" fill="url(#glow1)"/>
+  <ellipse cx="650" cy="450" rx="400" ry="280" fill="url(#glow2)"/>
+
+  <!-- Circuit / payment network lines -->
+  <g opacity=".035" stroke="#4ecdc4" stroke-width=".5">
+    <!-- Horizontal -->
+    <line x1="100" y1="250" x2="700" y2="250"/>
+    <line x1="900" y1="250" x2="1500" y2="250"/>
+    <line x1="200" y1="650" x2="1400" y2="650"/>
+    <!-- Vertical -->
+    <line x1="500" y1="100" x2="500" y2="400"/>
+    <line x1="1100" y1="100" x2="1100" y2="400"/>
+    <line x1="500" y1="500" x2="500" y2="800"/>
+    <line x1="1100" y1="500" x2="1100" y2="800"/>
+    <!-- Nodes -->
+    <circle cx="500" cy="250" r="3" fill="#4ecdc4" opacity=".3"/>
+    <circle cx="1100" cy="250" r="3" fill="#4ecdc4" opacity=".3"/>
+    <circle cx="500" cy="650" r="3" fill="#667eea" opacity=".3"/>
+    <circle cx="1100" cy="650" r="3" fill="#667eea" opacity=".3"/>
+  </g>
+
+  <!-- Particles -->
+  <g opacity=".45">
+    <circle cx="200" cy="140" r="1" fill="#4ecdc4" opacity=".5"/>
+    <circle cx="360" cy="310" r=".8" fill="#44b8d6" opacity=".35"/>
+    <circle cx="1320" cy="180" r="1.1" fill="#667eea" opacity=".4"/>
+    <circle cx="1080" cy="720" r="1" fill="#4ecdc4" opacity=".3"/>
+    <circle cx="480" cy="640" r=".7" fill="#667eea" opacity=".35"/>
+    <circle cx="160" cy="500" r=".9" fill="#44b8d6" opacity=".25"/>
+    <circle cx="1420" cy="400" r=".8" fill="#4ecdc4" opacity=".3"/>
+    <circle cx="720" cy="790" r="1" fill="#667eea" opacity=".2"/>
+    <circle cx="940" cy="110" r=".9" fill="#44b8d6" opacity=".35"/>
+    <circle cx="1460" cy="620" r=".7" fill="#4ecdc4" opacity=".3"/>
+    <circle cx="280" cy="770" r="1" fill="#667eea" opacity=".25"/>
+    <circle cx="860" cy="840" r=".8" fill="#44b8d6" opacity=".2"/>
+    <circle cx="600" cy="100" r=".7" fill="#4ecdc4" opacity=".3"/>
+    <circle cx="1200" cy="530" r="1" fill="#667eea" opacity=".2"/>
+  </g>
+
+  <!-- Light streak -->
+  <line x1="0" y1="448" x2="1600" y2="448" stroke="url(#lineG)" stroke-width="1" opacity=".35"/>
+
+  <!-- ══ SHIELD + PAYMENT ICON ══ -->
+  <g transform="translate(800,290)">
+    <!-- Core glow -->
+    <circle cx="0" cy="0" r="100" fill="url(#coreG)" filter="url(#bGlow)" opacity=".5"/>
+
+    <!-- Shield outline -->
+    <path d="M0,-75 L55,-55 L55,15 Q55,60 0,80 Q-55,60 -55,15 L-55,-55 Z" fill="none" stroke="url(#shieldG)" stroke-width="1.5" opacity=".5"/>
+
+    <!-- Inner shield -->
+    <path d="M0,-52 L38,-38 L38,10 Q38,42 0,56 Q-38,42 -38,10 L-38,-38 Z" fill="none" stroke="#44b8d6" stroke-width="1" opacity=".25"/>
+
+    <!-- Checkmark inside -->
+    <path d="M-16,4 L-4,16 L20,-10" fill="none" stroke="#4ecdc4" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#sGlow)" opacity=".7"/>
+
+    <!-- Currency symbols orbiting -->
+    <text x="0" y="-90" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="12" fill="#4ecdc4" opacity=".3">$</text>
+    <text x="80" y="-20" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="12" fill="#44b8d6" opacity=".25">€</text>
+    <text x="65" y="60" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="12" fill="#667eea" opacity=".25">£</text>
+    <text x="-65" y="60" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="12" fill="#667eea" opacity=".25">₹</text>
+    <text x="-80" y="-20" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="12" fill="#44b8d6" opacity=".25">¥</text>
+
+    <!-- Orbit ring -->
+    <ellipse cx="0" cy="-5" rx="90" ry="90" fill="none" stroke="#4ecdc4" stroke-width=".5" opacity=".08" stroke-dasharray="4,8"/>
+  </g>
+
+  <!-- ══ TYPOGRAPHY ══ -->
+  <text x="800" y="470" text-anchor="middle" font-family="'Cormorant Garamond', Georgia, 'Times New Roman', serif" font-size="68" fill="#f0ece4" letter-spacing="5" font-weight="400">Pay<tspan fill="url(#acG)">safe</tspan></text>
+
+  <!-- Subtitle -->
+  <text x="800" y="515" text-anchor="middle" font-family="'Cormorant Garamond', Georgia, serif" font-size="22" fill="#808080" font-style="italic" letter-spacing="1">Seamless utility payments, reimagined.</text>
+
+  <!-- Divider -->
+  <line x1="720" y1="540" x2="880" y2="540" stroke="#1c1c22" stroke-width="1"/>
+
+  <!-- Tags -->
+  <text x="800" y="575" text-anchor="middle" font-family="'JetBrains Mono', 'Courier New', monospace" font-size="10" fill="#5a5a5a" letter-spacing="4">UI/UX CASE STUDY · DIGITAL PAYMENTS · FINTECH</text>
+
+  <!-- Keyword pills -->
+  <g transform="translate(800,612)" font-family="'DM Sans', sans-serif" font-size="11">
+    <rect x="-275" y="-14" width="110" height="28" rx="14" fill="none" stroke="#1c1c22" stroke-width="1"/>
+    <text x="-220" y="4" text-anchor="middle" fill="#6a6a6a">UX Research</text>
+
+    <rect x="-153" y="-14" width="110" height="28" rx="14" fill="none" stroke="#1c1c22" stroke-width="1"/>
+    <text x="-98" y="4" text-anchor="middle" fill="#6a6a6a">User Flows</text>
+
+    <rect x="-31" y="-14" width="110" height="28" rx="14" fill="none" stroke="#1c1c22" stroke-width="1"/>
+    <text x="24" y="4" text-anchor="middle" fill="#6a6a6a">Wireframes</text>
+
+    <rect x="91" y="-14" width="84" height="28" rx="14" fill="none" stroke="#1c1c22" stroke-width="1"/>
+    <text x="133" y="4" text-anchor="middle" fill="#6a6a6a">UI Design</text>
+
+    <rect x="187" y="-14" width="88" height="28" rx="14" fill="none" stroke="#1c1c22" stroke-width="1"/>
+    <text x="231" y="4" text-anchor="middle" fill="#6a6a6a">Prototype</text>
+  </g>
+
+  <!-- Platform indicators -->
+  <g transform="translate(800,670)">
+    <rect x="-60" y="-12" width="50" height="24" rx="6" fill="none" stroke="#1c1c22" stroke-width="1"/>
+    <text x="-35" y="4" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="8" fill="#6a6a6a" letter-spacing="1">WEB</text>
+
+    <rect x="10" y="-12" width="50" height="24" rx="6" fill="none" stroke="#1c1c22" stroke-width="1"/>
+    <text x="35" y="4" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="8" fill="#6a6a6a" letter-spacing="1">MOB</text>
+  </g>
+
+  <!-- Tool dots -->
+  <g transform="translate(800,720)">
+    <circle cx="-30" cy="0" r="4" fill="#4ecdc4" opacity=".6" filter="url(#sGlow)"/>
+    <circle cx="0" cy="0" r="4" fill="#44b8d6" opacity=".6" filter="url(#sGlow)"/>
+    <circle cx="30" cy="0" r="4" fill="#667eea" opacity=".6" filter="url(#sGlow)"/>
+  </g>
+  <g transform="translate(800,738)" font-family="'JetBrains Mono', monospace" font-size="7" fill="#3a3a3a" letter-spacing="1">
+    <text x="-30" y="0" text-anchor="middle">FIGMA</text>
+    <text x="0" y="0" text-anchor="middle">MIRO</text>
+    <text x="30" y="0" text-anchor="middle">PS</text>
+  </g>
+
+  <!-- ══ AUTHOR ══ -->
+  <text x="800" y="810" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="12" fill="#3a3a3a" letter-spacing="1">Designed by Dheeraj Allu</text>
+  <text x="800" y="832" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#282830" letter-spacing="2">dheerajallu.art</text>
+
+  <!-- Corner accents -->
+  <line x1="40" y1="40" x2="40" y2="80" stroke="#1c1c22" stroke-width="1"/>
+  <line x1="40" y1="40" x2="80" y2="40" stroke="#1c1c22" stroke-width="1"/>
+  <line x1="1560" y1="40" x2="1560" y2="80" stroke="#1c1c22" stroke-width="1"/>
+  <line x1="1560" y1="40" x2="1520" y2="40" stroke="#1c1c22" stroke-width="1"/>
+  <line x1="40" y1="860" x2="40" y2="820" stroke="#1c1c22" stroke-width="1"/>
+  <line x1="40" y1="860" x2="80" y2="860" stroke="#1c1c22" stroke-width="1"/>
+  <line x1="1560" y1="860" x2="1560" y2="820" stroke="#1c1c22" stroke-width="1"/>
+  <line x1="1560" y1="860" x2="1520" y2="860" stroke="#1c1c22" stroke-width="1"/>
+</svg>

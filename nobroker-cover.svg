@@ -1,0 +1,159 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <linearGradient id="bgG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0a0a0f"/>
+      <stop offset="100%" stop-color="#050508"/>
+    </linearGradient>
+    <linearGradient id="acG" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ff6b6b"/>
+      <stop offset="50%" stop-color="#ff8e53"/>
+      <stop offset="100%" stop-color="#ffc93c"/>
+    </linearGradient>
+    <linearGradient id="lineG" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="transparent"/>
+      <stop offset="30%" stop-color="#ff6b6b" stop-opacity=".25"/>
+      <stop offset="50%" stop-color="#ff8e53" stop-opacity=".4"/>
+      <stop offset="70%" stop-color="#ffc93c" stop-opacity=".25"/>
+      <stop offset="100%" stop-color="transparent"/>
+    </linearGradient>
+    <radialGradient id="glow1" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ff6b6b" stop-opacity=".06"/>
+      <stop offset="100%" stop-color="#ff6b6b" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffc93c" stop-opacity=".04"/>
+      <stop offset="100%" stop-color="#ffc93c" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="sGlow">
+      <feGaussianBlur stdDeviation="2.5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="bGlow">
+      <feGaussianBlur stdDeviation="16"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1600" height="900" fill="url(#bgG)"/>
+
+  <!-- Ambient glows -->
+  <ellipse cx="800" cy="340" rx="550" ry="350" fill="url(#glow1)"/>
+  <ellipse cx="950" cy="450" rx="400" ry="280" fill="url(#glow2)"/>
+
+  <!-- Grid pattern (architectural feel) -->
+  <g opacity=".04" stroke="#fff" stroke-width=".5">
+    <line x1="400" y1="0" x2="400" y2="900"/>
+    <line x1="800" y1="0" x2="800" y2="900"/>
+    <line x1="1200" y1="0" x2="1200" y2="900"/>
+    <line x1="0" y1="300" x2="1600" y2="300"/>
+    <line x1="0" y1="600" x2="1600" y2="600"/>
+  </g>
+
+  <!-- Subtle diagonal lines (blueprint feel) -->
+  <g opacity=".025" stroke="#ff8e53" stroke-width=".5">
+    <line x1="200" y1="0" x2="0" y2="200"/>
+    <line x1="600" y1="0" x2="0" y2="600"/>
+    <line x1="1600" y1="200" x2="1400" y2="0"/>
+    <line x1="1600" y1="600" x2="1000" y2="0"/>
+  </g>
+
+  <!-- Particles -->
+  <g opacity=".45">
+    <circle cx="220" cy="150" r="1" fill="#ff6b6b" opacity=".5"/>
+    <circle cx="380" cy="300" r=".8" fill="#ff8e53" opacity=".35"/>
+    <circle cx="1300" cy="200" r="1.1" fill="#ffc93c" opacity=".4"/>
+    <circle cx="1100" cy="700" r="1" fill="#ff6b6b" opacity=".3"/>
+    <circle cx="500" cy="620" r=".7" fill="#ffc93c" opacity=".35"/>
+    <circle cx="180" cy="480" r=".9" fill="#ff8e53" opacity=".25"/>
+    <circle cx="1400" cy="420" r=".8" fill="#ff6b6b" opacity=".3"/>
+    <circle cx="700" cy="780" r="1" fill="#ffc93c" opacity=".2"/>
+    <circle cx="950" cy="120" r=".9" fill="#ff8e53" opacity=".35"/>
+    <circle cx="1450" cy="650" r=".7" fill="#ff6b6b" opacity=".3"/>
+    <circle cx="300" cy="750" r="1" fill="#ffc93c" opacity=".25"/>
+    <circle cx="850" cy="830" r=".8" fill="#ff8e53" opacity=".2"/>
+  </g>
+
+  <!-- Light streak -->
+  <line x1="0" y1="448" x2="1600" y2="448" stroke="url(#lineG)" stroke-width="1" opacity=".35"/>
+
+  <!-- ══ BUILDING ICON (abstract/geometric) ══ -->
+  <g transform="translate(800,300)" filter="url(#sGlow)">
+    <!-- Main building shape -->
+    <rect x="-30" y="-80" width="60" height="100" rx="3" fill="none" stroke="#ff8e53" stroke-width="1.5" opacity=".6"/>
+    <!-- Left wing -->
+    <rect x="-65" y="-50" width="35" height="70" rx="2" fill="none" stroke="#ff6b6b" stroke-width="1" opacity=".4"/>
+    <!-- Right wing -->
+    <rect x="30" y="-50" width="35" height="70" rx="2" fill="none" stroke="#ffc93c" stroke-width="1" opacity=".4"/>
+    <!-- Roof accent -->
+    <line x1="-20" y1="-80" x2="20" y2="-80" stroke="#ff8e53" stroke-width="2" opacity=".7"/>
+    <!-- Windows -->
+    <rect x="-18" y="-65" width="10" height="10" rx="1" fill="#ff8e53" opacity=".15"/>
+    <rect x="8" y="-65" width="10" height="10" rx="1" fill="#ff8e53" opacity=".15"/>
+    <rect x="-18" y="-45" width="10" height="10" rx="1" fill="#ff8e53" opacity=".1"/>
+    <rect x="8" y="-45" width="10" height="10" rx="1" fill="#ff8e53" opacity=".1"/>
+    <rect x="-18" y="-25" width="10" height="10" rx="1" fill="#ff8e53" opacity=".08"/>
+    <rect x="8" y="-25" width="10" height="10" rx="1" fill="#ff8e53" opacity=".08"/>
+    <!-- Door -->
+    <rect x="-8" y="-2" width="16" height="22" rx="8" fill="none" stroke="#ff8e53" stroke-width="1" opacity=".3"/>
+    <!-- Core glow -->
+    <circle cx="0" cy="-30" r="40" fill="#ff8e53" filter="url(#bGlow)" opacity=".15"/>
+  </g>
+
+  <!-- ══ TYPOGRAPHY ══ -->
+
+  <!-- NoBroker -->
+  <text x="800" y="475" text-anchor="middle" font-family="'Cormorant Garamond', Georgia, 'Times New Roman', serif" font-size="68" fill="#f0ece4" letter-spacing="4" font-weight="400">No<tspan fill="url(#acG)">Broker</tspan></text>
+
+  <!-- Subtitle -->
+  <text x="800" y="518" text-anchor="middle" font-family="'Cormorant Garamond', Georgia, serif" font-size="22" fill="#808080" font-style="italic" letter-spacing="1">Reimagining the rental experience.</text>
+
+  <!-- Divider -->
+  <line x1="720" y1="545" x2="880" y2="545" stroke="#1c1c22" stroke-width="1"/>
+
+  <!-- Tags -->
+  <text x="800" y="578" text-anchor="middle" font-family="'JetBrains Mono', 'Courier New', monospace" font-size="10" fill="#5a5a5a" letter-spacing="4">UX CASE STUDY · UI DESIGN · PROPERTY TECH</text>
+
+  <!-- Keyword pills -->
+  <g transform="translate(800,615)" font-family="'DM Sans', sans-serif" font-size="11">
+    <rect x="-260" y="-14" width="100" height="28" rx="14" fill="none" stroke="#1c1c22" stroke-width="1"/>
+    <text x="-210" y="4" text-anchor="middle" fill="#6a6a6a">UX Research</text>
+
+    <rect x="-148" y="-14" width="110" height="28" rx="14" fill="none" stroke="#1c1c22" stroke-width="1"/>
+    <text x="-93" y="4" text-anchor="middle" fill="#6a6a6a">User Flows</text>
+
+    <rect x="-26" y="-14" width="100" height="28" rx="14" fill="none" stroke="#1c1c22" stroke-width="1"/>
+    <text x="24" y="4" text-anchor="middle" fill="#6a6a6a">Wireframes</text>
+
+    <rect x="86" y="-14" width="84" height="28" rx="14" fill="none" stroke="#1c1c22" stroke-width="1"/>
+    <text x="128" y="4" text-anchor="middle" fill="#6a6a6a">UI Design</text>
+
+    <rect x="182" y="-14" width="78" height="28" rx="14" fill="none" stroke="#1c1c22" stroke-width="1"/>
+    <text x="221" y="4" text-anchor="middle" fill="#6a6a6a">Figma</text>
+  </g>
+
+  <!-- Tool icons as colored dots -->
+  <g transform="translate(800,670)">
+    <circle cx="-30" cy="0" r="4" fill="#ff6b6b" opacity=".6" filter="url(#sGlow)"/>
+    <circle cx="0" cy="0" r="4" fill="#ff8e53" opacity=".6" filter="url(#sGlow)"/>
+    <circle cx="30" cy="0" r="4" fill="#ffc93c" opacity=".6" filter="url(#sGlow)"/>
+  </g>
+  <g transform="translate(800,688)" font-family="'JetBrains Mono', monospace" font-size="7" fill="#3a3a3a" letter-spacing="1">
+    <text x="-30" y="0" text-anchor="middle">FIGMA</text>
+    <text x="0" y="0" text-anchor="middle">MIRO</text>
+    <text x="30" y="0" text-anchor="middle">PS</text>
+  </g>
+
+  <!-- ══ AUTHOR ══ -->
+  <text x="800" y="810" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="12" fill="#3a3a3a" letter-spacing="1">Designed by Dheeraj Allu</text>
+  <text x="800" y="832" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#282830" letter-spacing="2">dheerajallu.art</text>
+
+  <!-- Corner accents -->
+  <line x1="40" y1="40" x2="40" y2="80" stroke="#1c1c22" stroke-width="1"/>
+  <line x1="40" y1="40" x2="80" y2="40" stroke="#1c1c22" stroke-width="1"/>
+  <line x1="1560" y1="40" x2="1560" y2="80" stroke="#1c1c22" stroke-width="1"/>
+  <line x1="1560" y1="40" x2="1520" y2="40" stroke="#1c1c22" stroke-width="1"/>
+  <line x1="40" y1="860" x2="40" y2="820" stroke="#1c1c22" stroke-width="1"/>
+  <line x1="40" y1="860" x2="80" y2="860" stroke="#1c1c22" stroke-width="1"/>
+  <line x1="1560" y1="860" x2="1560" y2="820" stroke="#1c1c22" stroke-width="1"/>
+  <line x1="1560" y1="860" x2="1520" y2="860" stroke="#1c1c22" stroke-width="1"/>
+</svg>

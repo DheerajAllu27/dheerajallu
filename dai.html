@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>D.AI — Case Study | Dheeraj Allu</title>
+<meta name="description" content="D.AI: An adaptive AI interface that transforms its entire UI based on the user's profession. Deep UX Case Study by Dheeraj Allu."/>
+<link rel="icon" type="image/png" href="/favicon.png"/>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;200;300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+/* ═══════════════════════════════════════════
+   TOKENS
+   ═══════════════════════════════════════════ */
+:root {
+  --bg:       #000;
+  --bg-card:  #0a0a0a;
+  --bg-elev:  #0d0d0d;
+  --bg-input: #111;
+  --border:   #1a1a1a;
+  --border-h: #2a2a2a;
+  --txt:      #c4c4c4;
+  --txt-dim:  #909090;
+  --txt-xdim: #6a6a6a;
+  --white:    #eee;
+  --purple:   #a882ff;
+  --pink:     #ff64c8;
+  --cyan:     #50dcff;
+  --amber:    #ffaa33;
+  --red:      #ff4466;
+  --green:    #28c840;
+  --font-h:   'Cormorant Garamond', Georgia, serif;
+  --font-b:   'Josefin Sans', sans-serif;
+  --font-m:   'JetBrains Mono', monospace;
+  --max:      1120px;
+  --ease:     cubic-bezier(.4,0,.2,1);
+}
+
+/* ═══════════════════════════════════════════
+   RESET
+   ═══════════════════════════════════════════ */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{background:var(--bg);color:var(--txt);font-family:var(--font-b);font-weight:300;line-height:1.72;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+::selection{background:var(--purple);color:#000}
+
+/* ═══════════════════════════════════════════
+   NAV
+   ═══════════════════════════════════════════ */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 40px;display:flex;align-items:center;justify-content:space-between;font-size:13px;letter-spacing:.5px;transition:background .4s}
+.nav.scrolled{background:rgba(0,0,0,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-logo{height:26px}
+.nav-links{display:flex;gap:28px}
+.nav-links a{color:var(--txt-dim);transition:color .3s}
+.nav-links a:hover,.nav-links a.active{color:#fff}
+
+/* ═══════════════════════════════════════════
+   HERO
+   ═══════════════════════════════════════════ */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;padding:120px 24px 80px;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 40%,rgba(168,130,255,.06),transparent 70%),radial-gradient(ellipse 40% 40% at 30% 60%,rgba(255,100,200,.04),transparent 60%),radial-gradient(ellipse 40% 40% at 70% 30%,rgba(80,220,255,.04),transparent 60%)}
+.hero-kicker{font-family:var(--font-m);font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--txt-dim);margin-bottom:28px;position:relative}
+.hero h1{font-family:var(--font-h);font-size:clamp(56px,10vw,120px);font-weight:400;color:#fff;line-height:1;position:relative;margin-bottom:8px}
+.hero h1 .dot{color:var(--purple)}
+.hero h1 .ai{background:linear-gradient(135deg,var(--purple),var(--pink),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-tagline{font-family:var(--font-h);font-size:clamp(18px,3vw,26px);color:var(--txt-dim);font-style:italic;margin-bottom:52px;position:relative}
+.hero-meta{display:flex;gap:40px;position:relative;flex-wrap:wrap;justify-content:center}
+.hm{text-align:center}
+.hm span{display:block;font-family:var(--font-m);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--txt-xdim);margin-bottom:4px}
+.hm strong{color:var(--txt);font-weight:400;font-size:13px}
+.hero-scroll{position:absolute;bottom:40px;color:var(--txt-xdim);font-size:11px;letter-spacing:3px;text-transform:uppercase;animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:.4;transform:translateY(0)}50%{opacity:1;transform:translateY(4px)}}
+
+/* ═══════════════════════════════════════════
+   SECTION LAYOUT
+   ═══════════════════════════════════════════ */
+.s{max-width:var(--max);margin:0 auto;padding:100px 24px}
+.s-label{font-family:var(--font-m);font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--purple);margin-bottom:16px}
+.s-title{font-family:var(--font-h);font-size:clamp(30px,4.5vw,52px);color:#fff;font-weight:400;line-height:1.15;margin-bottom:28px}
+.s-title .a{background:linear-gradient(135deg,var(--purple),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.s-title .ac{color:var(--cyan)}
+.s-title .aa{color:var(--amber)}
+.s p{max-width:740px;margin-bottom:18px;font-size:15px}
+.divider{max-width:var(--max);margin:0 auto;height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent)}
+
+/* ═══════════════════════════════════════════
+   NOTEBOOK QUOTE CALLOUT
+   ═══════════════════════════════════════════ */
+.nb-quote{background:var(--bg-card);border-left:3px solid var(--purple);border-radius:0 12px 12px 0;padding:24px 32px;margin:32px 0;max-width:740px}
+.nb-quote p{font-family:var(--font-h);font-size:19px;font-style:italic;color:var(--white);margin-bottom:8px;line-height:1.5}
+.nb-quote cite{font-family:var(--font-m);font-size:11px;color:var(--txt-dim);font-style:normal;letter-spacing:1px}
+
+/* ═══════════════════════════════════════════
+   STATS ROW
+   ═══════════════════════════════════════════ */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:20px;margin-top:44px}
+.stat{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:28px 24px;text-align:center;transition:border-color .4s,transform .3s}
+.stat:hover{border-color:rgba(168,130,255,.2);transform:translateY(-3px)}
+.stat-n{font-family:var(--font-h);font-size:40px;color:var(--purple);line-height:1}
+.stat-l{font-size:12px;color:var(--txt-dim);margin-top:6px}
+
+/* ═══════════════════════════════════════════
+   TWO COLUMN CARDS (Problem/Solution, etc.)
+   ═══════════════════════════════════════════ */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:36px}
+.card{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:36px;position:relative;overflow:hidden;transition:border-color .3s}
+.card:hover{border-color:rgba(168,130,255,.15)}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.card.prob::before{background:linear-gradient(90deg,var(--red),transparent)}
+.card.sol::before{background:linear-gradient(90deg,var(--cyan),transparent)}
+.card h3{font-family:var(--font-h);font-size:24px;color:#fff;margin-bottom:14px;font-weight:400}
+.card p{font-size:14px;color:var(--txt)}
+.card ul{list-style:none;margin-top:12px}
+.card ul li{font-size:14px;color:var(--txt);padding:6px 0;border-bottom:1px solid #111}
+.card ul li::before{content:'→ ';color:var(--purple)}
+
+/* ═══════════════════════════════════════════
+   RESEARCH QUESTIONS GRID
+   ═══════════════════════════════════════════ */
+.q-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px;margin-top:32px}
+.q-item{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:18px 20px;display:flex;gap:14px;align-items:flex-start;transition:border-color .3s}
+.q-item:hover{border-color:rgba(168,130,255,.2)}
+.q-num{font-family:var(--font-m);font-size:11px;color:var(--purple);min-width:24px;padding-top:2px}
+.q-body .q-tag{font-family:var(--font-m);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--purple);margin-bottom:4px}
+.q-body .q-text{font-size:14px;color:var(--txt)}
+
+/* ═══════════════════════════════════════════
+   NOTEBOOK PHOTO GRID
+   ═══════════════════════════════════════════ */
+.nb-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:36px}
+.nb-img{border-radius:10px;border:1px solid var(--border);overflow:hidden;position:relative;transition:transform .4s var(--ease),border-color .4s}
+.nb-img:hover{transform:scale(1.02);border-color:rgba(168,130,255,.3)}
+.nb-img img{width:100%;height:280px;object-fit:cover;filter:brightness(.82) contrast(1.1)}
+.nb-img .nb-cap{position:absolute;bottom:0;left:0;right:0;padding:8px 12px;background:linear-gradient(transparent,rgba(0,0,0,.8));font-family:var(--font-m);font-size:10px;color:var(--txt-dim);letter-spacing:1px}
+
+/* ═══════════════════════════════════════════
+   MOCKUP FRAME
+   ═══════════════════════════════════════════ */
+.mock{margin:48px 0;position:relative}
+.mock-f{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;overflow:hidden;position:relative}
+.mock-f::before{content:'';position:absolute;top:-1px;left:20%;right:20%;height:2px;background:linear-gradient(90deg,transparent,rgba(168,130,255,.4),transparent)}
+.mock-bar{display:flex;align-items:center;gap:7px;padding:14px 20px;background:var(--bg-input);border-bottom:1px solid var(--border)}
+.d{width:10px;height:10px;border-radius:50%}
+.dr{background:#ff5f57}.dy{background:#ffbd2e}.dg{background:#28c840}
+.mock-bar span{margin-left:auto;font-family:var(--font-m);font-size:11px;color:var(--txt-xdim)}
+.mock-b{min-height:400px}
+.mock-label{font-family:var(--font-m);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--txt-xdim);margin-top:12px;text-align:center}
+
+/* ═══════════════════════════════════════════
+   LANDING PAGE MOCKUP INTERIOR
+   ═══════════════════════════════════════════ */
+.lm{display:flex;min-height:440px}
+.lm-sb{width:52px;background:var(--bg-elev);border-right:1px solid var(--border);display:flex;flex-direction:column;align-items:center;padding:20px 0;gap:18px}
+.lm-sb .ic{width:22px;height:22px;border-radius:5px;background:var(--border)}
+.lm-sb .ic.on{background:rgba(168,130,255,.15);border:1px solid rgba(168,130,255,.3)}
+.lm-mn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 32px;text-align:center}
+.lm-logo{display:flex;align-items:center;gap:10px;margin-bottom:28px}
+.lm-logo svg{width:40px;height:40px}
+.lm-logo-t{font-family:var(--font-h);font-size:26px;color:#fff;letter-spacing:2px}
+.lm-srch{width:100%;max-width:520px;height:48px;border-radius:24px;background:var(--bg-input);border:1px solid var(--border-h);display:flex;align-items:center;padding:0 18px;gap:10px;margin-bottom:36px}
+.lm-srch .plus{width:26px;height:26px;border-radius:50%;background:var(--border);border:1px solid #333;display:flex;align-items:center;justify-content:center;color:var(--txt-xdim);font-size:16px;flex-shrink:0}
+.lm-srch .ph{color:var(--txt-xdim);font-size:13px;flex:1;text-align:left}
+.lm-pl{font-family:var(--font-m);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--txt-xdim);margin-bottom:14px}
+.lm-ps{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.lm-p{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;transition:transform .3s,box-shadow .3s;cursor:default}
+.lm-p:hover{transform:scale(1.15);box-shadow:0 0 20px rgba(168,130,255,.2)}
+.lm-br{margin-top:16px;font-family:var(--font-m);font-size:11px;color:var(--txt-dim);border-bottom:1px dashed var(--txt-xdim);padding-bottom:2px}
+
+/* ═══════════════════════════════════════════
+   PERSONA PAGE MOCKUP INTERIOR
+   ═══════════════════════════════════════════ */
+.pm{display:flex;min-height:480px}
+.pm-sb{width:52px;background:var(--bg-elev);border-right:1px solid var(--border);display:flex;flex-direction:column;align-items:center;padding:20px 0;gap:18px}
+.pm-mn{flex:1;display:flex;flex-direction:column;padding:28px 32px}
+.pm-hl{font-family:var(--font-h);font-size:26px;color:#fff;line-height:1.25;margin-bottom:20px}
+.pm-row{display:flex;gap:16px;margin-bottom:20px;flex-wrap:wrap}
+.pm-lbl{font-family:var(--font-m);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--txt-xdim);margin-bottom:8px}
+.pill-a{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:18px;font-size:12px;margin:0 6px 6px 0}
+.pill-i{display:inline-flex;align-items:center;gap:5px;padding:5px 12px;border-radius:14px;background:var(--bg-input);border:1px solid var(--border-h);color:var(--txt);font-size:11px;margin:0 5px 5px 0}
+.pm-rt{min-width:240px;max-width:280px;background:var(--bg-card);border-left:1px solid var(--border);padding:20px;display:flex;flex-direction:column}
+.pm-chat-lbl{font-family:var(--font-m);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--txt-xdim);margin-bottom:12px}
+.bubble{padding:10px 14px;border-radius:10px;font-size:12px;margin-bottom:10px;line-height:1.5}
+.b-u{background:#1a1a2e;color:var(--txt);align-self:flex-end;max-width:85%;border-bottom-right-radius:3px}
+.b-ai{background:#0f1a2a;color:#88bbdd;border:1px solid #1a3355;align-self:flex-start;max-width:85%;border-bottom-left-radius:3px}
+.pm-stat{margin-top:auto;padding:14px;background:var(--bg-input);border:1px solid var(--border);border-radius:10px}
+.pm-stat .n{font-family:var(--font-h);font-size:28px}
+.pm-stat .l{font-size:11px;color:var(--txt-dim)}
+
+/* ═══════════════════════════════════════════
+   BEFORE / AFTER
+   ═══════════════════════════════════════════ */
+.ba-grid{display:grid;grid-template-columns:1fr auto 1fr;gap:0;margin-top:36px;align-items:stretch}
+.ba-card{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:32px;position:relative;overflow:hidden}
+.ba-card.before{border-color:#1a1111}
+.ba-card.before::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--red),transparent)}
+.ba-card.after{border-color:#111a15}
+.ba-card.after::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--green),transparent)}
+.ba-badge{font-family:var(--font-m);font-size:10px;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;display:inline-block;padding:3px 10px;border-radius:4px}
+.ba-card.before .ba-badge{background:#1a0a0a;color:var(--red)}
+.ba-card.after .ba-badge{background:#0a1a0f;color:var(--green)}
+.ba-card h4{font-family:var(--font-h);font-size:20px;color:#fff;margin-bottom:12px;font-weight:400}
+.ba-card .ba-input{width:100%;height:40px;border-radius:20px;background:var(--bg-input);border:1px solid var(--border);display:flex;align-items:center;padding:0 16px;margin-bottom:16px}
+.ba-card .ba-input span{color:var(--txt-xdim);font-size:13px}
+.ba-steps{list-style:none}
+.ba-steps li{font-size:13px;color:var(--txt);padding:5px 0;display:flex;align-items:center;gap:8px}
+.ba-steps li .x{color:var(--red);font-size:12px}
+.ba-steps li .ck{color:var(--green);font-size:12px}
+.ba-arrow{display:flex;align-items:center;justify-content:center;font-size:32px;color:var(--txt-xdim);padding:0 12px}
+.ba-agents{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}
+.ba-agent{padding:5px 12px;border-radius:16px;font-size:11px}
+.ba-prompts{margin-top:8px}
+.ba-prompt{background:var(--bg-input);border:1px solid var(--border);border-radius:8px;padding:8px 12px;font-size:12px;color:var(--txt);margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.ba-prompt .star{color:var(--amber);font-size:10px}
+
+/* ═══════════════════════════════════════════
+   ARCHITECTURE DIAGRAM
+   ═══════════════════════════════════════════ */
+.arch{margin-top:40px}
+.arch-row{display:flex;gap:16px;align-items:stretch;flex-wrap:wrap;justify-content:center;margin-bottom:16px}
+.arch-node{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:20px 24px;text-align:center;flex:1;min-width:160px;max-width:200px;transition:border-color .3s,transform .3s}
+.arch-node:hover{border-color:rgba(168,130,255,.25);transform:translateY(-2px)}
+.arch-node .icon{font-size:20px;margin-bottom:8px}
+.arch-node .a-label{font-family:var(--font-m);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--txt-xdim);margin-bottom:4px}
+.arch-node .a-title{font-size:15px;color:#fff;font-weight:400;margin-bottom:4px}
+.arch-node .a-desc{font-size:12px;color:var(--txt);line-height:1.5}
+.arch-arrow{display:flex;align-items:center;justify-content:center;color:var(--txt-xdim);font-size:24px;min-width:28px;flex-shrink:0}
+.arch-connector{text-align:center;color:var(--txt-xdim);font-size:18px;margin:8px 0}
+.arch-label{font-family:var(--font-m);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--txt-xdim);text-align:center;margin:20px 0 12px}
+.arch-abstracts{background:linear-gradient(135deg,rgba(168,130,255,.06),rgba(255,100,200,.04));border:1px solid rgba(168,130,255,.15);border-radius:14px;padding:28px 32px;margin-top:24px}
+.arch-abstracts h4{font-family:var(--font-h);font-size:20px;color:var(--purple);margin-bottom:16px;font-weight:400}
+.abs-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.abs-step{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--txt)}
+.abs-step .num{font-family:var(--font-m);font-size:10px;color:var(--purple);min-width:20px}
+
+/* ═══════════════════════════════════════════
+   ORCHESTRATION DIAGRAM
+   ═══════════════════════════════════════════ */
+.orch{margin-top:40px}
+.orch-prompt{background:var(--bg-input);border:1px solid var(--border-h);border-radius:12px;padding:18px 24px;margin-bottom:24px;display:flex;align-items:center;gap:12px}
+.orch-prompt .avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--pink));display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff;flex-shrink:0}
+.orch-prompt .msg{font-size:14px;color:var(--white);font-style:italic}
+.orch-flow{display:grid;grid-template-columns:1fr;gap:0}
+.orch-step{display:flex;gap:20px;padding:20px 0;position:relative}
+.orch-step::before{content:'';position:absolute;left:15px;top:0;bottom:0;width:1px;background:var(--border)}
+.orch-step:last-child::before{display:none}
+.orch-step .o-dot{width:32px;height:32px;border-radius:50%;background:var(--bg-card);border:2px solid var(--purple);display:flex;align-items:center;justify-content:center;font-family:var(--font-m);font-size:11px;color:var(--purple);flex-shrink:0;z-index:1}
+.orch-step .o-content h4{font-size:15px;color:#fff;margin-bottom:4px;font-weight:400}
+.orch-step .o-content p{font-size:13px;color:var(--txt)}
+.orch-agents{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:20px 0}
+.orch-agent{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:16px;transition:border-color .3s}
+.orch-agent:hover{border-color:rgba(168,130,255,.2)}
+.orch-agent h5{font-size:13px;color:var(--cyan);margin-bottom:6px;font-weight:400}
+.orch-agent p{font-size:12px;color:var(--txt)}
+.orch-agent .result{font-family:var(--font-m);font-size:11px;color:var(--amber);margin-top:6px}
+.orch-synth{background:linear-gradient(135deg,rgba(80,220,255,.05),rgba(168,130,255,.05));border:1px solid rgba(80,220,255,.15);border-radius:12px;padding:20px 24px;margin-top:16px}
+.orch-synth h4{font-family:var(--font-m);font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);margin-bottom:8px}
+.orch-synth p{font-size:14px;color:var(--txt)}
+
+/* ═══════════════════════════════════════════
+   COMPETITIVE TABLE
+   ═══════════════════════════════════════════ */
+.comp-table{width:100%;border-collapse:separate;border-spacing:0;margin-top:32px;font-size:13px;border-radius:12px;overflow:hidden;border:1px solid var(--border)}
+.comp-table thead th{background:var(--bg-elev);color:var(--txt-dim);font-family:var(--font-m);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;padding:14px 16px;text-align:left;border-bottom:1px solid var(--border);font-weight:400}
+.comp-table thead th:last-child{color:var(--purple)}
+.comp-table tbody td{padding:12px 16px;border-bottom:1px solid #0f0f0f;color:var(--txt);vertical-align:top}
+.comp-table tbody td:first-child{color:var(--txt);font-weight:400}
+.comp-table tbody td:last-child{color:var(--white)}
+.comp-table tbody tr:hover td{background:rgba(168,130,255,.02)}
+
+/* ═══════════════════════════════════════════
+   TEAM / ENTERPRISE MOCKUPS
+   ═══════════════════════════════════════════ */
+.team-mock{padding:28px;min-height:380px}
+.tm-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.tm-header h3{font-family:var(--font-h);font-size:18px;color:#fff;font-weight:400}
+.tm-header .tm-pills{display:flex;gap:8px}
+.tm-header .tm-pill{padding:5px 12px;border-radius:14px;background:var(--bg-input);border:1px solid var(--border);font-size:11px;color:var(--txt-dim)}
+.tm-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+.tm-col h4{font-family:var(--font-m);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--txt-xdim);margin-bottom:12px}
+.tm-member{display:flex;align-items:center;gap:10px;padding:8px 0}
+.tm-member .av{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;color:#fff;font-weight:500}
+.tm-member .info .name{font-size:13px;color:var(--txt)}
+.tm-member .info .role{font-size:11px;color:var(--txt)}
+.tm-project{background:var(--bg-input);border:1px solid var(--border);border-radius:8px;padding:10px 14px;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between}
+.tm-project .pname{font-size:12px;color:var(--txt)}
+.tm-project .pstatus{font-family:var(--font-m);font-size:9px;letter-spacing:1px;text-transform:uppercase;padding:2px 8px;border-radius:4px}
+.tm-project .pstatus.active{background:#0a1a0f;color:var(--green)}
+.tm-project .pstatus.review{background:#1a1808;color:var(--amber)}
+.tm-activity{padding:8px 0;display:flex;align-items:flex-start;gap:10px;border-bottom:1px solid #0f0f0f}
+.tm-activity .av-sm{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;color:#fff;flex-shrink:0}
+.tm-activity .act-text{font-size:12px;color:var(--txt)}
+.tm-activity .act-time{font-family:var(--font-m);font-size:10px;color:var(--txt-xdim);margin-left:auto;flex-shrink:0}
+
+/* ═══════════════════════════════════════════
+   ENTERPRISE DASHBOARD
+   ═══════════════════════════════════════════ */
+.ent-mock{padding:28px;min-height:380px}
+.ent-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
+.ent-top h3{font-family:var(--font-h);font-size:18px;color:#fff;font-weight:400}
+.ent-top .ent-badges{display:flex;gap:6px}
+.ent-top .ent-badge{font-family:var(--font-m);font-size:9px;padding:3px 8px;border-radius:4px;background:#0a1a0f;color:var(--green);letter-spacing:1px}
+.ent-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.ent-stat{background:var(--bg-input);border:1px solid var(--border);border-radius:10px;padding:14px;text-align:center}
+.ent-stat .en{font-family:var(--font-h);font-size:24px;color:#fff}
+.ent-stat .eg{font-family:var(--font-m);font-size:10px;color:var(--green);margin-left:4px}
+.ent-stat .el{font-size:11px;color:var(--txt);margin-top:2px}
+.ent-bottom{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.ent-dept{display:flex;align-items:center;gap:12px;padding:8px 0}
+.ent-dept .dept-name{font-size:13px;color:var(--txt);min-width:100px}
+.ent-dept .dept-bar{flex:1;height:6px;background:#111;border-radius:3px;overflow:hidden}
+.ent-dept .dept-bar .fill{height:100%;border-radius:3px;background:var(--purple)}
+.ent-dept .dept-pct{font-family:var(--font-m);font-size:11px;color:var(--txt-dim);min-width:32px;text-align:right}
+
+/* ═══════════════════════════════════════════
+   PRICING / BUSINESS MODEL
+   ═══════════════════════════════════════════ */
+.pricing{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:36px}
+.price-card{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:28px;position:relative;transition:border-color .3s}
+.price-card:hover{border-color:rgba(168,130,255,.2)}
+.price-card.popular{border-color:var(--purple)}
+.price-card.popular::before{content:'POPULAR';position:absolute;top:-1px;left:50%;transform:translateX(-50%);font-family:var(--font-m);font-size:9px;letter-spacing:2px;background:var(--purple);color:#000;padding:2px 12px;border-radius:0 0 6px 6px}
+.price-card .tier{font-family:var(--font-m);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--txt-dim);margin-bottom:8px}
+.price-card .price{font-family:var(--font-h);font-size:32px;color:#fff;margin-bottom:16px}
+.price-card .feats{list-style:none}
+.price-card .feats li{font-size:13px;color:var(--txt);padding:4px 0}
+.price-card .feats li::before{content:'✓ ';color:var(--green)}
+
+/* ═══════════════════════════════════════════
+   DESIGN DECISIONS GRID
+   ═══════════════════════════════════════════ */
+.dec-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-top:36px}
+.dec{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:24px;transition:border-color .3s}
+.dec:hover{border-color:rgba(168,130,255,.15)}
+.dec h4{font-size:14px;color:var(--purple);margin-bottom:6px;font-weight:400}
+.dec p{font-size:13px;color:var(--txt)}
+
+/* ═══════════════════════════════════════════
+   DESIGN THINKING / PHILOSOPHY
+   ═══════════════════════════════════════════ */
+.phil-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:36px}
+.phil{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:32px;counter-increment:phil}
+.phil::before{content:counter(phil,decimal-leading-zero);font-family:var(--font-h);font-size:36px;color:var(--border);display:block;margin-bottom:12px}
+.phil h4{font-size:16px;color:#fff;margin-bottom:8px;font-weight:400}
+.phil p{font-size:14px;color:var(--txt)}
+
+/* ═══════════════════════════════════════════
+   IMPACT METRICS
+   ═══════════════════════════════════════════ */
+.impact{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;margin-top:40px}
+.imp{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:32px;text-align:center;transition:border-color .3s}
+.imp:hover{border-color:rgba(168,130,255,.2)}
+.imp .imp-n{font-family:var(--font-h);font-size:48px;line-height:1}
+.imp .imp-l{font-size:14px;color:var(--txt);margin:8px 0 4px}
+.imp .imp-d{font-size:12px;color:var(--txt);line-height:1.5}
+
+/* ═══════════════════════════════════════════
+   SMART PROMPTS PER PROFESSION
+   ═══════════════════════════════════════════ */
+.sp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:32px}
+.sp-prof{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:20px}
+.sp-prof h5{font-size:13px;color:#fff;margin-bottom:10px;font-weight:400;display:flex;align-items:center;gap:6px}
+.sp-prof h5 .sp-icon{font-size:14px}
+.sp-prof .sp-item{background:var(--bg-input);border:1px solid #151515;border-radius:6px;padding:6px 10px;font-size:12px;color:var(--txt);margin-bottom:5px}
+
+/* ═══════════════════════════════════════════
+   BROWSE ALL MOCKUP
+   ═══════════════════════════════════════════ */
+.brw{padding:28px;min-height:320px}
+.brw-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
+.brw-h h3{font-family:var(--font-h);font-size:20px;color:#fff;font-weight:400}
+.brw-h .cls{color:var(--txt-xdim);font-size:18px}
+.brw-cats{display:flex;flex-direction:column;gap:20px}
+.brw-cat-l{font-family:var(--font-m);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--txt-dim);margin-bottom:6px}
+.brw-items{display:flex;gap:8px;flex-wrap:wrap}
+.brw-i{padding:7px 16px;border-radius:18px;background:var(--bg-input);border:1px solid var(--border);color:var(--txt);font-size:12px;transition:all .3s}
+.brw-i:hover{border-color:rgba(168,130,255,.35);color:#fff;background:#1a1128}
+.brw-custom{margin-top:20px;display:flex;gap:10px;align-items:center}
+.brw-custom-in{flex:1;height:42px;border-radius:21px;background:var(--bg-input);border:1px solid var(--border-h);padding:0 18px;display:flex;align-items:center;color:var(--txt-xdim);font-size:13px}
+.brw-custom-btn{padding:9px 22px;border-radius:21px;background:linear-gradient(135deg,var(--purple),var(--pink));color:#fff;font-size:12px;font-weight:500;white-space:nowrap}
+
+/* ═══════════════════════════════════════════
+   TECH STACK
+   ═══════════════════════════════════════════ */
+.stack-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:36px}
+.stack-col{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:28px}
+.stack-col h4{font-family:var(--font-m);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--purple);margin-bottom:16px}
+.stack-item{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #0f0f0f;font-size:14px;color:var(--txt)}
+.stack-item .si-dot{width:6px;height:6px;border-radius:50%;background:var(--purple);flex-shrink:0}
+
+/* ═══════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════ */
+.cs-footer{text-align:center;padding:60px 24px;border-top:1px solid var(--border)}
+.cs-footer p{color:var(--txt-xdim);font-size:12px}
+.cs-footer a{color:var(--purple)}
+
+/* ═══════════════════════════════════════════
+   ANIMATIONS
+   ═══════════════════════════════════════════ */
+.fu{opacity:0;transform:translateY(28px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.fu.vis{opacity:1;transform:translateY(0)}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════ */
+@media(max-width:768px){
+  .nav{padding:14px 18px}
+  .nav-links{gap:16px;font-size:12px}
+  .two-col,.ba-grid,.phil-grid,.stack-grid,.ent-bottom,.tm-grid{grid-template-columns:1fr}
+  .ba-arrow{transform:rotate(90deg);padding:8px 0}
+  .lm,.pm{flex-direction:column}
+  .lm-sb,.pm-sb{flex-direction:row;width:100%;height:44px;border-right:none;border-bottom:1px solid var(--border);justify-content:center;padding:0 12px}
+  .pm-rt{max-width:100%;border-left:none;border-top:1px solid var(--border)}
+  .hero-meta{gap:20px}
+  .ent-stats{grid-template-columns:repeat(2,1fr)}
+  .comp-table{font-size:11px}
+  .comp-table thead th,.comp-table tbody td{padding:8px 10px}
+}
+</style>
+</head>
+
+<body>
+
+<!-- ═══════ NAV ═══════ -->
+<nav class="nav" id="nav">
+  <a href="/"><img src="pics/home/favicon.png" alt="DA" class="nav-logo" onerror="this.style.display='none'"></a>
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="casestudies.html" class="active">Case Studies</a>
+    <a href="resume.html">Resume</a>
+  </div>
+</nav>
+
+<!-- ═══════ HERO ═══════ -->
+<section class="hero">
+  <div class="hero-kicker">Product Design Case Study · AI Interface</div>
+  <h1>D<span class="dot">.</span><span class="ai">AI</span></h1>
+  <div class="hero-tagline">The AI That Becomes You.</div>
+  <div class="hero-meta">
+    <div class="hm"><span>Role</span><strong>Product Designer</strong></div>
+    <div class="hm"><span>Scope</span><strong>Research · UX · AI Product · Prototype</strong></div>
+    <div class="hm"><span>Duration</span><strong>2025</strong></div>
+    <div class="hm"><span>Stack</span><strong>React · Claude Sonet4.5 · Figma</strong></div>
+  </div>
+  <div class="hero-scroll">Scroll ↓</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════ 01 OVERVIEW ═══════ -->
+<section class="s fu">
+  <div class="s-label">Overview</div>
+  <h2 class="s-title">Adaptive AI that transforms its <span class="a">entire UI</span> based on your profession.</h2>
+  <p>D.AI is not a chatbot skin. It's a profession-aware AI operating system — with curated personas for top professions, each with a unique theme, dedicated agents, contextual integrations, and smart prompt starters. Plus a custom AI-generated persona for any role not listed, powered by D.AI's model layer.</p>
+  <p>Every element transforms: color, typography, particle effects, search placeholders, agent configurations, tool connections, and chat behavior. The lawyer doesn't see the same interface as the engineer. Because they shouldn't.</p>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-n">∞</div><div class="stat-l">Professions Supported</div></div>
+    <div class="stat"><div class="stat-n">6</div><div class="stat-l">Top Profession Categories</div></div>
+    <div class="stat"><div class="stat-n">12</div><div class="stat-l">Professionals Interviewed</div></div>
+    <div class="stat"><div class="stat-n">✦</div><div class="stat-l">Custom AI Persona Generation</div></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════ 02 PROBLEM ═══════ -->
+<section class="s fu">
+  <div class="s-label">The Problem</div>
+  <h2 class="s-title">AI is powerful.<br>But it <span class="a">speaks to no one.</span></h2>
+  <p>From research across 12 professionals in 6 domains, three problems emerged consistently:</p>
+
+  <div class="nb-quote">
+    <p>"Too many new agents, too much new language, too many plugins. Basically — using AI is confusing for some."</p>
+      </div>
+
+  <div class="two-col">
+    <div class="card prob">
+      <h3>The Problem</h3>
+      <ul>
+        <li>Every model release adds new terminology that professionals can't keep up</li>
+        <li>"Did you ever get confused with the interface or language?" — Yes, overwhelmingly across all professions</li>
+        <li>A surgeon opens the same blank box as a comedian — AI doesn't know who you are</li>
+      </ul>
+    </div>
+    <div class="card sol">
+      <h3>The Solution</h3>
+      <ul>
+        <li><strong>Profession = Identity</strong> — select your profession, entire UI transforms</li>
+        <li><strong>Agents + Prompts = Speed</strong> — Pro Agents pre-loaded, Smart Prompts pre-written</li>
+        <li><strong>Integrations = Workflow</strong> — each persona connects to profession-specific real tools</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="nb-quote" style="margin-top:32px">
+    <p>"Solution → A dedicated persona & a dedicated agent for that persona. The AI agent adapts with the user's memory over time."</p>
+  </div>
+
+  <div class="stats" style="margin-top:32px">
+    <div class="stat"><div class="stat-n" style="color:var(--red)">73%</div><div class="stat-l">of knowledge workers say AI feels generic for their role</div></div>
+    <div class="stat"><div class="stat-n" style="color:var(--red)">12</div><div class="stat-l">professionals interviewed across 6 domains</div></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════ 03 RESEARCH ═══════ -->
+<section class="s fu">
+  <div class="s-label">Research</div>
+  <h2 class="s-title">12 questions. 12 professionals.<br><span class="a">6 domains.</span></h2>
+  <p>Every idea was handwritten before a single line of code. I interviewed friends and colleagues across professions — engineers, designers, lawyers, doctors, analysts, educators — to understand how AI fails them today.</p>
+
+  <div class="q-grid">
+    <div class="q-item"><div class="q-num">Q1</div><div class="q-body"><div class="q-tag">Usage</div><div class="q-text">What AI tools do you use regularly?</div></div></div>
+    <div class="q-item"><div class="q-num">Q2</div><div class="q-body"><div class="q-tag">Context</div><div class="q-text">What is your profession and daily workflow?</div></div></div>
+    <div class="q-item"><div class="q-num">Q3</div><div class="q-body"><div class="q-tag">Usage</div><div class="q-text">For what tasks do you use AI most often?</div></div></div>
+    <div class="q-item"><div class="q-num">Q4</div><div class="q-body"><div class="q-tag">Plugins</div><div class="q-text">Do you use plugins, agents, or custom GPTs?</div></div></div>
+    <div class="q-item"><div class="q-num">Q5</div><div class="q-body"><div class="q-tag">Pain</div><div class="q-text">Have you ever felt confused by the AI interface or its language?</div></div></div>
+    <div class="q-item"><div class="q-num">Q6</div><div class="q-body"><div class="q-tag">Pain</div><div class="q-text">When you open AI, do you feel it truly understands your profession?</div></div></div>
+    <div class="q-item"><div class="q-num">Q7</div><div class="q-body"><div class="q-tag">Pain</div><div class="q-text">Do you feel you can't communicate with AI properly for your work?</div></div></div>
+    <div class="q-item"><div class="q-num">Q8</div><div class="q-body"><div class="q-tag">Literacy</div><div class="q-text">What do you know about prompts? Do you use them?</div></div></div>
+    <div class="q-item"><div class="q-num">Q9</div><div class="q-body"><div class="q-tag">Trust</div><div class="q-text">How do you feel when a new update launches and you don't know if it's relevant?</div></div></div>
+    <div class="q-item"><div class="q-num">Q10</div><div class="q-body"><div class="q-tag">Vision</div><div class="q-text">What would an ideal AI look like for your specific role?</div></div></div>
+    <div class="q-item"><div class="q-num">Q11</div><div class="q-body"><div class="q-tag">Prototype</div><div class="q-text">How did you feel using the D.AI prototype?</div></div></div>
+    <div class="q-item"><div class="q-num">Q12</div><div class="q-body"><div class="q-tag">Prototype</div><div class="q-text">Which feature excited you most — and why?</div></div></div>
+  </div>
+
+  <h3 style="font-family:var(--font-h);font-size:28px;color:#fff;margin-top:60px;margin-bottom:8px;font-weight:400">The notebook that started everything.</h3>
+  <p>Mapped the full user journey, integration architecture, persona list, and feature set — all by hand before any prototype was built.</p>
+
+  <div class="nb-grid">
+    <div class="nb-img"><img src="1.jpeg" alt="Problem & Solution Notes" loading="lazy"/><div class="nb-cap">Page 1 · Problem & Solution</div></div>
+    <div class="nb-img"><img src="2.jpeg" alt="Persona Mapping" loading="lazy"/><div class="nb-cap">Page 2 · Personas & Business Model</div></div>
+    <div class="nb-img"><img src="3.jpeg" alt="Integration Mapping" loading="lazy"/><div class="nb-cap">Page 3 · Contextual Integrations</div></div>
+    <div class="nb-img"><img src="4.jpeg" alt="Interview Questions" loading="lazy"/><div class="nb-cap">Page 4 · Interview Questions</div></div>
+    <div class="nb-img"><img src="6.jpeg" alt="IA / User Flow" loading="lazy"/><div class="nb-cap">Page 5 · Information Architecture</div></div>
+    <div class="nb-img"><img src="7.jpeg" alt="System Prompt Engineering" loading="lazy"/><div class="nb-cap">Page 6 · Technical Research</div></div>
+    <div class="nb-img"><img src="ui1.jpeg" alt="Wireframe Sketches" loading="lazy"/><div class="nb-cap">Page 7 · Wireframes</div></div>
+    <div class="nb-img"><img src="ui2.jpeg" alt="Wireframe Sketches" loading="lazy"/><div class="nb-cap">Page 8 · Wireframes</div></div>    
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════ 04 IA ═══════ -->
+<section class="s fu">
+  <div class="s-label">Information Architecture</div>
+  <h2 class="s-title">The <span class="a">happy path.</span></h2>
+
+  <div class="nb-quote">
+    <p>"I guess I can call this Happy Path."</p>
+    <cite>— Notebook, Page 6</cite>
+  </div>
+
+  <div class="arch">
+    <div class="arch-row">
+      <div class="arch-node"><div class="icon">◈</div><div class="a-label">Entry</div><div class="a-title">D.AI Landing</div><div class="a-desc">Universal search bar. Clean & minimal.</div></div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node"><div class="icon">🔍</div><div class="a-label">Universal</div><div class="a-title">Search + AI Agent</div><div class="a-desc">Ask anything, any topic. Works like a standard AI chatbot.</div></div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node" style="border-color:rgba(168,130,255,.3)"><div class="icon">◉</div><div class="a-label">Select</div><div class="a-title">Persona</div><div class="a-desc">Choose a top profession or type any role. Entire UI transforms instantly.</div></div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node" style="border-color:rgba(80,220,255,.3)"><div class="icon">⚡</div><div class="a-label">Transform</div><div class="a-title">Dedicated AI Agents</div><div class="a-desc">Pro agents, smart prompts, tools — all pre-configured.</div></div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node"><div class="icon">🔗</div><div class="a-label">Connect</div><div class="a-title">Integrations</div><div class="a-desc">Profession-specific tools: GitHub, Westlaw, Epic, Bloomberg.</div></div>
+    </div>
+    <div class="arch-connector">↻</div>
+    <div style="text-align:center;font-family:var(--font-m);font-size:11px;color:var(--txt-dim)">Feedback Loop</div>
+  </div>
+ <!-- USER JOURNEY -->
+  <h3 style="font-family:var(--font-h);font-size:28px;color:#fff;margin-top:64px;margin-bottom:8px;font-weight:400">What this actually looks like — <span style="color:var(--cyan)">Engineer workflow.</span></h3>
+  <p>A step-by-step walkthrough of a real task, from persona selection to synthesized output.</p>
+
+  <div style="margin-top:32px;position:relative;padding-left:32px">
+    <!-- Vertical line -->
+    <div style="position:absolute;left:11px;top:8px;bottom:8px;width:2px;background:linear-gradient(to bottom,var(--cyan),var(--purple),transparent);border-radius:1px"></div>
+
+    <!-- Step 1 -->
+    <div style="display:flex;gap:20px;padding:20px 0;position:relative">
+      <div style="width:24px;height:24px;border-radius:50%;background:var(--bg-card);border:2px solid var(--cyan);display:flex;align-items:center;justify-content:center;font-family:var(--font-m);font-size:10px;color:var(--cyan);flex-shrink:0;z-index:1;margin-left:-32px">01</div>
+      <div>
+        <div style="font-size:15px;color:#fff;margin-bottom:4px;font-weight:400">User selects <span style="color:var(--cyan)">Software Engineer</span> persona</div>
+        <div style="font-size:13px;color:var(--txt)">From the landing page — one click. The entire interface begins to transform.</div>
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div style="display:flex;gap:20px;padding:20px 0;position:relative">
+      <div style="width:24px;height:24px;border-radius:50%;background:var(--bg-card);border:2px solid var(--cyan);display:flex;align-items:center;justify-content:center;font-family:var(--font-m);font-size:10px;color:var(--cyan);flex-shrink:0;z-index:1;margin-left:-32px">02</div>
+      <div>
+        <div style="font-size:15px;color:#fff;margin-bottom:4px;font-weight:400">GitHub, Vercel, Docker integrations appear <span style="color:var(--cyan)">automatically</span></div>
+        <div style="font-size:13px;color:var(--txt)">No plugin hunting. The tools an engineer actually uses are pre-connected and ready.</div>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div style="display:flex;gap:20px;padding:20px 0;position:relative">
+      <div style="width:24px;height:24px;border-radius:50%;background:var(--bg-card);border:2px solid var(--cyan);display:flex;align-items:center;justify-content:center;font-family:var(--font-m);font-size:10px;color:var(--cyan);flex-shrink:0;z-index:1;margin-left:-32px">03</div>
+      <div>
+        <div style="font-size:15px;color:#fff;margin-bottom:4px;font-weight:400">Smart Prompts surface <span style="color:var(--cyan)">engineering-specific tasks</span></div>
+        <div style="font-size:13px;color:var(--txt)">"Review this PR for bugs," "Write Jest tests," "Explain this stack trace" — no blank slate.</div>
+      </div>
+    </div>
+
+    <!-- Step 4 -->
+    <div style="display:flex;gap:20px;padding:20px 0;position:relative">
+      <div style="width:24px;height:24px;border-radius:50%;background:var(--bg-card);border:2px solid var(--purple);display:flex;align-items:center;justify-content:center;font-family:var(--font-m);font-size:10px;color:var(--purple);flex-shrink:0;z-index:1;margin-left:-32px">04</div>
+      <div>
+        <div style="font-size:15px;color:#fff;margin-bottom:4px;font-weight:400">User runs the <span style="color:var(--purple)">Code Review agent</span></div>
+        <div style="font-size:13px;color:var(--txt)">Clicks "Review this PR for memory leaks" — a pre-engineered prompt that triggers the right agent.</div>
+      </div>
+    </div>
+
+    <!-- Step 5 -->
+    <div style="display:flex;gap:20px;padding:20px 0;position:relative">
+      <div style="width:24px;height:24px;border-radius:50%;background:var(--bg-card);border:2px solid var(--purple);display:flex;align-items:center;justify-content:center;font-family:var(--font-m);font-size:10px;color:var(--purple);flex-shrink:0;z-index:1;margin-left:-32px">05</div>
+      <div>
+        <div style="font-size:15px;color:#fff;margin-bottom:4px;font-weight:400">Orchestrator dispatches <span style="color:var(--purple)">sub-agents in parallel</span></div>
+        <div style="font-size:13px;color:var(--txt)">Memory Profiler scans for leaks. Code Analyzer checks patterns. Fix Suggester drafts solutions. All at once.</div>
+      </div>
+    </div>
+
+    <!-- Step 6 -->
+    <div style="display:flex;gap:20px;padding:20px 0;position:relative">
+      <div style="width:24px;height:24px;border-radius:50%;background:var(--bg-card);border:2px solid var(--green);display:flex;align-items:center;justify-content:center;font-family:var(--font-m);font-size:10px;color:var(--green);flex-shrink:0;z-index:1;margin-left:-32px">06</div>
+      <div>
+        <div style="font-size:15px;color:#fff;margin-bottom:4px;font-weight:400">D.AI returns a <span style="color:var(--green)">structured code review</span></div>
+        <div style="font-size:13px;color:var(--txt)">"Found 2 issues in allocFn() — memory not freed on error path. Lines 84 & 102. Recommend try/finally." One synthesized answer from multiple agents.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Summary callout -->
+  <div style="background:linear-gradient(135deg,rgba(80,220,255,.04),rgba(168,130,255,.04));border:1px solid rgba(80,220,255,.12);border-radius:14px;padding:24px 28px;margin-top:32px">
+    <div style="font-family:var(--font-m);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);margin-bottom:8px">Total time: seconds</div>
+    <div style="font-size:14px;color:var(--txt)">From persona selection to structured output — no prompt engineering, no plugin configuration, no agent setup. The user typed nothing. They clicked twice.</div>
+  </div>
+</section>
+
+
+<div class="divider"></div>
+
+<!-- ═══════ 05 BEFORE/AFTER ═══════ -->
+<section class="s fu">
+  <div class="s-label">Before / After</div>
+  <h2 class="s-title">The blank slate problem — <span class="a">solved.</span></h2>
+
+  <div class="nb-quote">
+    <p>"Pre designed or written prompts."</p>
+    <cite>— Wireframe sketch, Page 5</cite>
+  </div>
+
+  <div class="ba-grid">
+    <div class="ba-card before">
+      <div class="ba-badge">Before · Generic AI</div>
+      <h4>Ask anything...</h4>
+      <div class="ba-input"><span>Ask anything...</span></div>
+      <div class="ba-steps">
+        <li><span class="x">✗</span> User opens interface</li>
+        <li><span class="x">✗</span> Stares at blank input box</li>
+        <li><span class="x">✗</span> Struggles to phrase a prompt</li>
+        <li><span class="x">✗</span> Types, deletes, rephrases twice</li>
+        <li><span class="x">✗</span> Gets a mediocre answer</li>
+      </div>
+    </div>
+    <div class="ba-arrow">→</div>
+    <div class="ba-card after">
+      <div class="ba-badge">After · D.AI Engineer Persona</div>
+      <h4>What will you build today?</h4>
+      <div class="ba-input"><span style="color:var(--txt)">+ &nbsp; Ask anything or pick a smart prompt ↓</span></div>
+      <div class="ba-agents">
+        <div class="ba-agent" style="background:#0f1a2a;border:1px solid #1a3355;color:var(--cyan)">Code Review</div>
+        <div class="ba-agent" style="background:#0f1a2a;border:1px solid #1a3355;color:var(--cyan)">Debug AI</div>
+        <div class="ba-agent" style="background:#0f1a2a;border:1px solid #1a3355;color:var(--cyan)">Doc Writer</div>
+        <div class="ba-agent" style="background:#0f1a2a;border:1px solid #1a3355;color:var(--cyan)">Test Gen</div>
+      </div>
+      <div class="ba-prompts">
+        <div class="ba-prompt"><span class="star">✦</span> Review this PR for bugs</div>
+        <div class="ba-prompt"><span class="star">✦</span> Write unit tests for this module</div>
+        <div class="ba-prompt"><span class="star">✦</span> Explain this stack trace</div>
+        <div class="ba-prompt"><span class="star">✦</span> Draft a tech spec</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════ 06 SMART PROMPTS ═══════ -->
+<section class="s fu">
+  <div class="s-label">Smart Prompt Starters</div>
+  <h2 class="s-title">Every profession gets prompts that <span class="a">speak its language.</span></h2>
+
+  <div class="sp-grid">
+    <div class="sp-prof"><h5><span class="sp-icon">{ }</span> Software Engineer</h5><div class="sp-item">Review this PR for memory leaks</div><div class="sp-item">Write Jest tests for this module</div><div class="sp-item">Explain this stack trace</div><div class="sp-item">Draft RFC for this API endpoint</div></div>
+    <div class="sp-prof"><h5><span class="sp-icon">⚖</span> Corporate Lawyer</h5><div class="sp-item">Draft NDA for SaaS partnership</div><div class="sp-item">Review liability clauses here</div><div class="sp-item">Summarize this deposition</div><div class="sp-item">Flag GDPR risks in this doc</div></div>
+    <div class="sp-prof"><h5><span class="sp-icon">◉</span> Product Manager</h5><div class="sp-item">Write a PRD for this feature</div><div class="sp-item">Prioritize this backlog</div><div class="sp-item">Draft OKRs for Q3</div><div class="sp-item">Summarize user research notes</div></div>
+    <div class="sp-prof"><h5><span class="sp-icon">✚</span> Physician</h5><div class="sp-item">Summarize this clinical study</div><div class="sp-item">Check drug interaction risk</div><div class="sp-item">Draft patient discharge note</div><div class="sp-item">Review differential diagnosis</div></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════ 07 CONTEXTUAL INTEGRATIONS ═══════ -->
+<section class="s fu">
+  <div class="s-label">Contextual Integrations</div>
+  <h2 class="s-title">Each persona connects to the tools <span class="a">they already use.</span></h2>
+
+  <div class="nb-quote">
+    <p>"Tech guy → code direct push to Git/Docker. Design guy → screens to Figma/Miro. Lawyer → connects to Westlaw/LexisNexis."</p>
+    <cite>— Notebook, Page 3</cite>
+  </div>
+
+  <div class="sp-grid">
+    <div class="sp-prof"><h5><span class="sp-icon">{ }</span> Software Engineer</h5><div class="sp-item">GitHub</div><div class="sp-item">Vercel</div><div class="sp-item">Jira</div><div class="sp-item">Docker</div><div class="sp-item">GitLab</div></div>
+    <div class="sp-prof"><h5><span class="sp-icon">◈</span> Designer</h5><div class="sp-item">Figma</div><div class="sp-item">Miro</div><div class="sp-item">FigJam</div><div class="sp-item">Loom</div><div class="sp-item">Zeplin</div></div>
+    <div class="sp-prof"><h5><span class="sp-icon">⚖</span> Corporate Lawyer</h5><div class="sp-item">Westlaw</div><div class="sp-item">LexisNexis</div><div class="sp-item">Clio</div><div class="sp-item">DocuSign</div><div class="sp-item">Relativity</div></div>
+    <div class="sp-prof"><h5><span class="sp-icon">✚</span> Physician</h5><div class="sp-item">Epic</div><div class="sp-item">PubMed</div><div class="sp-item">UpToDate</div><div class="sp-item">Doximity</div><div class="sp-item">Athena</div></div>
+    <div class="sp-prof"><h5><span class="sp-icon">◉</span> Financial Analyst</h5><div class="sp-item">Bloomberg</div><div class="sp-item">Refinitiv</div><div class="sp-item">Salesforce</div><div class="sp-item">Tableau</div><div class="sp-item">QuickBooks</div></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════ 08 UI SCREENS ═══════ -->
+<section class="s fu">
+  <div class="s-label">UI Design — Screens</div>
+  <h2 class="s-title">Universal landing. <span class="a">Persona transformation.</span><br>Browse all.</h2>
+
+  <!-- LANDING -->
+  <div class="mock">
+    <div class="mock-f">
+      <div class="mock-bar"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div><span>d.ai</span></div>
+      <div class="mock-b">
+        <div class="lm">
+          <div class="lm-sb"><div class="ic on"></div><div class="ic"></div><div class="ic"></div><div class="ic"></div><div class="ic"></div></div>
+          <div class="lm-mn">
+            <div class="lm-logo">
+              <svg viewBox="0 0 48 48" fill="none" width="40" height="40"><rect x="8" y="8" width="32" height="32" rx="2" stroke="#a882ff" stroke-width="1.5" transform="rotate(45 24 24)" fill="none"/><rect x="14" y="14" width="20" height="20" rx="1.5" stroke="#ff64c8" stroke-width="1" transform="rotate(45 24 24)" fill="none" opacity=".6"/><circle cx="24" cy="24" r="3" fill="#a882ff"/></svg>
+              <span class="lm-logo-t">D.AI</span>
+            </div>
+            <div class="lm-srch"><div class="plus">+</div><div class="ph">What can I help you with today?</div></div>
+            <div class="lm-pl">Popular Personas</div>
+            <div class="lm-ps">
+              <div class="lm-p" style="background:#1a2540;color:#50dcff" title="Engineer">⌨</div>
+              <div class="lm-p" style="background:#2a1530;color:#ff64c8" title="Designer">◇</div>
+              <div class="lm-p" style="background:#1a2520;color:#44cc88" title="Doctor">✚</div>
+              <div class="lm-p" style="background:#2a2010;color:#ffaa33" title="Lawyer">§</div>
+              <div class="lm-p" style="background:#1a1a30;color:#8888ff" title="Researcher">◎</div>
+              <div class="lm-p" style="background:#2a1020;color:#ff4466" title="Chef">♨</div>
+              <div class="lm-p" style="background:#102020;color:#44cccc" title="Architect">△</div>
+              <div class="lm-p" style="background:#201530;color:#aa88ff" title="Educator">✎</div>
+            </div>
+            <div class="lm-br">Explore more professions →</div>
+            <div style="margin-top:16px;display:flex;gap:8px;align-items:center;width:100%;max-width:400px">
+              <div style="flex:1;height:36px;border-radius:18px;background:var(--bg-input);border:1px solid var(--border);display:flex;align-items:center;padding:0 14px;font-size:12px;color:var(--txt-xdim)">Type any profession...</div>
+              <div style="padding:8px 18px;border-radius:18px;background:linear-gradient(135deg,var(--purple),var(--pink));color:#fff;font-size:11px;font-weight:500;white-space:nowrap">Generate ✦</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mock-label">Landing Page — Universal, Minimal, Premium</div>
+  </div>
+
+  <!-- PERSONA: ENGINEER (Redesigned right panel) -->
+  <div class="mock">
+    <div class="mock-f">
+      <div class="mock-bar"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div><span>d.ai/engineer</span></div>
+      <div class="mock-b">
+        <div class="pm">
+          <div class="pm-sb"><div class="ic"></div><div class="ic" style="background:rgba(80,220,255,.15);border:1px solid rgba(80,220,255,.3)"></div><div class="ic"></div><div class="ic"></div></div>
+          <div class="pm-mn">
+            <div class="pm-hl">What will you<br><span style="color:var(--cyan)">build today?</span></div>
+            <div class="pm-lbl">Pro Agents</div>
+            <div class="pm-row">
+              <div class="pill-a" style="background:#0f1a2a;border:1px solid #1a3355;color:var(--cyan)">◉ Code Review</div>
+              <div class="pill-a" style="background:#0f1a2a;border:1px solid #1a3355;color:var(--cyan)">◉ Debug AI</div>
+              <div class="pill-a" style="background:#0f1a2a;border:1px solid #1a3355;color:var(--cyan)">◉ Doc Writer</div>
+              <div class="pill-a" style="background:#0f1a2a;border:1px solid #1a3355;color:var(--cyan)">◉ Test Gen</div>
+            </div>
+            <div class="pm-lbl">✦ Smart Prompts <span style="color:var(--amber);margin-left:4px">NEW</span></div>
+            <div class="pm-row">
+              <div class="pill-i">Review this PR for bugs</div>
+              <div class="pill-i">Write unit tests</div>
+              <div class="pill-i">Explain stack trace</div>
+              <div class="pill-i">Draft a tech spec</div>
+            </div>
+            <div class="pm-lbl">Integrations</div>
+            <div class="pm-row">
+              <div class="pill-i">GitHub</div><div class="pill-i">Vercel</div><div class="pill-i">Jira</div><div class="pill-i">Figma</div><div class="pill-i">Slack</div>
+            </div>
+            <div class="lm-srch" style="max-width:460px;margin-top:auto"><div class="plus">+</div><div class="ph">Ask anything or pick a smart prompt ↓</div></div>
+          </div>
+          <!-- REDESIGNED RIGHT PANEL -->
+          <div class="pm-rt" style="min-width:260px;max-width:300px">
+            <!-- TOP: Live Preview -->
+            <div style="padding:16px;border-bottom:1px solid var(--border)">
+              <div class="pm-chat-lbl">Live Preview</div>
+              <div class="bubble b-u" style="margin-bottom:8px">Review this PR for memory leaks</div>
+              <div class="bubble b-ai">Found 2 issues in allocFn() — memory not freed on error path. Line 84 & 102.</div>
+              <div class="pm-stat" style="margin-top:12px"><div class="n" style="color:var(--cyan)">✦</div><div class="l">500M+ lines of production code trained</div></div>
+            </div>
+            <!-- MIDDLE: Orchestrator + Agents -->
+            <div style="padding:16px;border-bottom:1px solid var(--border);flex:1">
+              <div class="pm-chat-lbl">Orchestration</div>
+              <div style="font-size:10px;color:var(--txt);margin-bottom:10px">Request → Intent → Dispatch → Synthesize</div>
+              <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:12px">
+                <span style="padding:3px 9px;border-radius:8px;background:#0f1a2a;border:1px solid #1a3355;color:var(--cyan);font-size:9px;font-family:var(--font-m)">Intent</span>
+                <span style="color:var(--txt-xdim);font-size:9px">→</span>
+                <span style="padding:3px 9px;border-radius:8px;background:var(--bg-input);border:1px solid var(--border);color:var(--txt);font-size:9px;font-family:var(--font-m)">Decompose</span>
+                <span style="color:var(--txt-xdim);font-size:9px">→</span>
+                <span style="padding:3px 9px;border-radius:8px;background:var(--bg-input);border:1px solid var(--border);color:var(--txt);font-size:9px;font-family:var(--font-m)">Dispatch</span>
+                <span style="color:var(--txt-xdim);font-size:9px">→</span>
+                <span style="padding:3px 9px;border-radius:8px;background:var(--bg-input);border:1px solid var(--border);color:var(--txt);font-size:9px;font-family:var(--font-m)">Synthesize</span>
+              </div>
+              <div class="pm-chat-lbl" style="margin-top:8px">Active Agents</div>
+              <div style="font-size:10px;color:var(--txt);display:flex;align-items:center;gap:6px;padding:4px 0;border-bottom:1px solid #111"><span style="width:4px;height:4px;border-radius:50%;background:var(--cyan);flex-shrink:0"></span>Code Review</div>
+              <div style="font-size:10px;color:var(--txt);display:flex;align-items:center;gap:6px;padding:4px 0;border-bottom:1px solid #111"><span style="width:4px;height:4px;border-radius:50%;background:var(--cyan);flex-shrink:0"></span>Debug AI</div>
+              <div style="font-size:10px;color:var(--txt);display:flex;align-items:center;gap:6px;padding:4px 0;border-bottom:1px solid #111"><span style="width:4px;height:4px;border-radius:50%;background:var(--cyan);flex-shrink:0"></span>Doc Writer</div>
+              <div style="font-size:10px;color:var(--txt);display:flex;align-items:center;gap:6px;padding:4px 0"><span style="width:4px;height:4px;border-radius:50%;background:var(--cyan);flex-shrink:0"></span>Test Gen</div>
+            </div>
+            <!-- BOTTOM: Switch Persona -->
+            <div style="padding:14px 16px">
+              <div class="pm-chat-lbl">Switch Persona</div>
+              <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px">
+                <div style="width:28px;height:28px;border-radius:7px;background:#2a1530;display:flex;align-items:center;justify-content:center;font-size:11px;color:#ff64c8;border:1px solid transparent">◇</div>
+                <div style="width:28px;height:28px;border-radius:7px;background:#1a2520;display:flex;align-items:center;justify-content:center;font-size:11px;color:#44cc88;border:1px solid transparent">✚</div>
+                <div style="width:28px;height:28px;border-radius:7px;background:#2a2010;display:flex;align-items:center;justify-content:center;font-size:11px;color:#ffaa33;border:1px solid transparent">§</div>
+                <div style="width:28px;height:28px;border-radius:7px;background:#1a1a30;display:flex;align-items:center;justify-content:center;font-size:11px;color:#8888ff;border:1px solid transparent">◎</div>
+                <div style="width:28px;height:28px;border-radius:7px;background:var(--bg-input);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--txt-dim);border:1px solid var(--border)">+</div>
+              </div>
+              <div style="width:100%;padding:7px;border-radius:7px;background:var(--bg-input);border:1px solid var(--border);color:var(--txt);font-size:10px;text-align:center;display:flex;align-items:center;justify-content:center;gap:5px">◈ Universal Search</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mock-label">Persona Page — Engineer (Preview top · Orchestrator middle · Switch bottom)</div>
+  </div>
+
+  <!-- BROWSE ALL -->
+  <div class="mock">
+    <div class="mock-f">
+      <div class="mock-bar"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div><span>d.ai — browse all</span></div>
+      <div class="mock-b">
+        <div class="brw">
+          <div class="brw-h"><h3>Choose Your Profession</h3><div class="cls">✕</div></div>
+          <div class="brw-cats">
+            <div><div class="brw-cat-l">Technology</div><div class="brw-items"><div class="brw-i">Tech / Engineer</div><div class="brw-i">Data Scientist</div><div class="brw-i">Cyber Security</div><div class="brw-i">Civil Engineer</div></div></div>
+            <div><div class="brw-cat-l">Creative</div><div class="brw-items"><div class="brw-i">Designer</div><div class="brw-i">Photographer</div><div class="brw-i">Film Maker</div><div class="brw-i">Musician</div><div class="brw-i">Architect</div><div class="brw-i">Art</div></div></div>
+            <div><div class="brw-cat-l">Professional Services</div><div class="brw-items"><div class="brw-i">Lawyer</div><div class="brw-i">Financial Analyst</div><div class="brw-i">Consultant</div><div class="brw-i">Marketer</div><div class="brw-i">HR & Recruiter</div><div class="brw-i">Startup Founder</div></div></div>
+            <div><div class="brw-cat-l">Healthcare & Science</div><div class="brw-items"><div class="brw-i">Doctor</div><div class="brw-i">Pharmacist</div><div class="brw-i">Veterinarian</div><div class="brw-i">Researcher</div><div class="brw-i">Therapist / Coach</div></div></div>
+            <div><div class="brw-cat-l">Operations</div><div class="brw-items"><div class="brw-i">Supply Chain</div><div class="brw-i">Construction Mgr</div><div class="brw-i">Restaurant / Hotel Mgr</div><div class="brw-i">Chef</div></div></div>
+            <div><div class="brw-cat-l">Impact</div><div class="brw-items"><div class="brw-i">Educator</div><div class="brw-i">Journalist</div><div class="brw-i">Social Worker</div><div class="brw-i">NPO / NGO</div></div></div>
+          </div>
+          <div class="brw-custom"><div class="brw-custom-in">Type any profession...</div><div class="brw-custom-btn">Generate with AI ✦</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="mock-label">Explore Professions — Categorized, searchable, with custom AI generation</div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════ 09 AGENTIC AI ARCHITECTURE ═══════ -->
+<section class="s fu">
+  <div class="s-label">Agentic AI — Technical Architecture</div>
+  <h2 class="s-title">The technical reality behind <span class="a">D.AI's personas.</span></h2>
+  <p>Each persona in D.AI is a pre-configured AI agent. Here is exactly what that means under the hood:</p>
+
+  <div class="nb-quote">
+    <p>"Basically a JD for AI agents — what the agent is (role, persona, expertise), what it should & shouldn't do, how it behaves at edge cases, what tone, format & style to use."</p>
+    <cite>— Notebook, Page 7 · System Prompt Engineering</cite>
+  </div>
+
+  <div class="arch" style="margin-top:32px">
+    <div class="arch-row">
+      <div class="arch-node"><div class="icon">🧠</div><div class="a-label">01</div><div class="a-title">The Model (Brain)</div><div class="a-desc">D.AI's model powers reasoning. Reads the situation, decides what to do next at every step.</div></div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node"><div class="icon">🔧</div><div class="a-label">02</div><div class="a-title">Tools (Hands)</div><div class="a-desc">Without tools, models only generate text. Tools let agents act — search, code exec, API calls.</div></div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node"><div class="icon">💾</div><div class="a-label">03</div><div class="a-title">Memory</div><div class="a-desc">In-context window, external database, episodic history. Agents remember across steps.</div></div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node"><div class="icon">🔄</div><div class="a-label">04</div><div class="a-title">The Loop (ReAct)</div><div class="a-desc">Observe → Reason → Act → Repeat. Agents loop until the goal is done.</div></div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node"><div class="icon">📋</div><div class="a-label">05</div><div class="a-title">System Prompt</div><div class="a-desc">The agent's job description — role, expertise, guardrails, tone, edge cases.</div></div>
+    </div>
+
+    <div class="arch-abstracts">
+      <h4>D.AI abstracts all of this.</h4>
+      <div class="abs-steps">
+        <div class="abs-step"><div class="num">01</div>You select a profession — Lawyer, Engineer, Doctor...</div>
+        <div class="abs-step"><div class="num">02</div>System prompt loads silently — role + expertise + guardrails pre-written</div>
+        <div class="abs-step"><div class="num">03</div>Tools are pre-assigned — Westlaw for lawyers, GitHub for devs</div>
+        <div class="abs-step"><div class="num">04</div>Memory is pre-configured — no user setup required</div>
+        <div class="abs-step"><div class="num">05</div>Smart Prompts appear — pre-engineered triggers, ready to click</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nb-quote" style="margin-top:28px">
+    <p>"Building & configuring an agent requires knowing what tools to give it, how to write a system prompt, what memory it needs. D.AI abstracts all of that. The lawyer just picks 'Lawyer' and it's done."</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════ 10 MULTI-AGENT ORCHESTRATION ═══════ -->
+<section class="s fu">
+  <div class="s-label">Multi-Agent Orchestration</div>
+  <h2 class="s-title">One goal. Many agents.<br><span class="a">One answer.</span></h2>
+  <p>When you send a request, D.AI's Orchestrator reads intent, decomposes the task into subtasks, and dispatches specialist agents in parallel. They report independently. It synthesizes one clean answer.</p>
+
+  <div class="orch">
+    <div class="orch-prompt">
+      <div class="avatar">U</div>
+      <div class="msg">"Do a full review of this contract"</div>
+    </div>
+
+    <div class="orch-flow">
+      <div class="orch-step"><div class="o-dot">01</div><div class="o-content"><h4>Orchestrator receives & classifies</h4><p>Reads task. Decides: complex multi-part → 3 agents needed in parallel.</p></div></div>
+      <div class="orch-step"><div class="o-dot">02</div><div class="o-content"><h4>3 specialist agents fire simultaneously</h4><p>Risk Flagging · Compliance AI · Contract AI — all run at once. No sequential blocking.</p></div></div>
+      <div class="orch-step"><div class="o-dot">03</div><div class="o-content"><h4>Each agent reports independently</h4><p>Results returned to Orchestrator. It reads all outputs, resolves conflicts.</p></div></div>
+      <div class="orch-step"><div class="o-dot">04</div><div class="o-content"><h4>Synthesized answer delivered</h4><p>One unified response: risks ranked, gaps listed, redlines ready.</p></div></div>
+    </div>
+
+    <div class="orch-agents">
+      <div class="orch-agent"><h5>Risk Flagging</h5><p>Scans 47 clauses for liability exposure</p><div class="result">→ 4 high-risk: §7.2 §11 §14 §19</div></div>
+      <div class="orch-agent"><h5>Compliance AI</h5><p>Cross-refs GDPR & CCPA requirements</p><div class="result">→ 3 compliance gaps found</div></div>
+      <div class="orch-agent"><h5>Contract AI</h5><p>Drafts suggested redline edits</p><div class="result">→ 7 redlines with rationale</div></div>
+    </div>
+
+    <div class="orch-synth">
+      <h4>Synthesized Response</h4>
+      <p>4 high-risk clauses · 3 compliance gaps · 7 redlines ready for download. D.AI makes this invisible — one click → parallel agents → one synthesized answer.</p>
+    </div>
+  </div>
+
+  <h3 style="font-family:var(--font-h);font-size:24px;color:#fff;margin-top:48px;margin-bottom:16px;font-weight:400">How the Orchestrator decides.</h3>
+  <p>Not a router — a reasoner. The user just types. The Orchestrator autonomously reads intent, decomposes the task, selects agents, decides parallel vs. sequential, and synthesizes one answer.</p>
+
+  <div class="arch" style="margin-top:24px">
+    <div class="arch-row">
+      <div class="arch-node"><div class="a-label">01</div><div class="a-title">Intent Classification</div><div class="a-desc">Simple Q? → direct answer. Complex multi-part? → decompose.</div></div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node"><div class="a-label">02</div><div class="a-title">Task Decomposition</div><div class="a-desc">Breaks goal into discrete subtasks. Maps each to an agent.</div></div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node"><div class="a-label">03</div><div class="a-title">Parallel vs. Sequential</div><div class="a-desc">Independent → fire all at once. Dependent → chain them.</div></div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node"><div class="a-label">04</div><div class="a-title">Agent Selection</div><div class="a-desc">Matches subtasks to available agents for this persona.</div></div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node"><div class="a-label">05</div><div class="a-title">Synthesis</div><div class="a-desc">Reads all outputs. Resolves conflicts. Structures by priority.</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════ 11 COMPETITIVE ANALYSIS ═══════ -->
+<section class="s fu">
+  <div class="s-label">Competitive Differentiation</div>
+  <h2 class="s-title">Not a better chatbot.<br>A <span class="a">different product category.</span></h2>
+
+  <div style="overflow-x:auto;margin-top:28px">
+    <table class="comp-table">
+      <thead>
+        <tr><th>Dimension</th><th>Generic AI Tools</th><th>D.AI</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Interface</td><td>Same for everyone</td><td>Transforms per profession — color, font, layout, tone</td></tr>
+        <tr><td>Agents</td><td>User picks from a list or builds from scratch</td><td>Orchestrator decides autonomously based on task</td></tr>
+        <tr><td>Prompts</td><td>Start from blank input</td><td>Pre-engineered Smart Prompt Starters per profession</td></tr>
+        <tr><td>Integrations</td><td>Generic connectors (user configures)</td><td>Role-specific tools pre-connected (Westlaw, Epic, Bloomberg)</td></tr>
+        <tr><td>Memory</td><td>Session only or basic recall</td><td>Persistent, profession-aware context that compounds</td></tr>
+        <tr><td>Team</td><td>Shared workspace only</td><td>Per-persona + shared team memory + collaborative projects</td></tr>
+        <tr><td>Custom AI</td><td>Prompt engineering required</td><td>Auto-generated full persona via D.AI's model — one input</td></tr>
+        <tr><td>Configuration</td><td>User builds everything</td><td>Zero-config — pick profession, start working</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════ 12 TEAM WORKSPACE ═══════ -->
+<section class="s fu">
+  <div class="s-label">Team Workspace</div>
+  <h2 class="s-title">Built for how teams <span class="a">actually work.</span></h2>
+  <p>Shared memory, collaborative projects, and live agent activity — every member in their own persona, all synced to the same team context.</p>
+
+  <div class="mock">
+    <div class="mock-f">
+      <div class="mock-bar"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div><span>d.ai / team workspace</span></div>
+      <div class="mock-b">
+        <div class="team-mock">
+          <div class="tm-header"><h3>Team Workspace</h3><div class="tm-pills"><div class="tm-pill">+ Invite</div><div class="tm-pill">Projects</div><div class="tm-pill">Settings</div></div></div>
+          <div class="tm-grid">
+            <div class="tm-col">
+              <h4>Team · 5 Members</h4>
+              <div class="tm-member"><div class="av" style="background:var(--cyan)">AM</div><div class="info"><div class="name">Arjun Mehta</div><div class="role">Engineer · 142 queries</div></div></div>
+              <div class="tm-member"><div class="av" style="background:var(--pink)">SR</div><div class="info"><div class="name">Sofia Reyes</div><div class="role">Designer · 98 queries</div></div></div>
+              <div class="tm-member"><div class="av" style="background:var(--amber)">JO</div><div class="info"><div class="name">James O'Brien</div><div class="role">Lawyer · 67 queries</div></div></div>
+              <div class="tm-member"><div class="av" style="background:var(--green)">PN</div><div class="info"><div class="name">Priya Nair</div><div class="role">Analyst · 211 queries</div></div></div>
+              <div class="tm-member"><div class="av" style="background:var(--purple)">DC</div><div class="info"><div class="name">David Chen</div><div class="role">PM · 55 queries</div></div></div>
+            </div>
+            <div class="tm-col">
+              <h4>Shared Projects</h4>
+              <div class="tm-project"><div class="pname">Q4 Product Launch</div><div class="pstatus active">Active</div></div>
+              <div class="tm-project"><div class="pname">Contract Review v2</div><div class="pstatus active">Active</div></div>
+              <div class="tm-project"><div class="pname">Brand Audit 2025</div><div class="pstatus review">Review</div></div>
+              <div class="tm-project"><div class="pname">Series B Materials</div><div class="pstatus" style="background:#111;color:var(--txt-dim)">Draft</div></div>
+            </div>
+            <div class="tm-col">
+              <h4>Live Agent Activity</h4>
+              <div class="tm-activity"><div class="av-sm" style="background:var(--cyan)">AM</div><div class="act-text">Code Review: 2 issues in PR</div><div class="act-time">now</div></div>
+              <div class="tm-activity"><div class="av-sm" style="background:var(--green)">PN</div><div class="act-text">Earnings AI: Q3 18% beat</div><div class="act-time">3m</div></div>
+              <div class="tm-activity"><div class="av-sm" style="background:var(--pink)">SR</div><div class="act-text">UX Critic: 7 a11y issues</div><div class="act-time">11m</div></div>
+              <div class="tm-activity"><div class="av-sm" style="background:var(--amber)">JO</div><div class="act-text">Contract AI: Risk report ready</div><div class="act-time">22m</div></div>
+              <div class="tm-activity"><div class="av-sm" style="background:var(--purple)">DC</div><div class="act-text">Doc Writer: PRD v3 complete</div><div class="act-time">1h</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mock-label">Team Workspace — Shared Memory, Per-Persona Agents, Live Activity</div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════ 13 ENTERPRISE ═══════ -->
+<section class="s fu">
+  <div class="s-label">Enterprise Dashboard</div>
+  <h2 class="s-title">Command center for <span class="a">AI at scale.</span></h2>
+
+  <div class="mock">
+    <div class="mock-f">
+      <div class="mock-bar"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div><span>d.ai enterprise · org dashboard</span></div>
+      <div class="mock-b">
+        <div class="ent-mock">
+          <div class="ent-top">
+            <h3>Acme Corp · 1,247 users</h3>
+            <div class="ent-badges"><div class="ent-badge">SOC 2 ✓</div><div class="ent-badge">GDPR ✓</div><div class="ent-badge">HIPAA ✓</div></div>
+          </div>
+          <div class="ent-stats">
+            <div class="ent-stat"><div class="en">1,247 <span class="eg">+12%</span></div><div class="el">Active Users</div></div>
+            <div class="ent-stat"><div class="en">8,940 <span class="eg">+34%</span></div><div class="el">Queries / Day</div></div>
+            <div class="ent-stat"><div class="en">23.1K <span class="eg">+61%</span></div><div class="el">Agent Calls / Day</div></div>
+            <div class="ent-stat"><div class="en">2.4h</div><div class="el">Avg Time Saved / User</div></div>
+          </div>
+          <div class="ent-bottom">
+            <div>
+              <div style="font-family:var(--font-m);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--txt-xdim);margin-bottom:12px">Department Usage</div>
+              <div class="ent-dept"><div class="dept-name">Engineering</div><div class="dept-bar"><div class="fill" style="width:85%"></div></div><div class="dept-pct">85%</div></div>
+              <div class="ent-dept"><div class="dept-name">Finance</div><div class="dept-bar"><div class="fill" style="width:91%"></div></div><div class="dept-pct">91%</div></div>
+              <div class="ent-dept"><div class="dept-name">Design</div><div class="dept-bar"><div class="fill" style="width:74%"></div></div><div class="dept-pct">74%</div></div>
+              <div class="ent-dept"><div class="dept-name">Legal</div><div class="dept-bar"><div class="fill" style="width:62%"></div></div><div class="dept-pct">62%</div></div>
+              <div class="ent-dept"><div class="dept-name">Operations</div><div class="dept-bar"><div class="fill" style="width:48%"></div></div><div class="dept-pct">48%</div></div>
+            </div>
+            <div>
+              <div style="font-family:var(--font-m);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--txt-xdim);margin-bottom:12px">Compliance & Security</div>
+              <div class="sp-prof" style="padding:0;background:transparent;border:none">
+                <div class="sp-item" style="display:flex;justify-content:space-between">SSO / SAML 2.0 <span style="color:var(--green)">ACTIVE</span></div>
+                <div class="sp-item" style="display:flex;justify-content:space-between">SOC 2 Type II <span style="color:var(--green)">ACTIVE</span></div>
+                <div class="sp-item" style="display:flex;justify-content:space-between">GDPR Residency <span style="color:var(--green)">ACTIVE</span></div>
+                <div class="sp-item" style="display:flex;justify-content:space-between">HIPAA Controls <span style="color:var(--green)">ACTIVE</span></div>
+                <div class="sp-item" style="display:flex;justify-content:space-between">Audit Log Export <span style="color:var(--green)">ACTIVE</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mock-label">Enterprise Dashboard — Org Analytics, Compliance, Custom Agents</div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════ 14 BUSINESS MODEL ═══════ -->
+<section class="s fu">
+  <div class="s-label">Business Model</div>
+  <h2 class="s-title">Built for <span class="a">AI-era monetization.</span></h2>
+
+  <div class="nb-quote">
+    <p>"Agent gets better eventually using memory, inputs and all."</p>
+    <cite>— Notebook, Page 2</cite>
+  </div>
+
+  <div class="pricing">
+    <div class="price-card"><div class="tier">Free</div><div class="price">$0</div><ul class="feats"><li>3 personas</li><li>Basic smart prompts</li><li>Standard agents</li><li>Community integrations</li></ul></div>
+    <div class="price-card popular"><div class="tier">Pro</div><div class="price">$**/mo</div><ul class="feats"><li>All professional personas</li><li>Smart Prompt Starters</li><li>Full Pro Agents suite</li><li>Priority integrations</li><li>Custom persona generator</li></ul></div>
+    <div class="price-card"><div class="tier">Team</div><div class="price">$**/seat</div><ul class="feats"><li>Everything in Pro</li><li>Shared prompt libraries</li><li>Team workspace</li><li>Admin dashboard</li><li>SSO + audit logs</li></ul></div>
+    <div class="price-card"><div class="tier">Enterprise</div><div class="price">Custom</div><ul class="feats"><li>White-label UI</li><li>Custom model routing</li><li>Multi-agent orchestration</li><li>Full API access</li><li>SLA guarantee</li></ul></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════ 16 USER IMPACT ═══════ -->
+<section class="s fu">
+  <div class="s-label">User Impact</div>
+  <h2 class="s-title">Faster to value. <span class="a">Designed by design.</span></h2>
+
+  <div class="impact">
+    <div class="imp"><div class="imp-n" style="color:var(--purple)">4.2×</div><div class="imp-l">Faster to first useful output</div><div class="imp-d">Smart Prompt Starters eliminate the blank-slate effect. One click vs. 3 minutes of prompt engineering.</div></div>
+    <div class="imp"><div class="imp-n" style="color:var(--cyan)">91%</div><div class="imp-l">Felt the UI "understood" them</div><div class="imp-d">vs. 34% with generic AI interfaces. Persona-first design creates immediate recognition.</div></div>
+    <div class="imp"><div class="imp-n" style="color:var(--amber)">✦</div><div class="imp-l">Every profession, fully configured</div><div class="imp-d">Top professions pre-built with unique theme, agents, smart prompts, and integrations. Any unlisted role generated by AI on demand.</div></div>
+    <div class="imp"><div class="imp-n" style="color:var(--pink)">∞</div><div class="imp-l">Custom personas via D.AI's model</div><div class="imp-d">Enter any profession → D.AI generates a unique environment. Product grows without manual effort.</div></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════ 17 DESIGN THINKING ═══════ -->
+<section class="s fu" style="counter-reset:phil">
+  <div class="s-label">Design Thinking</div>
+  <h2 class="s-title">This is how <span class="a">I think.</span></h2>
+
+  <div class="phil-grid">
+    <div class="phil"><h4>I start with the real person, not the feature.</h4><p>Before any pixel — who is overwhelmed and why? The insight came from observing how AI tools treat a doctor and a developer identically.</p></div>
+    <div class="phil"><h4>I think in systems, not screens.</h4><p>D.AI is an identity layer, not a theme switcher. The persona engine, the agent model, the integration logic — designed as a coherent system from the notebook up.</p></div>
+    <div class="phil"><h4>I build to validate, not to present.</h4><p>A working React prototype with live API calls, fully-realized personas, and a custom AI generator — because you earn the right to pitch by building first.</p></div>
+    <div class="phil"><h4>I design for the industry I want to work in.</h4><p>AI interfaces are the defining UX challenge of this decade. D.AI is my proof that I understand the space — technically, strategically, and visually.</p></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════ CLOSING ═══════ -->
+<section class="s fu" style="text-align:center;padding:120px 24px">
+  <div style="margin-bottom:24px">
+    <svg viewBox="0 0 48 48" fill="none" width="56" height="56" style="margin:0 auto"><rect x="8" y="8" width="32" height="32" rx="2" stroke="#a882ff" stroke-width="1.5" transform="rotate(45 24 24)" fill="none"/><rect x="14" y="14" width="20" height="20" rx="1.5" stroke="#ff64c8" stroke-width="1" transform="rotate(45 24 24)" fill="none" opacity=".6"/><circle cx="24" cy="24" r="3" fill="#a882ff"/></svg>
+  </div>
+  <h2 style="font-family:var(--font-h);font-size:clamp(36px,6vw,64px);color:#fff;font-weight:400;line-height:1.1;margin-bottom:12px">
+    the ai that<br><span style="background:linear-gradient(135deg,var(--purple),var(--pink),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">becomes you.</span>
+  </h2>
+  <p style="max-width:600px;margin:20px auto 0;color:var(--txt-dim);font-size:15px">Built from a blank notebook page to a working product. </p>
+  <p style="max-width:600px;margin:12px auto 0;color:var(--txt-xdim);font-size:13px">Problem → Research → Architecture → Prototype → Impact.</p>
+</section>
+
+<!-- ═══════ FOOTER ═══════ -->
+<footer class="cs-footer">
+  <p>Designed by <a href="/">Dheeraj Allu</a> · 2025</p>
+</footer>
+
+<!-- ═══════ JS ═══════ -->
+<script>
+// Scroll reveal
+const obs=new IntersectionObserver(e=>{e.forEach(el=>{if(el.isIntersecting)el.target.classList.add('vis')})},{threshold:.08});
+document.querySelectorAll('.fu').forEach(el=>obs.observe(el));
+
+// Nav scroll
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>60)});
+
+// Remove .html
+window.history.replaceState(null,null,window.location.pathname.replace(/\.html/g,''));
+</script>
+
+</body>
+</html>

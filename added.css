@@ -1612,3 +1612,145 @@ section {
 .big-title {
   margin-bottom: 40px;
 }
+.cs-showcase {
+    padding: 80px 20px 100px;
+    background: #0b0b0b;
+}
+
+.cs-grid {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.35fr 1fr;
+    grid-template-rows: 290px 290px;
+    gap: 24px;
+}
+
+.cs-card {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    border-radius: 28px;
+    background: #121212;
+    text-decoration: none;
+    box-shadow: 0 18px 60px rgba(0, 0, 0, 0.35);
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.cs-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 28px 80px rgba(0, 0, 0, 0.45);
+}
+
+.cs-card-large {
+    grid-row: span 2;
+    min-height: 604px;
+}
+
+.cs-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transform: scale(1.01);
+    transition: transform 0.45s ease;
+}
+
+.cs-card:hover .cs-card-img {
+    transform: scale(1.06);
+}
+
+.cs-card-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(to top, rgba(0,0,0,0.78) 8%, rgba(0,0,0,0.20) 45%, rgba(0,0,0,0.06) 100%);
+}
+
+.cs-card-content {
+    position: absolute;
+    left: 28px;
+    right: 28px;
+    bottom: 28px;
+    z-index: 2;
+    color: #fff;
+}
+
+.cs-tag {
+    display: inline-block;
+    margin-bottom: 12px;
+    padding: 7px 12px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.10);
+    backdrop-filter: blur(10px);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #f2f2f2;
+}
+
+.cs-card-content h2 {
+    margin: 0 0 8px;
+    font-size: 34px;
+    font-weight: 600;
+    line-height: 1.05;
+    color: #fff;
+}
+
+.cs-card-content p {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.82);
+}
+
+.cs-card:not(.cs-card-large) .cs-card-content h2 {
+    font-size: 28px;
+}
+
+@media (max-width: 991px) {
+    .cs-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+    }
+
+    .cs-card-large {
+        grid-row: auto;
+        min-height: 420px;
+    }
+
+    .cs-card {
+        min-height: 320px;
+    }
+}
+
+@media (max-width: 576px) {
+    .cs-showcase {
+        padding: 56px 14px 80px;
+    }
+
+    .cs-grid {
+        gap: 18px;
+    }
+
+    .cs-card,
+    .cs-card-large {
+        min-height: 260px;
+        border-radius: 22px;
+    }
+
+    .cs-card-content {
+        left: 20px;
+        right: 20px;
+        bottom: 20px;
+    }
+
+    .cs-card-content h2 {
+        font-size: 24px;
+    }
+
+    .cs-card-content p {
+        font-size: 14px;
+    }
+}
