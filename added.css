@@ -1904,3 +1904,187 @@ section {
     display: block !important;
   }
 }
+/* =========================
+   HOME CONTACT MOBILE FIX
+   ========================= */
+@media only screen and (max-width: 767px) {
+  .contact-background {
+    height: auto !important;
+    min-height: unset !important;
+    padding: 0 !important;
+    border-radius: 28px !important;
+    display: block !important;
+    overflow: hidden !important;
+    margin: 0 14px 48px !important;
+  }
+
+  .contact-card {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 26px 18px !important;
+    box-sizing: border-box !important;
+  }
+
+  .contact-left,
+  .contact-right {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .contact-title {
+    font-size: 28px !important;
+    line-height: 1.08 !important;
+    word-break: break-word;
+  }
+
+  .contact-sub {
+    font-size: 15px !important;
+    line-height: 1.65 !important;
+    max-width: 100% !important;
+  }
+
+  .contact-actions {
+    width: 100% !important;
+    align-items: stretch !important;
+  }
+
+  .glossy-pill {
+    width: 100% !important;
+    max-width: 100% !important;
+    justify-content: flex-start !important;
+    padding: 0 16px !important;
+    box-sizing: border-box !important;
+    white-space: normal !important;
+  }
+
+  .pill-text {
+    overflow-wrap: anywhere;
+  }
+}
+/* =========================
+   CASE STUDIES HERO MOBILE FIX
+   ========================= */
+@media only screen and (max-width: 767px) {
+  .main_banner.banner_bg_2 {
+    height: auto !important;
+    min-height: auto !important;
+    padding-top: 90px !important;
+    padding-bottom: 30px !important;
+  }
+
+  .title-left-align {
+    padding-bottom: 0 !important;
+    vertical-align: top !important;
+  }
+
+  .main_banner .col-md-8,
+  .main_banner .col-md-4,
+  .main_banner .col-md-12 {
+    width: 100% !important;
+    float: none !important;
+    padding-top: 0 !important;
+    text-align: center !important;
+  }
+
+  .main_banner .banner_content {
+    position: static !important;
+    top: auto !important;
+    text-align: left !important;
+    padding: 0 18px !important;
+  }
+
+  .main_banner h2.cd-headline,
+  .main_banner h2.cd-headline span {
+    font-size: 22px !important;
+    line-height: 1.35 !important;
+    display: block;
+  }
+
+  .main_banner .sm_title {
+    font-size: 14px !important;
+    line-height: 1.7 !important;
+    display: block;
+  }
+
+  .main_banner .col-md-4 img {
+    width: 68% !important;
+    max-width: 220px !important;
+    height: auto !important;
+    display: block;
+    margin: 18px auto 8px !important;
+  }
+
+  .main_banner .col-md-12 .banner_content {
+    text-align: center !important;
+    padding: 0 !important;
+  }
+
+  .main_banner .col-md-12 .banner_content img {
+    width: 70% !important;
+    max-width: 240px !important;
+    opacity: 0.55;
+    margin-top: 10px !important;
+  }
+}
+/* =========================
+   HOME MID-SECTION MOBILE FIX
+   ========================= */
+@media only screen and (max-width: 767px) {
+  #b {
+    padding: 0 14px 10px !important;
+  }
+
+  .moto {
+    display: none !important;
+  }
+
+  .moto_heading {
+    width: 100% !important;
+    min-height: auto !important;
+    text-align: center !important;
+  }
+
+  .passion {
+    position: relative !important;
+    top: auto !important;
+    transform: none !important;
+    margin: 0 auto 10px !important;
+    display: block !important;
+  }
+
+  .passion img {
+    width: 92% !important;
+    max-width: 340px !important;
+    height: auto !important;
+    opacity: 0.35;
+    margin: 0 auto !important;
+    display: block;
+  }
+
+  .b {
+    width: 100% !important;
+    float: none !important;
+    text-align: center !important;
+    margin-top: 6px !important;
+  }
+
+  .avatar,
+  .avatar-left {
+    width: 100% !important;
+    float: none !important;
+  }
+
+  .avatar svg,
+  .avatar img {
+    width: 68% !important;
+    max-width: 230px !important;
+    height: auto !important;
+    display: block;
+    margin: 0 auto !important;
+  }
+
+  #Discover {
+    padding-top: 20px !important;
+  }
+}
