@@ -2164,3 +2164,39 @@ section {
     margin-bottom: 6px !important;
   }
 }
+/* ===== HERO SIZE RESTORE (mobile) ===== */
+@media only screen and (max-width: 767px) {
+
+  /* restore hero height so particles fill screen */
+  #home.main_banner {
+    min-height: 78vh !important;
+    padding-top: 110px !important;
+    padding-bottom: 40px !important;
+  }
+
+  /* make particles fill hero again */
+  #particlesJs,
+  #home canvas {
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  /* restore main headline size */
+  #home .hero-title,
+  #home .banner_content h1 {
+    font-size: 40px !important;
+    line-height: 1.1 !important;
+  }
+
+  /* restore secondary text */
+  #home .sub_title,
+  #home .sub_title span {
+    font-size: 13px !important;
+    letter-spacing: 0.14em !important;
+  }
+
+  /* give LinkedIn button proper spacing */
+  #home .hero-in {
+    margin-top: 20px !important;
+  }
+}
