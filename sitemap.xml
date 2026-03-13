@@ -8,9 +8,9 @@
         <priority>1.0</priority>
     </url>
 
-    <!-- Case Studies Page -->
+    <!-- work Page -->
     <url>
-        <loc>https://dheerajallu.art/casestudies</loc>
+        <loc>https://dheerajallu.art/work</loc>
         <lastmod>2023-11-29</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
@@ -24,9 +24,9 @@
         <priority>0.7</priority>
     </url>
 
-    <!-- Resume Page -->
+    <!-- about Page -->
     <url>
-        <loc>https://dheerajallu.art/resume</loc>
+        <loc>https://dheerajallu.art/about</loc>
         <lastmod>2023-11-29</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
