@@ -2124,3 +2124,18 @@ section {
     margin-top: 20px !important;
   }
 }
+/* ===== MOBILE: SKIP HERO AND GO DIRECTLY TO WORK ===== */
+@media only screen and (max-width: 767px) {
+  #home,
+  #b {
+    display: none !important;
+  }
+
+  #Discover {
+    padding-top: 110px !important;
+  }
+
+  .navbar-default {
+    background: #000 !important;
+  }
+}
