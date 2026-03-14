@@ -1,0 +1,1627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta name="title" content="Enterprise Tech Landscape — Dheeraj Allu" />
+  <meta name="description" content="Enterprise Tech Landscape — a premium research-led case study by Dheeraj Allu exploring modern enterprise systems and what they mean for UX." />
+  <meta name="robots" content="index, follow" />
+  <title>Enterprise Tech Landscape — Dheeraj Allu</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png?v=2" />
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
+  <link href="css/plugins.css" rel="stylesheet" />
+  <link href="css/responsive.css" rel="stylesheet" />
+  <link href="css/style.css" rel="stylesheet" />
+  <link href="css/design-demos.css" rel="stylesheet" />
+  <link rel="stylesheet" href="added.css" />
+
+  <style>
+    :root {
+      --bg: #04060b;
+      --bg-2: #090d14;
+      --panel: rgba(255,255,255,0.045);
+      --panel-2: rgba(255,255,255,0.07);
+      --border: rgba(255,255,255,0.09);
+      --text: #f8fbff;
+      --muted: rgba(248,251,255,0.72);
+      --soft: rgba(248,251,255,0.5);
+      --teal: #67e8d8;
+      --blue: #9fc4ff;
+      --violet: #b39bff;
+      --amber: #ffd38a;
+      --shadow: 0 24px 80px rgba(0,0,0,0.42);
+      --shadow-hover: 0 28px 90px rgba(0,0,0,0.46);
+      --radius: 28px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Josefin Sans', sans-serif !important;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 0% 0%, rgba(103,232,216,0.09), transparent 24%),
+        radial-gradient(circle at 100% 0%, rgba(159,196,255,0.11), transparent 26%),
+        radial-gradient(circle at 50% 20%, rgba(179,155,255,0.08), transparent 28%),
+        linear-gradient(180deg, #03050a 0%, #070a11 48%, #04060b 100%);
+      overflow-x: hidden;
+    }
+
+    .preloader.dark_preloader { background: #05060a; }
+
+    .navbar-default {
+      background: rgba(5,8,13,0.7) !important;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255,255,255,0.08) !important;
+    }
+
+    .navbar-default .navbar-nav > li > a,
+    .navbar-default .navbar-brand { color: #fff !important; }
+
+    .navbar-default .navbar-nav > .active > a,
+    .navbar-default .navbar-nav > .active > a:focus,
+    .navbar-default .navbar-nav > .active > a:hover {
+      background: transparent !important;
+      color: var(--teal) !important;
+    }
+
+    .nav-logo { height: 34px; width: auto; }
+
+    .case-page { padding-top: 92px; }
+    .shell { width: 100%; max-width: 1240px; margin: 0 auto; padding: 0 24px; }
+
+    .hero {
+      position: relative;
+      padding: 92px 0 76px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .eyebrow,
+    .section-kicker {
+      display: inline-block;
+      color: var(--teal);
+      font-size: 13px;
+      letter-spacing: 2.2px;
+      text-transform: uppercase;
+    }
+
+    .eyebrow { margin-bottom: 18px; }
+    .section-kicker { margin-bottom: 12px; }
+
+    .hero h1 {
+      margin: 0 0 18px;
+      font-size: clamp(52px, 8vw, 92px);
+      line-height: 0.94;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .hero-lead {
+      max-width: 720px;
+      font-size: 20px;
+      line-height: 1.75;
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .pill {
+      padding: 11px 15px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.035);
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .hero-panel,
+    .panel {
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,0.055), rgba(255,255,255,0.028));
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-panel {
+      padding: 26px;
+      position: relative;
+      overflow: hidden;
+      min-height: 100%;
+    }
+
+    .hero-panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(135deg, rgba(159,196,255,0.08), transparent 40%),
+        radial-gradient(circle at 80% 20%, rgba(103,232,216,0.13), transparent 25%);
+      pointer-events: none;
+    }
+
+    .hero-panel > * { position: relative; z-index: 1; }
+
+    .panel-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 26px;
+    }
+
+    .panel-label {
+      color: var(--soft);
+      text-transform: uppercase;
+      letter-spacing: 1.8px;
+      font-size: 12px;
+    }
+
+    .metric {
+      width: 76px;
+      height: 76px;
+      border-radius: 20px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.05);
+      color: #fff;
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    .stack-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .stack-chip {
+      min-height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.04);
+      color: #fff;
+      font-size: 18px;
+    }
+
+    .hero-note {
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      color: var(--muted);
+      line-height: 1.75;
+      font-size: 18px;
+    }
+
+    .section {
+      padding: 84px 0;
+      position: relative;
+    }
+
+    .section-head { margin-bottom: 34px; }
+
+    .section-title {
+      margin: 0 0 12px;
+      font-size: clamp(34px, 4vw, 56px);
+      line-height: 1.08;
+      color: #fff;
+    }
+
+    .section-copy {
+      max-width: 860px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.78;
+    }
+
+    .contents {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0,1fr));
+      gap: 18px;
+    }
+
+    .mini-card,
+    .system-card,
+    .insight-card,
+    .takeaway,
+    .design-card,
+    .stat-card,
+    .signal-card,
+    .journey-card,
+    .trade-card {
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.035);
+      border-radius: 24px;
+      padding: 22px;
+      box-shadow: var(--shadow);
+      transition: transform .28s ease, border-color .28s ease, background .28s ease, box-shadow .28s ease;
+    }
+
+    .mini-card:hover,
+    .takeaway:hover,
+    .design-card:hover,
+    .stat-card:hover,
+    .signal-card:hover,
+    .journey-card:hover,
+    .trade-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(255,255,255,0.18);
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      box-shadow: var(--shadow-hover);
+    }
+
+    .mini-card .num,
+    .takeaway .num,
+    .design-card .num {
+      color: var(--teal);
+      font-size: 12px;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+
+    .mini-card strong,
+    .takeaway h4,
+    .design-card h4,
+    .signal-card strong,
+    .journey-card strong {
+      display: block;
+      color: #fff;
+      font-size: 22px;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+
+    .mini-card span,
+    .takeaway p,
+    .design-card p,
+    .stat-card p,
+    .signal-card p,
+    .journey-card p {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 22px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 18px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 18px; }
+    .grid-5 { display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap: 16px; }
+    .grid-6 { display: grid; grid-template-columns: repeat(6, minmax(0,1fr)); gap: 16px; }
+
+    .panel { padding: 26px; }
+    .panel h3, .panel h4, .system-card h3, .trade-card h4 { color: #fff; }
+    .panel p, .panel li, .system-card p, .system-card span, .trade-card li { color: var(--muted); }
+    .panel h3 { margin: 0 0 10px; font-size: 28px; }
+    .panel p, .panel li { font-size: 16px; line-height: 1.75; }
+
+    .system-card {
+      padding: 26px;
+      background: linear-gradient(180deg, rgba(12,16,23,0.95), rgba(7,10,16,0.9));
+      transition: transform .28s ease, border-color .28s ease, background .28s ease, box-shadow .28s ease;
+    }
+
+    .system-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(255,255,255,0.18);
+      background: linear-gradient(180deg, rgba(16,21,30,0.98), rgba(9,13,20,0.95));
+      box-shadow: var(--shadow-hover);
+    }
+
+    .system-card .label {
+      display: inline-block;
+      color: var(--teal);
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .system-card h3 {
+      margin: 0 0 10px;
+      font-size: 28px;
+      font-weight: 600;
+    }
+
+    .system-card span {
+      display: block;
+      color: #c9d3e6;
+      margin-bottom: 14px;
+      font-size: 15px;
+    }
+
+    .flow-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .flow-item {
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.035);
+      padding: 16px 18px;
+      color: #fff;
+    }
+
+    .flow-item strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 18px;
+      color: #fff;
+    }
+
+    .arrow {
+      text-align: center;
+      color: var(--teal);
+      font-size: 24px;
+      line-height: 1;
+    }
+
+    .trade-card {
+      background: rgba(255,255,255,0.035);
+    }
+
+    .trade-tag {
+      display: inline-block;
+      color: var(--teal);
+      font-size: 12px;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .trade-card ul { list-style: none; padding: 0; margin: 0; }
+    .trade-card li { padding-left: 16px; position: relative; margin-bottom: 7px; }
+    .trade-card li::before { content: "•"; position: absolute; left: 0; color: var(--teal); }
+
+    .arch {
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      padding: 28px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      box-shadow: var(--shadow);
+    }
+
+    .arch-row-1, .arch-row-5 { display: grid; grid-template-columns: 1fr; gap: 14px; }
+    .arch-row-2, .arch-row-3 { display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap: 14px; }
+
+    .arch-box {
+      min-height: 72px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.09);
+      background: rgba(255,255,255,0.04);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 16px;
+      color: #fff;
+    }
+
+    .stack-visual {
+      border: 1px solid var(--border);
+      border-radius: 32px;
+      padding: 26px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.025));
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stack-visual::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 10% 10%, rgba(103,232,216,0.08), transparent 28%),
+        radial-gradient(circle at 90% 15%, rgba(159,196,255,0.08), transparent 30%),
+        radial-gradient(circle at 55% 100%, rgba(179,155,255,0.06), transparent 28%);
+      pointer-events: none;
+    }
+
+    .stack-visual > * { position: relative; z-index: 1; }
+
+    .stack-layer {
+      display: grid;
+      grid-template-columns: 190px 1fr 170px;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 14px;
+      min-height: 82px;
+    }
+
+    .stack-layer:last-child { margin-bottom: 0; }
+
+    .stack-layer-label,
+    .stack-layer-main,
+    .stack-layer-signal {
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
+      min-height: 82px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 16px 18px;
+      background: rgba(255,255,255,0.035);
+    }
+
+    .stack-layer-label {
+      background: linear-gradient(135deg, rgba(103,232,216,0.08), rgba(255,255,255,0.03));
+    }
+
+    .stack-layer-label span,
+    .stack-layer-signal span {
+      color: var(--soft);
+      font-size: 12px;
+      letter-spacing: 1.6px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .stack-layer-label strong,
+    .stack-layer-signal strong,
+    .stack-layer-main strong {
+      color: #fff;
+      font-size: 20px;
+      line-height: 1.2;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .stack-layer-main p,
+    .stack-layer-label p,
+    .stack-layer-signal p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .stack-link {
+      height: 22px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: var(--teal);
+      font-size: 20px;
+      letter-spacing: 4px;
+      opacity: 0.9;
+    }
+
+    .journey-map {
+      display: grid;
+      gap: 14px;
+    }
+
+    .journey-row {
+      display: grid;
+      grid-template-columns: 110px 1fr 50px 1fr 50px 1fr;
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    .journey-chip,
+    .journey-step {
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.035);
+      padding: 16px;
+    }
+
+    .journey-chip {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--teal);
+      font-size: 12px;
+      letter-spacing: 1.6px;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    .journey-step strong {
+      display: block;
+      color: #fff;
+      font-size: 18px;
+      margin-bottom: 4px;
+    }
+
+    .journey-step p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    .journey-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--teal);
+      font-size: 24px;
+    }
+
+    .enterprise-diagram {
+      border: 1px solid var(--border);
+      border-radius: 32px;
+      padding: 28px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.022));
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .enterprise-diagram::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.03) 50%, transparent 100%);
+      pointer-events: none;
+    }
+
+    .diagram-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: flex-start;
+      margin-bottom: 24px;
+    }
+
+    .diagram-head h3 {
+      margin: 0 0 8px;
+      font-size: 30px;
+      color: #fff;
+    }
+
+    .diagram-head p {
+      margin: 0;
+      max-width: 720px;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    .diagram-badge {
+      min-width: 130px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.04);
+      text-align: center;
+      color: var(--teal);
+      font-size: 12px;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+    }
+
+    .diagram-grid {
+      display: grid;
+      gap: 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .diagram-row {
+      display: grid;
+      grid-template-columns: 190px 1fr 190px;
+      gap: 16px;
+      align-items: stretch;
+    }
+
+    .diagram-side,
+    .diagram-main {
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.035);
+      padding: 18px;
+    }
+
+    .diagram-side span {
+      display: block;
+      color: var(--soft);
+      font-size: 12px;
+      letter-spacing: 1.6px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .diagram-side strong,
+    .diagram-main strong {
+      display: block;
+      color: #fff;
+      font-size: 20px;
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+
+    .diagram-side p,
+    .diagram-main p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    .diagram-main {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    .diagram-node {
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 14px;
+      background: rgba(255,255,255,0.03);
+      min-height: 88px;
+    }
+
+    .diagram-node em {
+      display: inline-block;
+      font-style: normal;
+      color: var(--teal);
+      font-size: 11px;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .diagram-node strong {
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+
+    .diagram-node p {
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .workflow { display: grid; gap: 10px; }
+
+    .workflow-step, .timeline-row {
+      display: grid;
+      grid-template-columns: 58px 1fr;
+      gap: 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 12px 0;
+    }
+
+    .workflow-step:last-child, .timeline-row:last-child { border-bottom: 0; }
+
+    .step-no, .time {
+      color: var(--teal);
+      font-size: 15px;
+      padding-top: 3px;
+    }
+
+    .workflow-step strong, .timeline-row strong {
+      display:block;
+      color:#fff;
+      margin-bottom:4px;
+      font-size:18px;
+    }
+
+    .signal-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .signal-card em {
+      display: inline-block;
+      font-style: normal;
+      color: var(--teal);
+      font-size: 12px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .stat-card {
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.028));
+    }
+
+    .stat-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 22px;
+      right: 22px;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(103,232,216,0), rgba(103,232,216,0.9), rgba(159,196,255,0.9), rgba(103,232,216,0));
+      opacity: 0.9;
+    }
+
+    .stat-card .big {
+      display: block;
+      color: #fff;
+      font-size: 44px;
+      font-weight: 700;
+      line-height: 0.95;
+      margin-bottom: 12px;
+    }
+
+    .stat-card strong {
+      display: block;
+      color: #fff;
+      font-size: 21px;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+
+    .stat-card p {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .stat-card em {
+      display: inline-block;
+      margin-top: 12px;
+      color: var(--teal);
+      font-style: normal;
+      font-size: 12px;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+    }
+
+    .closing {
+      padding: 96px 0 110px;
+    }
+
+    .closing-card {
+      border: 1px solid var(--border);
+      border-radius: 34px;
+      padding: 42px;
+      text-align: center;
+      background:
+        linear-gradient(135deg, rgba(159,196,255,0.10), rgba(103,232,216,0.08), rgba(179,155,255,0.08)),
+        rgba(255,255,255,0.03);
+      box-shadow: var(--shadow);
+    }
+
+    .closing-card .small {
+      display: inline-block;
+      color: var(--teal);
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    .closing-card h2 {
+      margin: 0 0 16px;
+      font-size: clamp(40px, 6vw, 68px);
+      line-height: 1.04;
+      color: #fff;
+    }
+
+    .closing-card p {
+      max-width: 760px;
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: 19px;
+      line-height: 1.8;
+    }
+
+    footer {
+      padding: 36px 0 50px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.65);
+      text-align: center;
+      background: transparent;
+    }
+
+    footer a { color: #fff; }
+
+    @media (max-width: 1200px) {
+      .contents, .grid-6, .grid-5 { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .grid-4 { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .signal-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 991px) {
+      .hero-grid, .grid-2, .grid-3 { grid-template-columns: 1fr; }
+      .arch-row-2, .arch-row-3 { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .stack-layer,
+      .diagram-row,
+      .journey-row {
+        grid-template-columns: 1fr;
+      }
+      .diagram-main { grid-template-columns: 1fr; }
+      .diagram-head { flex-direction: column; }
+      .journey-arrow { transform: rotate(90deg); min-height: 30px; }
+    }
+
+    @media (max-width: 767px) {
+      .case-page { padding-top: 84px; }
+      .hero { padding: 66px 0 54px; }
+      .hero-lead, .section-copy, .closing-card p { font-size: 16px; }
+      .contents, .grid-6, .grid-5, .grid-4, .arch-row-2, .arch-row-3 { grid-template-columns: 1fr; }
+      .workflow-step, .timeline-row { grid-template-columns: 1fr; gap: 8px; }
+      .shell { padding: 0 18px; }
+      .hero-panel, .panel, .closing-card, .system-card, .trade-card, .mini-card, .insight-card, .stat-card, .takeaway, .design-card, .signal-card, .journey-card, .stack-visual, .enterprise-diagram { padding: 20px; }
+    }
+  </style>
+</head>
+<body data-spy="scroll" data-target=".navbar" data-offset="70">
+  <div class="preloader dark_preloader">
+    <div class="spinner">
+      <div class="double-bounce1"></div>
+      <div class="double-bounce2"></div>
+    </div>
+  </div>
+
+  <div class="navbar navbar-default navbar-fixed-top menu-top dark_bg_menu" style="font-family: 'Josefin Sans', sans-serif !important">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a href="/" class="navbar-brand top-name-title">
+          <img src="pics/home/favicon.png" alt="Dheeraj Allu Logo" class="nav-logo">
+        </a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="/" class="smoothScroll">Home</a></li>
+          <li class="active"><a href="work.html" class="smoothScroll">Work</a></li>
+          <li><a href="about.html" class="smoothScroll">About</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <main class="case-page">
+    <section class="hero">
+      <div class="shell">
+        <div class="hero-grid">
+          <div>
+            <span class="eyebrow">Research · UX · 2026</span>
+            <h1>Enterprise<br>Tech<br>Landscape</h1>
+            <p class="hero-lead">How companies build, run, and sell software — and what that means for the people designing enterprise experiences.</p>
+            <div class="pill-row">
+              <span class="pill">Enterprise UX Research</span>
+              <span class="pill">Systems Thinking</span>
+              <span class="pill">SaaS · ERP · CRM · SRE · AIOps</span>
+            </div>
+          </div>
+
+          <div class="hero-panel">
+            <div class="panel-top">
+              <div>
+                <div class="panel-label">Core vocabulary</div>
+                <h3 style="margin:8px 0 0; font-size:32px; color:#fff;">Understanding the modern enterprise stack</h3>
+              </div>
+              <div class="metric">08</div>
+            </div>
+
+            <div class="stack-grid">
+              <div class="stack-chip">SaaS</div>
+              <div class="stack-chip">PaaS</div>
+              <div class="stack-chip">IaaS</div>
+              <div class="stack-chip">ERP</div>
+              <div class="stack-chip">CRM</div>
+              <div class="stack-chip">SRE</div>
+              <div class="stack-chip">AIOps</div>
+              <div class="stack-chip">UX</div>
+            </div>
+
+            <div class="hero-note">Enterprise UX is not just about the interface people see. It is about reducing complexity across systems, workflows, data relationships, and the invisible architecture underneath them.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <span class="section-kicker">Contents</span>
+          <h2 class="section-title">What this research covers</h2>
+          <p class="section-copy">This study maps the enterprise landscape from software delivery models to business systems, engineering architecture, observability, and finally the design implications for people working across all of it.</p>
+        </div>
+        <div class="contents">
+          <div class="mini-card"><span class="num">01</span><strong>Software Delivery Models</strong><span>SaaS, PaaS, IaaS, XaaS and why SaaS dominates.</span></div>
+          <div class="mini-card"><span class="num">02</span><strong>Enterprise Systems</strong><span>ERP, CRM, HCM, SCM and how they interact.</span></div>
+          <div class="mini-card"><span class="num">03</span><strong>Engineering & Architecture</strong><span>DevOps, SRE, monoliths, microservices, serverless.</span></div>
+          <div class="mini-card"><span class="num">04</span><strong>Observability & Ops</strong><span>Logs, metrics, traces, AIOps, incident workflows.</span></div>
+          <div class="mini-card"><span class="num">05</span><strong>Layer Model</strong><span>The stack as connected layers and real workflow movement.</span></div>
+          <div class="mini-card"><span class="num">06</span><strong>Industry Insights</strong><span>Cloud adoption, SaaS growth, AI and enterprise spend.</span></div>
+          <div class="mini-card"><span class="num">07</span><strong>Enterprise Worker Context</strong><span>How people navigate many tools in one morning.</span></div>
+          <div class="mini-card"><span class="num">08</span><strong>Design Implications</strong><span>Context switching, fragmented data, multi-system journeys.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <span class="section-kicker">01 · Software Delivery Models</span>
+          <h2 class="section-title">How software reaches users — and who owns what in the stack</h2>
+        </div>
+        <div class="grid-2">
+          <div class="grid-2">
+            <div class="panel"><h3>SaaS</h3><p><strong>Software as a Service</strong></p><p>Browser-based, subscription-priced software with no local installation and automatic updates.</p><p>Examples: Figma, Slack, Notion.</p></div>
+            <div class="panel"><h3>PaaS</h3><p><strong>Platform as a Service</strong></p><p>Lets developers deploy and run applications without managing the underlying infrastructure directly.</p><p>Examples: Heroku, Google App Engine.</p></div>
+            <div class="panel"><h3>IaaS</h3><p><strong>Infrastructure as a Service</strong></p><p>Provides raw compute, storage, and networking in the cloud so teams can build on top of it.</p><p>Examples: AWS EC2, Azure VMs.</p></div>
+            <div class="panel"><h3>XaaS</h3><p><strong>Everything as a Service</strong></p><p>Any technology delivered as a cloud-based service, from security tools to AI capabilities and databases.</p></div>
+          </div>
+          <div class="panel">
+            <h3>Cloud stack</h3>
+            <p>This is the simplest way to understand ownership and abstraction in modern cloud software.</p>
+            <div class="flow-list">
+              <div class="flow-item">Users</div>
+              <div class="arrow">↓</div>
+              <div class="flow-item">SaaS</div>
+              <div class="arrow">↓</div>
+              <div class="flow-item">PaaS</div>
+              <div class="arrow">↓</div>
+              <div class="flow-item">IaaS</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="panel">
+          <div class="grid-2" style="align-items:center;">
+            <div>
+              <div style="font-size:72px; font-weight:700; line-height:1; color:#fff;">73%</div>
+            </div>
+            <div>
+              <h2 class="section-title" style="margin-top:0;">Why SaaS dominates modern software</h2>
+              <p class="section-copy" style="max-width:none;">SaaS became the default delivery model because it aligns product velocity, cost efficiency, scale, and revenue predictability in a way on-premise software rarely could.</p>
+            </div>
+          </div>
+          <div class="flow-list" style="margin-top:22px;">
+            <div class="flow-item"><strong>01 · Automatic updates</strong>Vendors can continuously ship improvements without asking customers to manage deployments.</div>
+            <div class="flow-item"><strong>02 · Lower infrastructure cost</strong>Companies avoid purchasing, maintaining, and upgrading their own hardware stacks.</div>
+            <div class="flow-item"><strong>03 · Global scalability</strong>Cloud infrastructure makes it possible to serve users at enterprise scale much faster.</div>
+            <div class="flow-item"><strong>04 · Faster product iteration</strong>Feature flags, A/B tests, and frequent deployments support modern product teams.</div>
+            <div class="flow-item"><strong>05 · Subscription revenue model</strong>Recurring revenue creates predictability for investors, vendors, and long-term planning.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <span class="section-kicker">02 · Enterprise System Categories</span>
+          <h2 class="section-title">The operating layer of every large business</h2>
+          <p class="section-copy">These systems do not work in isolation. They exchange customer data, employee data, operational details, and reporting information constantly across the organization.</p>
+        </div>
+
+        <div class="grid-4">
+          <div class="system-card"><span class="label">ERP</span><h3>Finance · Ops</h3><span>SAP · Oracle · MS Dynamics</span><p>The business backbone for finance, accounting, procurement, and operations.</p></div>
+          <div class="system-card"><span class="label">CRM</span><h3>Sales · Marketing</h3><span>Salesforce · HubSpot · Zoho</span><p>Tracks customer interactions, opportunities, pipelines, calls, and deal progress.</p></div>
+          <div class="system-card"><span class="label">HCM</span><h3>HR · People</h3><span>Workday · BambooHR</span><p>Manages hiring, payroll, performance reviews, and employee records.</p></div>
+          <div class="system-card"><span class="label">SCM</span><h3>Logistics · Supply</h3><span>SAP SCM · Oracle SCM</span><p>Supports sourcing, goods movement, manufacturing, and distribution operations.</p></div>
+        </div>
+
+        <div class="grid-2" style="margin-top:22px;">
+          <div class="panel">
+            <h3>How enterprise systems interact</h3>
+            <div class="flow-list">
+              <div class="flow-item"><strong>CRM</strong>Sales and marketing systems create customer and opportunity data.</div>
+              <div class="arrow">↓</div>
+              <div class="flow-item"><strong>ERP</strong>Financial and operational workflows act on the business transaction.</div>
+              <div class="arrow">↓</div>
+              <div class="flow-item"><strong>HCM / SCM</strong>Employee planning, logistics, and supply operations are updated where needed.</div>
+              <div class="arrow">↓</div>
+              <div class="flow-item"><strong>BI / Reporting</strong>KPIs and dashboards aggregate these events for decision-making.</div>
+            </div>
+          </div>
+          <div class="panel">
+            <h3>Design insight</h3>
+            <p>When a salesperson closes a deal in Salesforce, that action can trigger procurement or finance workflows in SAP, influence workforce planning in Workday, and generate downstream reporting in business intelligence tools.</p>
+            <p>From the user's point of view, this may feel like one business action. In reality, it activates several systems, teams, and data relationships at once. That is a major reason enterprise experiences feel fragmented.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <span class="section-kicker">03 · Engineering & Architecture</span>
+          <h2 class="section-title">How teams build software and how software is structured</h2>
+        </div>
+
+        <div class="grid-3" style="margin-bottom:18px;">
+          <div class="panel"><h3>DevOps</h3><p>Development and operations work together through CI/CD, automated testing, and deployment pipelines.</p></div>
+          <div class="panel"><h3>SRE</h3><p>Site Reliability Engineering focuses on uptime, monitoring, incident response, and operational reliability.</p></div>
+          <div class="panel"><h3>Platform Engineering</h3><p>Creates internal tools and systems so product teams can deploy and scale with less friction.</p></div>
+        </div>
+
+        <div class="grid-3">
+          <div class="trade-card"><span class="trade-tag">Traditional</span><h4>Monolith</h4><ul><li>Simple to start</li><li>Easier to debug early on</li><li>Harder to scale</li><li>Slower to deploy safely over time</li></ul></div>
+          <div class="trade-card"><span class="trade-tag">Modern</span><h4>Microservices</h4><ul><li>Independently scalable services</li><li>Faster iteration across teams</li><li>Higher operational complexity</li><li>More coordination overhead</li></ul></div>
+          <div class="trade-card"><span class="trade-tag">Event-Driven</span><h4>Serverless</h4><ul><li>Auto-scaling and usage-based cost</li><li>Useful for bursty event workflows</li><li>Cold-start latency considerations</li><li>Harder debugging in distributed environments</li></ul></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <span class="section-kicker">Architecture Diagram</span>
+          <h2 class="section-title">How modern platforms are structured</h2>
+        </div>
+
+        <div class="arch">
+          <div class="arch-row-1"><div class="arch-box">Client / Browser</div></div>
+          <div class="arrow">↓</div>
+          <div class="arch-row-1"><div class="arch-box">API Gateway</div></div>
+          <div class="arrow">↓</div>
+          <div class="arch-row-2">
+            <div class="arch-box">Auth Service</div>
+            <div class="arch-box">User Service</div>
+            <div class="arch-box">Order Service</div>
+            <div class="arch-box">Payment Service</div>
+            <div class="arch-box">Notify Service</div>
+          </div>
+          <div class="arrow">↓</div>
+          <div class="arch-row-3">
+            <div class="arch-box">Users DB</div>
+            <div class="arch-box">Products DB</div>
+            <div class="arch-box">Orders DB</div>
+            <div class="arch-box">Payments DB</div>
+            <div class="arch-box">Logs DB</div>
+          </div>
+          <div class="arrow">↓</div>
+          <div class="arch-row-5"><div class="arch-box">Monitoring Layer · Logs · Metrics · Traces</div></div>
+        </div>
+
+        <div class="panel" style="margin-top:22px;">
+          <h3>Why this matters for designers</h3>
+          <p>In distributed products, each service may have its own team, release cycle, data model, and operational constraints. That often leads to inconsistent user-facing flows unless design systems and product thinking actively bridge the gaps.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <span class="section-kicker">04 · Observability & Ops</span>
+          <h2 class="section-title">How teams understand whether a system is healthy or broken</h2>
+        </div>
+        <div class="grid-4">
+          <div class="system-card"><span class="label">Logs</span><h3>Splunk · Elastic</h3><p>A timestamped record of what happened, when it happened, and where a system failed.</p></div>
+          <div class="system-card"><span class="label">Metrics</span><h3>Prometheus · Datadog</h3><p>Numbers over time such as latency, error rate, request volume, and CPU usage.</p></div>
+          <div class="system-card"><span class="label">Traces</span><h3>OpenTelemetry · Jaeger</h3><p>Tracks one request across services to reveal bottlenecks and breakdowns.</p></div>
+          <div class="system-card"><span class="label">AIOps</span><h3>Moogsoft · IBM Watson</h3><p>Uses automation and AI to detect anomalies and support faster incident response.</p></div>
+        </div>
+        <div class="grid-2" style="margin-top:22px;">
+          <div class="panel"><h3>Why observability matters</h3><p>Distributed systems fail in non-obvious ways. A single workflow may touch many services, APIs, queues, and databases. Without logs, metrics, and traces, teams are often debugging by guesswork.</p></div>
+          <div class="panel"><h3>UX relevance</h3><p>Reliability shapes user trust. Delays, silent failures, and inconsistent states are often not just interface problems — they are system visibility problems underneath the interface.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <span class="section-kicker">05 · The Layer Model</span>
+          <h2 class="section-title">Every enterprise action moves through connected layers</h2>
+          <p class="section-copy">Instead of thinking about enterprise UX as one screen, this model shows how one user action travels through business systems, service logic, infrastructure, and monitoring before it becomes a complete experience.</p>
+        </div>
+
+        <div class="stack-visual">
+          <div class="stack-layer">
+            <div class="stack-layer-label">
+              <span>Layer 01</span>
+              <strong>Experience</strong>
+              <p>Web app · Admin panel · Dashboard · Mobile UI</p>
+            </div>
+            <div class="stack-layer-main">
+              <strong>Where the user acts</strong>
+              <p>A rep closes a deal, submits an approval, updates a customer record, or checks status in the interface.</p>
+            </div>
+            <div class="stack-layer-signal">
+              <span>User signal</span>
+              <strong>Intent</strong>
+              <p>User expects one clear action and one clear outcome.</p>
+            </div>
+          </div>
+
+          <div class="stack-link">··· ↓ ···</div>
+
+          <div class="stack-layer">
+            <div class="stack-layer-label">
+              <span>Layer 02</span>
+              <strong>Business Systems</strong>
+              <p>CRM · ERP · HCM · SCM · ITSM</p>
+            </div>
+            <div class="stack-layer-main">
+              <strong>Where business records update</strong>
+              <p>The action touches systems like Salesforce, SAP, Oracle, or Workday depending on the process.</p>
+            </div>
+            <div class="stack-layer-signal">
+              <span>Business signal</span>
+              <strong>Transaction</strong>
+              <p>Records, status, ownership, and approvals start changing.</p>
+            </div>
+          </div>
+
+          <div class="stack-link">··· ↓ ···</div>
+
+          <div class="stack-layer">
+            <div class="stack-layer-label">
+              <span>Layer 03</span>
+              <strong>Service Logic</strong>
+              <p>APIs · Workflows · Integrations · Microservices</p>
+            </div>
+            <div class="stack-layer-main">
+              <strong>Where systems talk to each other</strong>
+              <p>Rules fire, APIs trigger, services exchange data, and orchestration handles the workflow behind the scenes.</p>
+            </div>
+            <div class="stack-layer-signal">
+              <span>System signal</span>
+              <strong>Automation</strong>
+              <p>Multiple tools coordinate without the user seeing most of it.</p>
+            </div>
+          </div>
+
+          <div class="stack-link">··· ↓ ···</div>
+
+          <div class="stack-layer">
+            <div class="stack-layer-label">
+              <span>Layer 04</span>
+              <strong>Infrastructure</strong>
+              <p>Cloud · Databases · Containers · Serverless</p>
+            </div>
+            <div class="stack-layer-main">
+              <strong>Where the platform runs</strong>
+              <p>Compute, storage, and networking respond to workload, traffic, reliability, and scale requirements.</p>
+            </div>
+            <div class="stack-layer-signal">
+              <span>Ops signal</span>
+              <strong>Capacity</strong>
+              <p>The platform must stay fast, available, and resilient.</p>
+            </div>
+          </div>
+
+          <div class="stack-link">··· ↓ ···</div>
+
+          <div class="stack-layer">
+            <div class="stack-layer-label">
+              <span>Layer 05</span>
+              <strong>Observability</strong>
+              <p>Logs · Metrics · Traces · AIOps</p>
+            </div>
+            <div class="stack-layer-main">
+              <strong>Where teams understand what happened</strong>
+              <p>Monitoring tools capture errors, latency, success events, and failure paths so teams can trust the workflow.</p>
+            </div>
+            <div class="stack-layer-signal">
+              <span>Reliability signal</span>
+              <strong>Confidence</strong>
+              <p>If this layer is weak, users feel friction even if the UI looks polished.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-2" style="margin-top:22px;">
+          <div class="panel">
+            <h3>Why this model matters</h3>
+            <p>Enterprise users usually experience one action, but the business experiences a chain reaction. That mismatch is where confusion starts. Good enterprise UX reduces the gap between what the user thinks happened and what the system is actually doing.</p>
+          </div>
+          <div class="panel">
+            <h3>Design interpretation</h3>
+            <p>This is why enterprise design needs more than clean screens. It needs states, confirmations, system feedback, recovery paths, and continuity across tools. When designers understand the layers, the product starts feeling more reliable and more human.</p>
+          </div>
+        </div>
+
+        <div class="panel" style="margin-top:22px;">
+          <h3>Example workflow movement</h3>
+          <div class="journey-map" style="margin-top:16px;">
+            <div class="journey-row">
+              <div class="journey-chip">Sales action</div>
+              <div class="journey-step">
+                <strong>Close deal in CRM</strong>
+                <p>A sales rep marks an opportunity as won in Salesforce.</p>
+              </div>
+              <div class="journey-arrow">→</div>
+              <div class="journey-step">
+                <strong>Order logic starts</strong>
+                <p>APIs and integration services create order, billing, and approval records.</p>
+              </div>
+              <div class="journey-arrow">→</div>
+              <div class="journey-step">
+                <strong>Ops systems update</strong>
+                <p>ERP records revenue while SCM or fulfillment tools prepare delivery.</p>
+              </div>
+            </div>
+
+            <div class="journey-row">
+              <div class="journey-chip">Support action</div>
+              <div class="journey-step">
+                <strong>Ticket is submitted</strong>
+                <p>A customer-facing issue enters ServiceNow or a support console.</p>
+              </div>
+              <div class="journey-arrow">→</div>
+              <div class="journey-step">
+                <strong>Service traces reveal fault</strong>
+                <p>The issue is tracked across APIs, auth, and backend services.</p>
+              </div>
+              <div class="journey-arrow">→</div>
+              <div class="journey-step">
+                <strong>Ops team responds</strong>
+                <p>Monitoring highlights the root cause and helps teams restore service.</p>
+              </div>
+            </div>
+
+            <div class="journey-row">
+              <div class="journey-chip">People action</div>
+              <div class="journey-step">
+                <strong>Manager approves hire</strong>
+                <p>An internal HR workflow starts from an HCM platform.</p>
+              </div>
+              <div class="journey-arrow">→</div>
+              <div class="journey-step">
+                <strong>Cross-system tasks trigger</strong>
+                <p>Identity, payroll, access, and equipment workflows begin in parallel.</p>
+              </div>
+              <div class="journey-arrow">→</div>
+              <div class="journey-step">
+                <strong>Employee experience continues</strong>
+                <p>The person only sees one journey, but many teams and systems are involved.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <span class="section-kicker">Architecture Overview</span>
+          <h2 class="section-title">A visual enterprise stack diagram</h2>
+          <p class="section-copy">This view turns the stack into something that feels closer to Stripe or AWS documentation — layered, operational, and clearly connected. The point is to show that the interface is only the visible edge of a much larger system.</p>
+        </div>
+
+        <div class="enterprise-diagram">
+          <div class="diagram-head">
+            <div>
+              <h3>Enterprise stack overlay</h3>
+              <p>One user action moves across interface, business systems, integration services, platform infrastructure, and observability. Each row below represents a different layer of the stack and the kind of responsibility it carries.</p>
+            </div>
+            <div class="diagram-badge">5 Connected Layers</div>
+          </div>
+
+          <div class="diagram-grid">
+            <div class="diagram-row">
+              <div class="diagram-side">
+                <span>Entry layer</span>
+                <strong>Users & Interfaces</strong>
+                <p>Employees, customers, partners interacting through dashboards, portals, and internal tools.</p>
+              </div>
+              <div class="diagram-main">
+                <div class="diagram-node"><em>UI</em><strong>Sales Dashboard</strong><p>Pipeline, quotes, approvals, alerts.</p></div>
+                <div class="diagram-node"><em>UI</em><strong>Admin Console</strong><p>Permissions, settings, account actions.</p></div>
+                <div class="diagram-node"><em>UI</em><strong>Support Workspace</strong><p>Tickets, status checks, incident follow-up.</p></div>
+              </div>
+              <div class="diagram-side">
+                <span>Primary UX concern</span>
+                <strong>Clarity</strong>
+                <p>Users need clear status, low friction, and easy recovery when something changes.</p>
+              </div>
+            </div>
+
+            <div class="diagram-row">
+              <div class="diagram-side">
+                <span>Business layer</span>
+                <strong>Systems of Record</strong>
+                <p>Core business platforms where official process data is stored and maintained.</p>
+              </div>
+              <div class="diagram-main">
+                <div class="diagram-node"><em>CRM</em><strong>Salesforce</strong><p>Customer records, opportunities, lifecycle state.</p></div>
+                <div class="diagram-node"><em>ERP</em><strong>SAP / Oracle</strong><p>Finance, order handling, procurement.</p></div>
+                <div class="diagram-node"><em>HCM / SCM</em><strong>Workday / Supply</strong><p>People, planning, inventory, logistics.</p></div>
+              </div>
+              <div class="diagram-side">
+                <span>Primary UX concern</span>
+                <strong>Consistency</strong>
+                <p>Users should not feel the gaps between disconnected records and tools.</p>
+              </div>
+            </div>
+
+            <div class="diagram-row">
+              <div class="diagram-side">
+                <span>Logic layer</span>
+                <strong>Services & Orchestration</strong>
+                <p>Where workflows, APIs, approvals, integrations, and automated decision logic run.</p>
+              </div>
+              <div class="diagram-main">
+                <div class="diagram-node"><em>API</em><strong>Gateway & Auth</strong><p>Access control, routing, secure requests.</p></div>
+                <div class="diagram-node"><em>Services</em><strong>Order / Billing / Notify</strong><p>Microservices handling specific business tasks.</p></div>
+                <div class="diagram-node"><em>Integration</em><strong>Event & Workflow Engine</strong><p>Moves data between products and teams.</p></div>
+              </div>
+              <div class="diagram-side">
+                <span>Primary UX concern</span>
+                <strong>Feedback</strong>
+                <p>Users need to know what is processing, delayed, approved, failed, or complete.</p>
+              </div>
+            </div>
+
+            <div class="diagram-row">
+              <div class="diagram-side">
+                <span>Runtime layer</span>
+                <strong>Infrastructure & Data</strong>
+                <p>The technical environment where applications scale, persist data, and stay available.</p>
+              </div>
+              <div class="diagram-main">
+                <div class="diagram-node"><em>Cloud</em><strong>Compute & Containers</strong><p>Application runtime, scaling, deployments.</p></div>
+                <div class="diagram-node"><em>Data</em><strong>Databases & Queues</strong><p>Storage, messaging, transactional reliability.</p></div>
+                <div class="diagram-node"><em>Platform</em><strong>Serverless / CDN / Cache</strong><p>Performance and distribution support.</p></div>
+              </div>
+              <div class="diagram-side">
+                <span>Primary UX concern</span>
+                <strong>Performance</strong>
+                <p>Speed, uptime, and stability shape trust even when users never see this layer.</p>
+              </div>
+            </div>
+
+            <div class="diagram-row">
+              <div class="diagram-side">
+                <span>Trust layer</span>
+                <strong>Observability & Operations</strong>
+                <p>The system that tells teams whether the platform is healthy, slow, or broken.</p>
+              </div>
+              <div class="diagram-main">
+                <div class="diagram-node"><em>Logs</em><strong>Splunk / Elastic</strong><p>Event history and technical failure traces.</p></div>
+                <div class="diagram-node"><em>Metrics</em><strong>Datadog / Prometheus</strong><p>Latency, usage, load, and error trends.</p></div>
+                <div class="diagram-node"><em>Tracing</em><strong>OpenTelemetry</strong><p>Request flow across distributed services.</p></div>
+              </div>
+              <div class="diagram-side">
+                <span>Primary UX concern</span>
+                <strong>Reliability</strong>
+                <p>Without this layer, support teams guess and users lose confidence.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="signal-grid">
+          <div class="signal-card">
+            <em>Reading the diagram</em>
+            <strong>Top to bottom shows dependency</strong>
+            <p>The interface depends on business systems, which depend on services, which depend on infrastructure and operational visibility.</p>
+          </div>
+          <div class="signal-card">
+            <em>Design takeaway</em>
+            <strong>Better UX needs better system awareness</strong>
+            <p>Clean visual design matters, but enterprise trust comes from good status communication, connected flows, and reliable feedback.</p>
+          </div>
+        </div>
+
+        <div class="grid-2" style="margin-top:22px;">
+          <div class="panel">
+            <h3>Example: closing a deal across the stack</h3>
+            <div class="workflow" style="margin-top:8px;">
+              <div class="workflow-step"><div class="step-no">01</div><div><strong>Rep confirms the opportunity</strong>The visible action happens inside the sales interface.</div></div>
+              <div class="workflow-step"><div class="step-no">02</div><div><strong>CRM updates ownership and stage</strong>The business system records the official transaction state.</div></div>
+              <div class="workflow-step"><div class="step-no">03</div><div><strong>Service logic starts downstream actions</strong>Billing, provisioning, notifications, and approvals begin.</div></div>
+              <div class="workflow-step"><div class="step-no">04</div><div><strong>Infrastructure handles workload</strong>Requests, database writes, queues, and compute capacity respond.</div></div>
+              <div class="workflow-step"><div class="step-no">05</div><div><strong>Monitoring confirms success or failure</strong>Ops and support teams can verify the flow end to end.</div></div>
+            </div>
+          </div>
+          <div class="panel">
+            <h3>Why this is stronger than cards</h3>
+            <p>Simple cards explain categories. A stack diagram explains relationships. That difference matters in a portfolio because recruiters and hiring managers can quickly see that you are thinking in platforms, dependencies, workflows, and not just isolated UI surfaces.</p>
+            <p>That makes the case study feel more like enterprise product thinking and less like a classroom summary.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <span class="section-kicker">06 · Industry Insights</span>
+          <h2 class="section-title">The numbers behind enterprise transformation</h2>
+          <p class="section-copy">Enterprise growth is not just about adopting more software. It is about scale, operational complexity, cloud dependency, and the growing need for systems that stay understandable for the people using them.</p>
+        </div>
+
+        <div class="grid-2" style="margin-bottom:22px; align-items:stretch;">
+          <div class="panel" style="display:flex; flex-direction:column; justify-content:center; min-height:100%;">
+            <span class="section-kicker" style="margin-bottom:10px;">Market direction</span>
+            <h3 style="font-size:34px; margin-bottom:12px;">Enterprise teams are running on more tools, more services, and more connected workflows than ever before.</h3>
+            <p style="margin:0; color:var(--muted); font-size:17px; line-height:1.8;">That growth creates speed and flexibility, but it also increases fragmentation. The design opportunity is not just making tools usable. It is helping people move through a bigger and more connected stack with less confusion.</p>
+          </div>
+
+          <div class="panel" style="display:flex; flex-direction:column; justify-content:center; min-height:100%;">
+            <span class="section-kicker" style="margin-bottom:10px;">Design reading</span>
+            <h3 style="font-size:30px; margin-bottom:12px;">More software usually means more context switching.</h3>
+            <p style="margin:0; color:var(--muted); font-size:17px; line-height:1.8;">As enterprise stacks expand, users often experience duplicated records, inconsistent states, delayed confirmations, and workflow breaks between tools. This is exactly where systems-aware UX becomes valuable.</p>
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <div class="stat-card">
+            <span class="big">100+</span>
+            <strong>SaaS apps</strong>
+            <p>Used by the average enterprise today across collaboration, sales, support, finance, HR, and operations.</p>
+            <em>BetterCloud</em>
+          </div>
+
+          <div class="stat-card">
+            <span class="big">80%</span>
+            <strong>Cloud workloads</strong>
+            <p>Of enterprise workloads now run in cloud environments, showing how central cloud infrastructure has become.</p>
+            <em>Flexera</em>
+          </div>
+
+          <div class="stat-card">
+            <span class="big">$8.8T</span>
+            <strong>IT spend</strong>
+            <p>Projected global enterprise IT spend by 2028, reflecting continued investment in platforms, AI, cloud, and data systems.</p>
+            <em>Gartner</em>
+          </div>
+
+          <div class="stat-card">
+            <span class="big">65%</span>
+            <strong>Low-code / AI apps</strong>
+            <p>Of new applications projected to involve low-code or AI-assisted approaches in how they are built or automated.</p>
+            <em>IDC</em>
+          </div>
+
+          <div class="stat-card">
+            <span class="big">4.7×</span>
+            <strong>Faster incident response</strong>
+            <p>Reported improvement when AIOps helps teams detect patterns, reduce noise, and act sooner during failures.</p>
+            <em>IBM Research</em>
+          </div>
+
+          <div class="stat-card">
+            <span class="big">3.2×</span>
+            <strong>More tools per employee</strong>
+            <p>Compared with five years ago, increasing the need for continuity, clarity, and workflow support across products.</p>
+            <em>Okta</em>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <span class="section-kicker">Context</span>
+          <h2 class="section-title">A day in the life of an enterprise worker</h2>
+          <p class="section-copy">Enterprise UX becomes difficult because people do not stay inside one tidy product. They move across multiple tools, approvals, reports, and communication systems in a very short time.</p>
+        </div>
+        <div class="grid-2">
+          <div class="panel">
+            <div class="timeline-row"><div class="time">9:00 AM</div><div><strong>Checks Slack notifications</strong>Starts the day with internal messages and requests.</div></div>
+            <div class="timeline-row"><div class="time">9:05 AM</div><div><strong>Reviews sales pipeline</strong>Opens Salesforce to assess opportunity status.</div></div>
+            <div class="timeline-row"><div class="time">9:15 AM</div><div><strong>Generates customer quote</strong>Moves into ERP workflows.</div></div>
+            <div class="timeline-row"><div class="time">9:25 AM</div><div><strong>Submits approval request</strong>Uses ServiceNow or another internal workflow tool.</div></div>
+            <div class="timeline-row"><div class="time">9:40 AM</div><div><strong>Reviews sales dashboard</strong>Switches to BI analytics.</div></div>
+            <div class="timeline-row"><div class="time">10:00 AM</div><div><strong>Responds to customer email</strong>Leaves the product workflow for communication.</div></div>
+            <div class="timeline-row"><div class="time">10:15 AM</div><div><strong>Updates opportunity stage</strong>Returns to Salesforce.</div></div>
+            <div class="timeline-row"><div class="time">10:30 AM</div><div><strong>Checks inventory status</strong>Switches again into SCM systems.</div></div>
+          </div>
+          <div class="panel">
+            <h3>Why this matters</h3>
+            <p style="font-size:24px; color:#fff; margin-bottom:14px;">10–15 apps / day</p>
+            <p>That kind of fragmentation creates inconsistent interfaces, duplicated data, cognitive overload, and inefficient workflows.</p>
+            <p>The design implication is simple: reduce friction across systems, not just inside a single product.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <span class="section-kicker">07 · What This Means for Designers</span>
+          <h2 class="section-title">The UX opportunity inside enterprise complexity</h2>
+        </div>
+        <div class="grid-2">
+          <div class="design-card"><span class="num">01</span><h4>Context switching is the user's reality</h4><p>Enterprise workers jump between Salesforce, SAP, Slack, BI tools, and internal systems in a single hour. Design must support interruption and fast re-entry into tasks.</p></div>
+          <div class="design-card"><span class="num">02</span><h4>Information is fragmented across systems</h4><p>The same customer or transaction may exist in multiple tools, often with different states and formats. Great design surfaces the right information without forcing constant cross-referencing.</p></div>
+          <div class="design-card"><span class="num">03</span><h4>Personas must span workflows</h4><p>Enterprise personas should not be tied to a single product. They should reflect the real chain of tools, approvals, and data dependencies across the workday.</p></div>
+          <div class="design-card"><span class="num">04</span><h4>Internal tools are underserved products</h4><p>Admin portals, monitoring UIs, operations dashboards, and internal workflows are used under real pressure. Better UX here improves speed, accuracy, and confidence.</p></div>
+        </div>
+        <div class="panel" style="margin-top:22px;"><h3>Design opportunity</h3><p>Enterprise UX is still underinvested compared with customer-facing products. Designers who understand the stack can bridge disconnected systems, reduce complexity, and create measurable operational impact.</p></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <span class="section-kicker">08 · Key Takeaways</span>
+          <h2 class="section-title">Systems thinking is a UX advantage</h2>
+        </div>
+        <div class="grid-5">
+          <div class="takeaway"><span class="num">01</span><h4>Enterprise software is layered</h4><p>Business, product, engineering, infrastructure, and monitoring all shape the final experience.</p></div>
+          <div class="takeaway"><span class="num">02</span><h4>Systems are deeply interconnected</h4><p>A single customer action often triggers workflows across CRM, ERP, SCM, and analytics.</p></div>
+          <div class="takeaway"><span class="num">03</span><h4>Employees navigate constant complexity</h4><p>Enterprise workers move between many tools, so continuity matters more than isolated polish.</p></div>
+          <div class="takeaway"><span class="num">04</span><h4>Observability keeps systems alive</h4><p>Logs, metrics, and traces are essential for reliability in distributed environments.</p></div>
+          <div class="takeaway"><span class="num">05</span><h4>Designers should understand the stack</h4><p>Technical literacy helps translate hidden system complexity into clearer human experiences.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="closing">
+      <div class="shell">
+        <div class="closing-card">
+          <span class="small">Research Findings · UX · 2026</span>
+          <h2>Know the stack.<br>Design for the humans<br>working inside it.</h2>
+          <p>Enterprise UX is not about making things pretty. It is about reducing complexity for people under real pressure.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div>Designed <i class="fa fa-heart"></i> by <a target="_blank" href="#0000">Dheeraj Allu</a></div>
+  </footer>
+
+  <script src="js/jquery.min.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/scrolltopcontrol.js"></script>
+  <script>
+    window.history.replaceState(null, null, window.location.pathname.replace(/\.html/g, ''));
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var toggles = document.querySelectorAll('.navbar-toggle');
+      toggles.forEach(function (toggle) {
+        var targetSelector = toggle.getAttribute('data-target');
+        if (!targetSelector) return;
+        var menu = document.querySelector(targetSelector);
+        if (!menu) return;
+        toggle.addEventListener('click', function (e) {
+          e.preventDefault();
+          menu.classList.toggle('in');
+          toggle.classList.toggle('is-open');
+        });
+        var menuLinks = menu.querySelectorAll('a');
+        menuLinks.forEach(function (link) {
+          link.addEventListener('click', function () {
+            menu.classList.remove('in');
+            toggle.classList.remove('is-open');
+          });
+        });
+      });
+    });
+  </script>
+</body>
+</html>
