@@ -1,0 +1,204 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <linearGradient id="bgG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#080a11"/>
+      <stop offset="100%" stop-color="#04050a"/>
+    </linearGradient>
+    <linearGradient id="acG" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ab8aff"/>
+      <stop offset="50%" stop-color="#62d7ff"/>
+      <stop offset="100%" stop-color="#2dcf7a"/>
+    </linearGradient>
+    <linearGradient id="lineG" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="transparent"/>
+      <stop offset="30%" stop-color="#ab8aff" stop-opacity=".25"/>
+      <stop offset="50%" stop-color="#62d7ff" stop-opacity=".38"/>
+      <stop offset="70%" stop-color="#2dcf7a" stop-opacity=".22"/>
+      <stop offset="100%" stop-color="transparent"/>
+    </linearGradient>
+    <linearGradient id="pulseG" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ab8aff" stop-opacity="0"/>
+      <stop offset="25%" stop-color="#ab8aff" stop-opacity=".5"/>
+      <stop offset="52%" stop-color="#62d7ff" stop-opacity=".9"/>
+      <stop offset="75%" stop-color="#62d7ff" stop-opacity=".3"/>
+      <stop offset="100%" stop-color="#62d7ff" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="ringG1" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ab8aff"/>
+      <stop offset="100%" stop-color="#62d7ff"/>
+    </linearGradient>
+    <linearGradient id="ringG2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#62d7ff"/>
+      <stop offset="100%" stop-color="#2dcf7a"/>
+    </linearGradient>
+    <radialGradient id="coreG" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ab8aff" stop-opacity=".7"/>
+      <stop offset="40%" stop-color="#ab8aff" stop-opacity=".15"/>
+      <stop offset="100%" stop-color="#ab8aff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow1" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ab8aff" stop-opacity=".07"/>
+      <stop offset="100%" stop-color="#ab8aff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#62d7ff" stop-opacity=".05"/>
+      <stop offset="100%" stop-color="#62d7ff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow3" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#2dcf7a" stop-opacity=".04"/>
+      <stop offset="100%" stop-color="#2dcf7a" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="sGlow">
+      <feGaussianBlur stdDeviation="2.5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="bGlow">
+      <feGaussianBlur stdDeviation="20"/>
+    </filter>
+    <filter id="tinyGlow">
+      <feGaussianBlur stdDeviation="1.5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- ══ BACKGROUND ══ -->
+  <rect width="1600" height="900" fill="url(#bgG)"/>
+
+  <!-- ══ AMBIENT GLOWS ══ -->
+  <ellipse cx="800" cy="320" rx="580" ry="360" fill="url(#glow1)"/>
+  <ellipse cx="580" cy="440" rx="400" ry="280" fill="url(#glow2)"/>
+  <ellipse cx="1040" cy="400" rx="360" ry="260" fill="url(#glow3)"/>
+
+  <!-- ══ GRID ══ -->
+  <g opacity=".04" stroke="#ffffff" stroke-width=".5">
+    <line x1="320" y1="0" x2="320" y2="900"/>
+    <line x1="640" y1="0" x2="640" y2="900"/>
+    <line x1="960" y1="0" x2="960" y2="900"/>
+    <line x1="1280" y1="0" x2="1280" y2="900"/>
+    <line x1="0" y1="225" x2="1600" y2="225"/>
+    <line x1="0" y1="450" x2="1600" y2="450"/>
+    <line x1="0" y1="675" x2="1600" y2="675"/>
+  </g>
+
+  <!-- ══ PARTICLES ══ -->
+  <g opacity=".5">
+    <circle cx="190" cy="130" r="1.1" fill="#ab8aff" opacity=".5"/>
+    <circle cx="340" cy="290" r=".8" fill="#ab8aff" opacity=".32"/>
+    <circle cx="1340" cy="170" r="1" fill="#ab8aff" opacity=".38"/>
+    <circle cx="1110" cy="730" r="1.2" fill="#ab8aff" opacity=".28"/>
+    <circle cx="460" cy="660" r=".7" fill="#ab8aff" opacity=".38"/>
+    <circle cx="210" cy="510" r=".9" fill="#ab8aff" opacity=".22"/>
+    <circle cx="1410" cy="390" r=".8" fill="#ab8aff" opacity=".32"/>
+    <circle cx="1270" cy="290" r="1" fill="#62d7ff" opacity=".42"/>
+    <circle cx="430" cy="190" r=".8" fill="#62d7ff" opacity=".30"/>
+    <circle cx="1040" cy="150" r="1.1" fill="#62d7ff" opacity=".34"/>
+    <circle cx="260" cy="760" r=".9" fill="#62d7ff" opacity=".28"/>
+    <circle cx="910" cy="790" r="1" fill="#62d7ff" opacity=".22"/>
+    <circle cx="1450" cy="590" r=".7" fill="#62d7ff" opacity=".38"/>
+    <circle cx="590" cy="110" r=".9" fill="#2dcf7a" opacity=".28"/>
+    <circle cx="1210" cy="560" r="1" fill="#2dcf7a" opacity=".22"/>
+    <circle cx="360" cy="420" r=".7" fill="#2dcf7a" opacity=".28"/>
+    <circle cx="1010" cy="830" r=".8" fill="#2dcf7a" opacity=".18"/>
+    <circle cx="160" cy="330" r=".9" fill="#2dcf7a" opacity=".2"/>
+    <circle cx="720" cy="770" r=".8" fill="#ff647c" opacity=".25"/>
+    <circle cx="1310" cy="110" r=".9" fill="#ff647c" opacity=".22"/>
+    <circle cx="510" cy="510" r=".6" fill="#ffb347" opacity=".28"/>
+  </g>
+
+  <!-- ══ LIGHT STREAK ══ -->
+  <line x1="0" y1="448" x2="1600" y2="448" stroke="url(#lineG)" stroke-width="1" opacity=".4"/>
+
+  <!-- ══ HERO ICON — ECG + CONCENTRIC RINGS ══ -->
+  <g transform="translate(800,295)">
+    <!-- Big ambient glow -->
+    <circle cx="0" cy="0" r="130" fill="url(#coreG)" filter="url(#bGlow)" opacity=".45"/>
+
+    <!-- Outer orbit ring (dashed) -->
+    <ellipse cx="0" cy="0" rx="115" ry="115" fill="none" stroke="#ab8aff" stroke-width=".6" opacity=".1" stroke-dasharray="5,10"/>
+
+    <!-- Ring 1 — outermost square-diamond -->
+    <rect x="-78" y="-78" width="156" height="156" rx="8" transform="rotate(45)" fill="none" stroke="url(#ringG1)" stroke-width="1.4" opacity=".55"/>
+
+    <!-- Ring 2 -->
+    <rect x="-54" y="-54" width="108" height="108" rx="6" transform="rotate(45)" fill="none" stroke="url(#ringG2)" stroke-width="1.2" opacity=".38"/>
+
+    <!-- Ring 3 — innermost -->
+    <rect x="-32" y="-32" width="64" height="64" rx="4" transform="rotate(45)" fill="none" stroke="#ab8aff" stroke-width="1" opacity=".22"/>
+
+    <!-- ECG pulse line across center of the icon -->
+    <path d="M-115,0 L-60,0 L-44,0 L-28,-28 L-12,38 L4,-48 L18,32 L30,0 L115,0" fill="none" stroke="url(#pulseG)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- Spike vertical highlight -->
+    <line x1="4" y1="-48" x2="4" y2="38" stroke="#62d7ff" stroke-width="1.2" opacity=".35" stroke-linecap="round"/>
+
+    <!-- Core dot -->
+    <circle cx="0" cy="0" r="6" fill="#ab8aff" filter="url(#sGlow)"/>
+    <circle cx="0" cy="0" r="3" fill="#ffffff" opacity=".8"/>
+
+    <!-- Corner accent dots -->
+    <circle cx="0" cy="-110" r="2" fill="#ab8aff" opacity=".5" filter="url(#tinyGlow)"/>
+    <circle cx="110" cy="0" r="2" fill="#62d7ff" opacity=".45" filter="url(#tinyGlow)"/>
+    <circle cx="0" cy="110" r="2" fill="#2dcf7a" opacity=".4" filter="url(#tinyGlow)"/>
+    <circle cx="-110" cy="0" r="2" fill="#ff647c" opacity=".35" filter="url(#tinyGlow)"/>
+  </g>
+
+  <!-- ══ TYPOGRAPHY ══ -->
+
+  <!-- PulseOps wordmark -->
+  <text x="800" y="498" text-anchor="middle" font-family="'Cormorant Garamond', Georgia, 'Times New Roman', serif" font-size="72" fill="#f0ece4" letter-spacing="5" font-weight="400">Pulse<tspan fill="url(#acG)">Ops</tspan></text>
+
+  <!-- Tagline -->
+  <text x="800" y="543" text-anchor="middle" font-family="'Cormorant Garamond', Georgia, serif" font-size="23" fill="#808080" font-style="italic" letter-spacing="1">When infrastructure fails, clarity saves time.</text>
+
+  <!-- Divider -->
+  <line x1="710" y1="568" x2="890" y2="568" stroke="#1a1a26" stroke-width="1"/>
+
+  <!-- Category label -->
+  <text x="800" y="602" text-anchor="middle" font-family="'JetBrains Mono', 'Courier New', monospace" font-size="10" fill="#5a5a6a" letter-spacing="4">INCIDENT INTELLIGENCE · ENTERPRISE UX · PRODUCT DESIGN</text>
+
+  <!-- ══ KEYWORD PILLS ══ -->
+  <g transform="translate(800,642)" font-family="'DM Sans', sans-serif" font-size="11">
+    <rect x="-290" y="-14" width="100" height="28" rx="14" fill="none" stroke="#1c1c2a" stroke-width="1"/>
+    <text x="-240" y="4" text-anchor="middle" fill="#686878">DevOps</text>
+
+    <rect x="-178" y="-14" width="104" height="28" rx="14" fill="none" stroke="#1c1c2a" stroke-width="1"/>
+    <text x="-126" y="4" text-anchor="middle" fill="#686878">SRE Workflows</text>
+
+    <rect x="-62" y="-14" width="110" height="28" rx="14" fill="none" stroke="#1c1c2a" stroke-width="1"/>
+    <text x="-7" y="4" text-anchor="middle" fill="#686878">AI Root Cause</text>
+
+    <rect x="60" y="-14" width="108" height="28" rx="14" fill="none" stroke="#1c1c2a" stroke-width="1"/>
+    <text x="114" y="4" text-anchor="middle" fill="#686878">Observability</text>
+
+    <rect x="180" y="-14" width="110" height="28" rx="14" fill="none" stroke="#1c1c2a" stroke-width="1"/>
+    <text x="235" y="4" text-anchor="middle" fill="#686878">Incident Mgmt</text>
+  </g>
+
+  <!-- ══ STATUS DOTS (mirrors service health language) ══ -->
+  <g transform="translate(800,700)">
+    <circle cx="-45" cy="0" r="4" fill="#2dcf7a" opacity=".7" filter="url(#tinyGlow)"/>
+    <circle cx="-15" cy="0" r="4" fill="#ffb347" opacity=".7" filter="url(#tinyGlow)"/>
+    <circle cx="15" cy="0" r="4" fill="#ff647c" opacity=".7" filter="url(#tinyGlow)"/>
+    <circle cx="45" cy="0" r="4" fill="#62d7ff" opacity=".65" filter="url(#tinyGlow)"/>
+  </g>
+  <g transform="translate(800,718)" font-family="'JetBrains Mono', monospace" font-size="7" fill="#383848" letter-spacing="1">
+    <text x="-45" y="0" text-anchor="middle">HEALTHY</text>
+    <text x="-15" y="0" text-anchor="middle">WARN</text>
+    <text x="15" y="0" text-anchor="middle">CRIT</text>
+    <text x="45" y="0" text-anchor="middle">INFO</text>
+  </g>
+
+  <!-- ══ AUTHOR ══ -->
+  <text x="800" y="820" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="12" fill="#3a3a48" letter-spacing="1">Designed by Dheeraj Allu</text>
+  <text x="800" y="842" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#282832" letter-spacing="2">dheerajallu.art</text>
+
+  <!-- ══ CORNER ACCENTS ══ -->
+  <line x1="40" y1="40" x2="40" y2="80" stroke="#1a1a26" stroke-width="1"/>
+  <line x1="40" y1="40" x2="80" y2="40" stroke="#1a1a26" stroke-width="1"/>
+  <line x1="1560" y1="40" x2="1560" y2="80" stroke="#1a1a26" stroke-width="1"/>
+  <line x1="1560" y1="40" x2="1520" y2="40" stroke="#1a1a26" stroke-width="1"/>
+  <line x1="40" y1="860" x2="40" y2="820" stroke="#1a1a26" stroke-width="1"/>
+  <line x1="40" y1="860" x2="80" y2="860" stroke="#1a1a26" stroke-width="1"/>
+  <line x1="1560" y1="860" x2="1560" y2="820" stroke="#1a1a26" stroke-width="1"/>
+  <line x1="1560" y1="860" x2="1520" y2="860" stroke="#1a1a26" stroke-width="1"/>
+</svg>

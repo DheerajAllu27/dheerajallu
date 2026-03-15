@@ -872,8 +872,66 @@
       .hero-panel, .panel, .closing-card, .system-card, .trade-card, .mini-card, .insight-card, .stat-card, .takeaway, .design-card, .signal-card, .journey-card, .stack-visual, .enterprise-diagram { padding: 20px; }
     }
   </style>
+
+<style>
+/* case study navbar */
+.case-nav{
+position:sticky;
+top:0;
+z-index:9999;
+backdrop-filter:blur(14px);
+background:rgba(5,8,14,0.75);
+border-bottom:1px solid rgba(255,255,255,0.08);
+}
+.case-nav-inner{
+max-width:1200px;
+margin:auto;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:14px 28px;
+}
+.case-chip{
+padding:6px 14px;
+border-radius:999px;
+font-size:13px;
+letter-spacing:.08em;
+background:rgba(255,255,255,0.06);
+border:1px solid rgba(255,255,255,0.1);
+}
+.case-links a{
+margin-left:26px;
+text-decoration:none;
+color:#e6edf5;
+font-size:14px;
+opacity:.85;
+}
+.case-links a:hover{opacity:1}
+.case-progress{
+position:absolute;
+top:0;
+left:0;
+height:2px;
+background:linear-gradient(90deg,#67e8d8,#9fc4ff);
+width:0%;
+}
+</style>
+
 </head>
 <body data-spy="scroll" data-target=".navbar" data-offset="70">
+
+<nav class="case-nav">
+<div class="case-progress" id="caseProgress"></div>
+<div class="case-nav-inner">
+<div class="case-chip">Enterprise</div>
+<div class="case-links">
+<a href="/">Home</a>
+<a href="work.html">Work</a>
+<a href="about.html">About</a>
+</div>
+</div>
+</nav>
+
   <div class="preloader dark_preloader">
     <div class="spinner">
       <div class="double-bounce1"></div>
@@ -1612,5 +1670,15 @@
       });
     });
   </script>
+
+<script>
+const progress=document.getElementById('caseProgress');
+window.addEventListener('scroll',()=>{
+const h=document.documentElement;
+const sc=(h.scrollTop)/(h.scrollHeight-h.clientHeight);
+progress.style.width=(sc*100)+'%';
+});
+</script>
+
 </body>
 </html>

@@ -417,20 +417,71 @@ img{max-width:100%;display:block}
   .comp-table{font-size:11px}
   .comp-table thead th,.comp-table tbody td{padding:8px 10px}
 }
+
+/* ─── Case Study Navbar (Chip + Progress) ─── */
+.case-nav{
+  position:sticky;
+  top:0;
+  z-index:200;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:14px 32px;
+  background:rgba(0,0,0,.85);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--border);
+}
+.case-chip{
+  font-family:var(--font-m);
+  font-size:11px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:var(--cyan);
+  border:1px solid rgba(80,220,255,.35);
+  padding:6px 14px;
+  border-radius:16px;
+}
+.case-links{
+  display:flex;
+  gap:28px;
+  font-size:13px;
+}
+.case-links a{
+  color:var(--txt-dim);
+  transition:.3s;
+}
+.case-links a:hover,
+.case-links a.active{
+  color:#fff;
+}
+.read-progress{
+  position:fixed;
+  top:0;
+  left:0;
+  height:3px;
+  width:0%;
+  background:linear-gradient(90deg,var(--cyan),var(--purple));
+  z-index:300;
+}
+
 </style>
 </head>
 
 <body>
 
-<!-- ═══════ NAV ═══════ -->
-<nav class="nav" id="nav">
-  <a href="/"><img src="pics/home/favicon.png" alt="DA" class="nav-logo" onerror="this.style.display='none'"></a>
-  <div class="nav-links">
+<div class="read-progress" id="readProgress"></div>
+
+<nav class="case-nav">
+  <div class="case-chip">D.AI</div>
+  <div class="case-links">
     <a href="/">Home</a>
-    <a href="work.html" class="active">work</a>
-    <a href="about.html">about</a>
+    <a href="work.html" class="active">Work</a>
+    <a href="about.html">About</a>
   </div>
 </nav>
+
+
+
 
 <!-- ═══════ HERO ═══════ -->
 <section class="hero">
@@ -1145,6 +1196,16 @@ window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scr
 
 // Remove .html
 window.history.replaceState(null,null,window.location.pathname.replace(/\.html/g,''));
+</script>
+
+
+<script>
+window.addEventListener("scroll", () => {
+  const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+  const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  const scrolled = (winScroll / height) * 100;
+  document.getElementById("readProgress").style.width = scrolled + "%";
+});
 </script>
 
 </body>

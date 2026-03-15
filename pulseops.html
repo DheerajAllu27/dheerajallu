@@ -1,709 +1,896 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta charset="UTF-8" />
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>PulseOps — Case Study | Dheeraj Allu</title>
+<meta name="description" content="PulseOps: Enterprise incident intelligence platform — a full product design case study by Dheeraj Allu."/>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#000;
+  --bg-card:#090909;
+  --bg-elev:#0d0d0d;
+  --line:#1a1a1a;
+  --line-soft:#111;
+  --txt:#c4c4c4;
+  --txt-dim:#888;
+  --txt-faint:#555;
+  --white:#f0f0f0;
+  --purple:#ab8aff;
+  --cyan:#62d7ff;
+  --pink:#ff78cf;
+  --green:#2dcf7a;
+  --amber:#ffb347;
+  --red:#ff647c;
+  --max:1160px;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{
+  background:var(--bg);
+  color:var(--txt);
+  font-family:'Josefin Sans',system-ui,sans-serif;
+  font-weight:300;
+  line-height:1.78;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+body::before{
+  content:"";
+  position:fixed;inset:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 50% 30% at 50% 0%, rgba(171,138,255,.07),transparent 70%),
+    radial-gradient(ellipse 28% 22% at 10% 30%, rgba(98,215,255,.04),transparent 70%),
+    radial-gradient(ellipse 26% 20% at 90% 25%, rgba(255,120,207,.04),transparent 70%);
+}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+::selection{background:var(--purple);color:#000}
 
-  <meta name="title" content="PulseOps — Enterprise Incident Intelligence Platform | Dheeraj Allu" />
-  <meta name="description" content="PulseOps is an enterprise incident intelligence platform case study by Dheeraj Allu, focused on monitoring, incident response, and root cause investigation for engineering teams." />
-  <meta name="keywords" content="Dheeraj Allu, Product Designer, UX Designer, Enterprise UX, Incident Management, Monitoring Dashboard, Case Study, PulseOps" />
-  <meta name="robots" content="index, follow" />
+/* NAV */
+.nav{
+  position:sticky;top:0;left:0;right:0;z-index:120;
+  padding:0 28px;
+  background:rgba(0,0,0,.72);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(255,255,255,.05);
+}
+.nav.scrolled{background:rgba(0,0,0,.88);border-bottom-color:var(--line)}
+.nav-progress-track{
+  position:absolute;top:0;left:0;width:100%;height:2px;
+  background:rgba(255,255,255,.05);overflow:hidden;
+}
+.nav-progress-bar{
+  height:100%;width:0%;
+  background:linear-gradient(90deg,var(--purple),var(--cyan));
+  box-shadow:0 0 18px rgba(98,215,255,.25);
+  transition:width .15s linear;
+}
+.nav-inner{max-width:var(--max);margin:0 auto;min-height:78px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.nav-project{display:flex;align-items:center;gap:12px;min-width:0}
+.project-chip{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:9px 14px;border-radius:999px;
+  font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1.8px;text-transform:uppercase;
+  color:var(--white);border:1px solid rgba(171,138,255,.22);
+  background:linear-gradient(135deg,rgba(171,138,255,.14),rgba(98,215,255,.08));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+}
+.project-chip::before{content:'';width:7px;height:7px;border-radius:999px;background:linear-gradient(135deg,var(--purple),var(--cyan));box-shadow:0 0 12px rgba(98,215,255,.35)}
+.project-meta{display:flex;flex-direction:column;gap:2px;min-width:0}
+.project-meta small{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2.2px;text-transform:uppercase;color:var(--txt-faint)}
+.project-meta strong{font-size:13px;font-weight:500;color:var(--white);white-space:nowrap}
+.nav-links{display:flex;align-items:center;gap:28px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--txt-dim)}
+.nav-links a{position:relative;transition:color .2s}
+.nav-links a:hover,.nav-links a.active{color:var(--white)}
+.nav-links a.active::after{
+  content:'';position:absolute;left:0;right:0;bottom:-10px;height:1px;
+  background:linear-gradient(90deg,var(--purple),var(--cyan));
+}
+.nav-toggle{display:none;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.02);color:var(--white);border-radius:999px;padding:10px 14px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1.8px;text-transform:uppercase;cursor:pointer}
 
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="PulseOps — Enterprise Incident Intelligence Platform" />
-  <meta property="og:description" content="A product design case study focused on enterprise monitoring, incident management, and root cause analysis." />
-  <meta property="og:image" content="pics/pulseops/dashboard1.png" />
+/* WRAP */
+.wrap{max-width:var(--max);margin:0 auto;padding:0 28px;position:relative}
 
-  <meta property="twitter:card" content="summary_large_image" />
-  <meta property="twitter:title" content="PulseOps — Enterprise Incident Intelligence Platform" />
-  <meta property="twitter:description" content="A product design case study focused on enterprise monitoring, incident management, and root cause analysis." />
-  <meta property="twitter:image" content="pics/pulseops/dashboard1.png" />
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;padding:130px 0 80px}
+.hero-inner{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+.tag{display:inline-flex;align-items:center;gap:12px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--txt-dim);margin-bottom:22px}
+.tag::before{content:"";width:36px;height:1px;background:linear-gradient(90deg,var(--purple),transparent)}
+h1{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(68px,10vw,138px);font-weight:400;line-height:.88;letter-spacing:-.046em;color:var(--white)}
+.hero-sub{margin-top:16px;font-family:'Cormorant Garamond',serif;font-size:clamp(20px,2.8vw,30px);font-style:italic;color:#999;font-weight:400}
+.hero-copy{margin-top:28px;font-size:17px;color:#b4b4b4;max-width:600px;line-height:1.82}
+.meta-row{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:38px;max-width:720px}
+.m{padding:0 0 14px;border-bottom:1px solid var(--line)}
+.m span{display:block;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2.2px;text-transform:uppercase;color:var(--txt-faint);margin-bottom:8px}
+.m strong{font-size:14px;color:var(--white);font-weight:500}
 
-  <title>PulseOps — Dheeraj Allu</title>
+/* HERO CARD */
+.hero-card{background:rgba(255,255,255,.015);border:1px solid var(--line);border-radius:24px;padding:22px;position:relative;overflow:hidden}
+.hero-card::before{content:"";position:absolute;inset:-1px;background:linear-gradient(135deg,rgba(171,138,255,.2),transparent 40%,transparent 60%,rgba(98,215,255,.14));mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;padding:1px;border-radius:24px;pointer-events:none}
+.card-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.card-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2.4px;text-transform:uppercase;color:var(--txt-faint)}
+.card-badge{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1.6px;text-transform:uppercase;color:#9ff0d0;background:rgba(45,207,122,.1);border:1px solid rgba(45,207,122,.18);border-radius:999px;padding:7px 10px}
+.card-img{border-radius:14px;overflow:hidden;border:1px solid var(--line);background:#050505}
+.card-img img{width:100%;height:auto}
+.card-foot{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+.cf{padding:12px 0;border-top:1px solid var(--line)}
+.cf span{display:block;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--txt-faint);margin-bottom:8px}
+.cf strong{color:var(--white);font-size:13px;font-weight:500}
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png?v=2" />
-  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
+/* SECTIONS */
+.sec{padding:106px 0;border-top:1px solid var(--line)}
+.sec-grid{display:grid;grid-template-columns:200px 1fr;gap:40px}
+.rail{padding-top:6px}
+.rail .rl{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--purple);margin-bottom:16px}
+.rail .rl-line{width:50px;height:1px;background:linear-gradient(90deg,var(--purple),transparent)}
+.rail .rl-num{display:block;margin-top:18px;font-family:'JetBrains Mono',monospace;font-size:36px;font-weight:300;color:rgba(171,138,255,.14);letter-spacing:-2px}
 
-  <link href="css/plugins.css" rel="stylesheet" />
-  <link href="css/responsive.css" rel="stylesheet" />
-  <link href="css/style.css" rel="stylesheet" />
-  <link href="css/design-demos.css" rel="stylesheet" />
-  <link rel="stylesheet" href="added.css" />
+/* CONTENT TYPOGRAPHY */
+.body h2{font-family:'Cormorant Garamond',serif;font-size:clamp(34px,4.5vw,58px);font-weight:400;color:var(--white);line-height:1.03;letter-spacing:-.03em;max-width:860px}
+.body .intro{max-width:740px;margin-top:16px;font-size:17px;color:#b6b6b6;line-height:1.82}
+.body p{max-width:740px;margin-top:14px;font-size:16px;color:#acacac;line-height:1.8}
+.pq{margin:32px 0 0;max-width:740px;padding:22px 0 0;border-top:1px solid var(--line)}
+.pq p{font-family:'Cormorant Garamond',serif;font-size:26px;line-height:1.28;color:var(--white);max-width:680px;font-style:italic}
+.pq cite{display:block;margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--txt-faint);font-style:normal}
 
-  <style>
-    body {
-      background: #000;
-      color: #fff;
-      font-family: 'Josefin Sans', sans-serif !important;
-    }
+/* STATS */
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:38px;max-width:880px}
+.st{background:rgba(255,255,255,.018);border:1px solid var(--line);border-radius:16px;padding:24px 22px}
+.st small{display:block;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--txt-faint);margin-bottom:10px}
+.st strong{display:block;font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:500;color:var(--white);line-height:1}
+.st p{margin-top:8px;font-size:14px;color:#999;max-width:none}
 
-    .pulseops-page {
-      background: #000;
-      color: #fff;
-    }
+/* USER TYPES */
+.user-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:36px;max-width:880px}
+.user-card{padding:22px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.012)}
+.user-card .uc-tag{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px}
+.user-card .uc-tag.devops{color:var(--cyan)}
+.user-card .uc-tag.sre{color:var(--purple)}
+.user-card .uc-tag.lead{color:var(--amber)}
+.user-card h4{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:400;color:var(--white);margin-bottom:10px}
+.user-card p{font-size:14px;color:#999;margin:0;max-width:none;line-height:1.7}
+.user-card ul{margin-top:16px;display:grid;gap:8px;padding:0;list-style:none}
+.user-card ul li{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--txt-dim);padding:8px 0;border-top:1px solid var(--line)}
+.user-card ul li::before{content:"→ ";color:var(--txt-faint)}
 
-    .pulseops-hero {
-      padding-top: 180px;
-      padding-bottom: 100px;
-      position: relative;
-      overflow: hidden;
-    }
+/* RESEARCH */
+.research-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:36px;max-width:880px}
+.r-card{padding:26px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.012)}
+.r-card .rn{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--txt-faint);margin-bottom:12px}
+.r-card h4{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:400;color:var(--white);margin-bottom:10px}
+.r-card p{font-size:14px;color:#999;margin:0;max-width:none;line-height:1.7}
 
-    .pulseops-hero:before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(circle at 20% 20%, rgba(255,255,255,0.06), transparent 30%),
-        radial-gradient(circle at 80% 10%, rgba(255,255,255,0.04), transparent 28%);
-      pointer-events: none;
-    }
+/* INSIGHTS */
+.insight-list{display:grid;gap:0;margin-top:34px;max-width:860px;border-top:1px solid var(--line)}
+.insight{display:grid;grid-template-columns:80px 1fr;gap:20px;padding:22px 0;border-bottom:1px solid var(--line)}
+.insight .in{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--txt-faint);padding-top:3px}
+.insight h4{font-size:17px;font-weight:500;color:var(--white);margin-bottom:6px}
+.insight p{margin:0;max-width:640px;font-size:15px;color:#9a9a9a;line-height:1.74}
+.insight .tag-badge{display:inline-block;margin-top:12px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1.8px;text-transform:uppercase;padding:5px 9px;border-radius:6px}
+.tag-badge.tc{background:rgba(98,215,255,.08);color:var(--cyan);border:1px solid rgba(98,215,255,.14)}
+.tag-badge.tp{background:rgba(171,138,255,.08);color:var(--purple);border:1px solid rgba(171,138,255,.14)}
+.tag-badge.tg{background:rgba(45,207,122,.08);color:var(--green);border:1px solid rgba(45,207,122,.14)}
+.tag-badge.ta{background:rgba(255,179,71,.08);color:var(--amber);border:1px solid rgba(255,179,71,.14)}
 
-    .pulseops-kicker {
-      font-size: 13px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: #8c8c8c;
-      display: inline-block;
-      margin-bottom: 24px;
-    }
+/* DESIGN DECISIONS */
+.principles{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:36px}
+.pr{padding:22px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.012)}
+.pr .pn{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);margin-bottom:12px}
+.pr h4{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:400;color:var(--white);margin-bottom:8px}
+.pr p{font-size:14px;color:#999;margin:0;max-width:none;line-height:1.7}
 
-    .pulseops-title {
-      font-size: 92px;
-      line-height: 0.95;
-      font-weight: 600;
-      margin: 0 0 24px;
-      color: #fff;
-    }
+/* SPLIT COLS */
+.split2{display:grid;grid-template-columns:1.05fr .95fr;gap:18px;align-items:start;margin-top:34px}
+.panel{background:rgba(255,255,255,.015);border:1px solid var(--line);border-radius:18px;padding:26px}
+.panel h3{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:400;color:var(--white);margin-bottom:12px;letter-spacing:-.02em}
+.panel p{font-size:15px;color:#a6a6a6;margin:0;max-width:none}
+.ilist{display:grid;gap:12px;margin-top:20px}
+.il{padding:14px 0;border-top:1px solid var(--line)}
+.il:first-child{border-top:0;padding-top:0}
+.il strong{display:block;color:var(--white);font-weight:500;font-size:15px;margin-bottom:3px}
+.il span{color:#888;font-size:14px;line-height:1.65}
 
-    .pulseops-subtitle {
-      font-size: 23px;
-      line-height: 1.6;
-      color: #cfcfcf;
-      max-width: 760px;
-      margin-bottom: 40px;
-    }
+/* SCREENS SHOWCASE */
+.showcase{display:grid;gap:80px;margin-top:38px}
+.story{display:grid;grid-template-columns:minmax(0,400px) minmax(0,1fr);gap:26px;align-items:start}
+.story.alt{grid-template-columns:minmax(0,1fr) minmax(0,400px)}
+.sc{position:sticky;top:96px}
+.sc .ey{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--txt-faint);margin-bottom:10px}
+.sc h3{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:400;color:var(--white);line-height:1.04;letter-spacing:-.03em}
+.sc p{margin-top:12px;font-size:16px;color:#a8a8a8;max-width:360px;line-height:1.8}
+.nl{display:grid;gap:12px;margin-top:22px}
+.n{padding:12px 0;border-top:1px solid var(--line)}
+.n strong{display:block;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--txt-faint);margin-bottom:7px}
+.n span{display:block;color:#eaeaea;font-size:15px;line-height:1.65}
+.frame{background:rgba(255,255,255,.015);border:1px solid var(--line);border-radius:20px;overflow:hidden}
+.frame-top{display:flex;align-items:center;gap:7px;padding:14px 16px;border-bottom:1px solid var(--line-soft);background:rgba(255,255,255,.01)}
+.dot{width:9px;height:9px;border-radius:999px;background:#252525}
+.frame-top span{margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--txt-faint)}
+.frame-body{padding:16px;background:#030303}
+.frame-body img{width:100%;border-radius:11px}
 
-    .pulseops-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 36px;
-      margin-top: 26px;
-    }
+/* IMPACT */
+.impact-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:38px}
+.imp{padding:26px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.012)}
+.imp .itp{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
+.imp .itp.green{color:var(--green)}
+.imp .itp.purple{color:var(--purple)}
+.imp .itp.cyan{color:var(--cyan)}
+.imp .itp.amber{color:var(--amber)}
+.imp h3{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:400;color:var(--white);margin-bottom:10px}
+.imp p{font-size:14px;color:#999;margin:0;max-width:none;line-height:1.72}
 
-    .pulseops-meta-item span {
-      display: block;
-      font-size: 12px;
-      color: #7a7a7a;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      margin-bottom: 8px;
-    }
+/* STRIP */
+.strip3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px}
+.s3{padding:16px 0;border-top:1px solid var(--line)}
+.s3 small{display:block;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--txt-faint);margin-bottom:8px}
+.s3 strong{display:block;color:var(--white);font-size:15px;font-weight:500;line-height:1.6}
 
-    .pulseops-meta-item strong {
-      color: #fff;
-      font-size: 16px;
-      font-weight: 500;
-    }
+/* NEXT */
+.next-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:36px}
+.nx{padding:26px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.012)}
+.nx h4{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:400;color:var(--white);margin-bottom:10px}
+.nx p{font-size:14px;color:#999;margin:0;max-width:none;line-height:1.72}
 
-    .pulseops-hero-image {
-      margin-top: 70px;
-      border-radius: 24px;
-      overflow: hidden;
-      background: #090909;
-      border: 1px solid rgba(255,255,255,0.08);
-      box-shadow: 0 20px 80px rgba(0,0,0,0.45);
-    }
+/* FOOTER */
+.footer{padding:80px 0 100px}
+.footer-inner{border-top:1px solid var(--line);padding-top:26px;display:flex;justify-content:space-between;gap:24px;align-items:flex-end}
+.footer-copy h3{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:400;color:var(--white);line-height:1.04;max-width:540px}
+.footer-copy p{margin-top:12px;max-width:560px;font-size:15px;color:#888}
+.cta{display:inline-flex;align-items:center;gap:10px;padding:13px 17px;border:1px solid rgba(255,255,255,.1);border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--white);transition:transform .25s var(--ease),border-color .25s var(--ease),background .25s var(--ease);white-space:nowrap}
+.cta:hover{transform:translateY(-2px);border-color:rgba(171,138,255,.4);background:rgba(171,138,255,.05)}
 
-    .pulseops-hero-image img,
-    .pulseops-frame img {
-      width: 100%;
-      display: block;
-    }
-
-    .pulseops-section {
-      padding: 95px 0;
-      border-top: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .pulseops-label {
-      font-size: 12px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: #7b7b7b;
-      margin-bottom: 18px;
-      display: inline-block;
-    }
-
-    .pulseops-heading {
-      font-size: 54px;
-      line-height: 1.06;
-      font-weight: 600;
-      margin: 0 0 22px;
-      color: #fff;
-      max-width: 900px;
-    }
-
-    .pulseops-body {
-      font-size: 19px;
-      line-height: 1.9;
-      color: #c2c2c2;
-      max-width: 820px;
-    }
-
-    .pulseops-body p {
-      margin-bottom: 20px;
-    }
-
-    .pulseops-principles {
-      margin-top: 50px;
-    }
-
-    .pulseops-principle {
-      padding: 24px 0;
-      border-top: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .pulseops-principle h4 {
-      color: #fff;
-      font-size: 26px;
-      margin: 0 0 10px;
-      font-weight: 500;
-    }
-
-    .pulseops-principle p {
-      color: #b4b4b4;
-      font-size: 17px;
-      line-height: 1.8;
-      margin: 0;
-      max-width: 760px;
-    }
-
-    .pulseops-story {
-      padding: 70px 0;
-      border-top: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .pulseops-story:first-child {
-      border-top: none;
-      padding-top: 30px;
-    }
-
-    .pulseops-story-copy {
-      margin-bottom: 34px;
-    }
-
-    .pulseops-story-title {
-      font-size: 42px;
-      font-weight: 600;
-      margin: 0 0 16px;
-      color: #fff;
-    }
-
-    .pulseops-story-text {
-      font-size: 18px;
-      line-height: 1.85;
-      color: #bcbcbc;
-      max-width: 760px;
-    }
-
-    .pulseops-frame {
-      border-radius: 22px;
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.08);
-      background: #070707;
-      box-shadow: 0 20px 70px rgba(0,0,0,0.36);
-    }
-
-    .pulseops-frame-top {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 14px 18px;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      background: rgba(255,255,255,0.02);
-    }
-
-    .pulseops-dot {
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      background: #353535;
-    }
-
-    .pulseops-frame-label {
-      margin-left: auto;
-      font-size: 11px;
-      letter-spacing: 2px;
-      color: #7b7b7b;
-      text-transform: uppercase;
-    }
-
-    .pulseops-outcome-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 26px;
-      margin-top: 46px;
-    }
-
-    .pulseops-card {
-      border: 1px solid rgba(255,255,255,0.08);
-      background: #090909;
-      border-radius: 20px;
-      padding: 32px;
-    }
-
-    .pulseops-card h4 {
-      margin: 0 0 14px;
-      font-size: 28px;
-      font-weight: 500;
-      color: #fff;
-    }
-
-    .pulseops-card p {
-      margin: 0;
-      color: #b7b7b7;
-      font-size: 17px;
-      line-height: 1.85;
-    }
-
-    .pulseops-next {
-      padding: 100px 0 120px;
-      text-align: center;
-      border-top: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .pulseops-next h3 {
-      font-size: 42px;
-      color: #fff;
-      margin-bottom: 14px;
-      font-weight: 600;
-    }
-
-    .pulseops-next p {
-      color: #b7b7b7;
-      font-size: 18px;
-      max-width: 700px;
-      margin: 0 auto 28px;
-      line-height: 1.85;
-    }
-
-    .pulseops-next a {
-      display: inline-block;
-      color: #fff;
-      border: 1px solid rgba(255,255,255,0.14);
-      padding: 14px 24px;
-      border-radius: 40px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      font-size: 12px;
-      transition: all .25s ease;
-    }
-
-    .pulseops-next a:hover {
-      background: #fff;
-      color: #000;
-    }
-
-    @media (max-width: 991px) {
-      .pulseops-title {
-        font-size: 62px;
-      }
-
-      .pulseops-heading {
-        font-size: 38px;
-      }
-
-      .pulseops-story-title {
-        font-size: 32px;
-      }
-
-      .pulseops-outcome-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .pulseops-hero {
-        padding-top: 150px;
-      }
-    }
-
-    @media (max-width: 767px) {
-      .pulseops-title {
-        font-size: 46px;
-      }
-
-      .pulseops-subtitle,
-      .pulseops-body,
-      .pulseops-story-text,
-      .pulseops-card p,
-      .pulseops-next p {
-        font-size: 16px;
-      }
-
-      .pulseops-heading {
-        font-size: 30px;
-      }
-
-      .pulseops-story-title {
-        font-size: 26px;
-      }
-
-      .pulseops-meta {
-        gap: 22px;
-      }
-    }
-  </style>
+/* RESPONSIVE */
+@media(max-width:1060px){
+  .hero-inner,.split2,.story,.story.alt,.impact-grid,.next-grid{grid-template-columns:1fr}
+  .sec-grid{grid-template-columns:1fr;gap:20px}
+  .sc{position:static}
+}
+@media(max-width:800px){
+  .hero{padding-top:88px}
+  .meta-row,.stat-row,.user-grid,.research-grid,.principles,.strip3{grid-template-columns:1fr}
+  .nav-toggle{display:inline-flex;align-items:center;justify-content:center}
+  .nav-inner{min-height:72px;align-items:center}
+  .project-meta strong{font-size:12px}
+  .project-meta small{font-size:8px}
+  .nav-links{
+    display:none;position:absolute;top:calc(100% + 10px);left:28px;right:28px;
+    flex-direction:column;align-items:flex-start;gap:0;padding:12px 16px;
+    border:1px solid var(--line);border-radius:16px;background:rgba(5,5,5,.96);
+    box-shadow:0 18px 40px rgba(0,0,0,.35)
+  }
+  .nav-links.open{display:flex}
+  .nav-links a{width:100%;padding:12px 0}
+  .nav-links a.active::after{bottom:6px;right:auto;width:48px}
+  .insight{grid-template-columns:1fr}
+  .insight .in{display:none}
+  .footer-inner{flex-direction:column;align-items:flex-start}
+}
+</style>
 </head>
+<body>
 
-<body data-spy="scroll" data-target=".navbar" data-offset="70">
+<nav class="nav" id="nav">
+  <div class="nav-progress-track"><div class="nav-progress-bar" id="progressBar"></div></div>
+  <div class="nav-inner">
+    <div class="nav-project">
+      <div class="project-chip">PulseOps</div>
+      <div class="project-meta">
+        <small>Enterprise Case Study</small>
+        <strong>Incident Intelligence Platform</strong>
+      </div>
+    </div>
 
-  <div class="preloader dark_preloader">
-    <div class="spinner">
-      <div class="double-bounce1"></div>
-      <div class="double-bounce2"></div>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">Menu</button>
+
+    <div class="nav-links" id="navLinks">
+      <a href="/">Home</a>
+      <a href="work.html" class="active">Work</a>
+      <a href="about.html">About</a>
     </div>
   </div>
+</nav>
 
-  <div class="navbar navbar-default navbar-fixed-top menu_top dark_bg_menu" style="font-family: 'Josefin Sans', sans-serif !important">
-    <div class="container">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a href="/" class="navbar-brand top-name-title">
-          <img src="pics/home/favicon.png" alt="Dheeraj Allu Logo" class="nav-logo">
-        </a>
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-inner">
+      <div>
+        <div class="tag">Enterprise Product Design · Case Study</div>
+        <h1>PulseOps</h1>
+        <div class="hero-sub">When infrastructure fails, clarity saves time.</div>
+        <p class="hero-copy">PulseOps is an enterprise incident intelligence platform designed for DevOps engineers and SRE teams. It reimagines what happens in the 38 minutes between "something is wrong" and "the system is stable again" — replacing fragmented tooling with a single, coherent investigation experience.</p>
+        <div class="meta-row">
+          <div class="m"><span>Role</span><strong>Solo Product Designer</strong></div>
+          <div class="m"><span>Type</span><strong>Portfolio Concept</strong></div>
+          <div class="m"><span>Focus</span><strong>Enterprise UX · Incident Response</strong></div>
+        </div>
       </div>
+      <aside class="hero-card">
+        <div class="card-head">
+          <div class="card-label">Operations Dashboard</div>
+          <div class="card-badge">Live Preview</div>
+        </div>
+        <div class="card-img"><img src="dashboard1.png" alt="PulseOps operations dashboard"/></div>
+        <div class="card-foot">
+          <div class="cf"><span>Core insight</span><strong>Noise is the enemy during incidents</strong></div>
+          <div class="cf"><span>Design direction</span><strong>Signal over decoration, always</strong></div>
+        </div>
+      </aside>
+    </div>
+  </section>
 
-      <div id="navbar" class="navbar-collapse collapse">
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href="/" class="smoothScroll">Home</a></li>
-          <li class="active"><a href="work.html" class="smoothScroll">work</a></li>
-          <li><a href="about.html" class="smoothScroll">about</a></li>
-        </ul>
+  <!-- 01 · PROBLEM -->
+  <section class="sec" id="problem">
+    <div class="wrap sec-grid">
+      <aside class="rail">
+        <div class="rl">PROBLEM</div>
+        <div class="rl-line"></div>
+        <span class="rl-num">01</span>
+      </aside>
+      <div class="body">
+        <h2>Monitoring tools are powerful. But in a crisis, they feel hard to think with.</h2>
+        <p class="intro">Modern infrastructure monitoring has matured enormously — yet when a critical incident occurs, engineers still spend the first critical minutes jumping between tabs, parsing alerts, and assembling a mental picture that no single tool gives them.</p>
+        <p>The problem is not a lack of data. Production systems generate enormous amounts of telemetry. The problem is <em>orientation</em> — understanding what broke, how far the failure has spread, what depends on the affected component, and what to do next — all under pressure, often in the middle of the night.</p>
+        <p>Most platforms are built around the idea of showing everything. PulseOps was designed around a different question: what does an engineer actually need to know <em>right now</em>?</p>
+
+        <div class="pq">
+          <p>"The hardest part of an incident isn't fixing it. It's figuring out what is actually happening while everything is on fire."</p>
+          <cite>Core problem statement</cite>
+        </div>
+
+        <div class="stat-row">
+          <div class="st">
+            <small>Average response time</small>
+            <strong>38<span style="font-size:22px;color:#666">min</span></strong>
+            <p>Mean time between alert trigger and confirmed root cause identification in complex distributed systems.</p>
+          </div>
+          <div class="st">
+            <small>Context switches</small>
+            <strong>4–7</strong>
+            <p>Average number of separate tools or views an engineer opens during a typical critical incident investigation.</p>
+          </div>
+          <div class="st">
+            <small>Alert fatigue rate</small>
+            <strong>~60<span style="font-size:22px;color:#666">%</span></strong>
+            <p>Share of monitoring alerts teams report as noisy or not directly actionable during an active incident.</p>
+          </div>
+        </div>
+
+        <div class="split2" style="margin-top:38px">
+          <div class="panel">
+            <h3>The fragmentation problem</h3>
+            <p>Today's DevOps tooling is best-in-class for individual tasks — metrics, logs, tracing, alerting — but the tools don't talk to each other in a way that supports investigation as a workflow. Engineers have to hold the full picture in their heads while switching between tools, a cognitive cost that compounds under pressure.</p>
+            <div class="ilist">
+              <div class="il"><strong>Alert dashboards</strong><span>Surface signals but don't show relationships or propagation.</span></div>
+              <div class="il"><strong>Log tools</strong><span>Deep for diagnosis but poor for fast triage and orientation.</span></div>
+              <div class="il"><strong>Incident trackers</strong><span>Good for coordination but disconnected from live system data.</span></div>
+              <div class="il"><strong>Service maps</strong><span>Often siloed in separate platform areas, not linked to active incidents.</span></div>
+            </div>
+          </div>
+          <div class="panel">
+            <h3>What PulseOps addresses</h3>
+            <p>Rather than adding another tool, PulseOps is designed as the connective layer — a platform that treats detection, triage, diagnosis, and review as a single continuous workflow. Every view connects to the next logical step an engineer needs to take.</p>
+            <div class="ilist">
+              <div class="il"><strong>Detection → Triage</strong><span>Alerts link directly to the full incident context without manual lookup.</span></div>
+              <div class="il"><strong>Triage → Diagnosis</strong><span>Each incident surfaces correlated metrics, logs, and AI anomaly signals.</span></div>
+              <div class="il"><strong>Diagnosis → Review</strong><span>Root cause findings flow into post-incident reports automatically.</span></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+  </section>
+
+  <!-- 02 · USERS -->
+  <section class="sec" id="users">
+    <div class="wrap sec-grid">
+      <aside class="rail">
+        <div class="rl">USERS</div>
+        <div class="rl-line"></div>
+        <span class="rl-num">02</span>
+      </aside>
+      <div class="body">
+        <h2>Three distinct people, one shared moment of pressure.</h2>
+        <p class="intro">PulseOps serves a focused user set — the people who are paged at 2 AM, the engineers responsible for reliability contracts, and the leads trying to coordinate response across a team. Each of them approaches an incident with different needs, different contexts, and a different definition of "resolved."</p>
+
+        <div class="user-grid">
+          <div class="user-card">
+            <div class="uc-tag devops">Primary User</div>
+            <h4>DevOps Engineer</h4>
+            <p>On-call first responder. Receives the alert, triages the incident, coordinates a fix. Works fast, under pressure, needs context immediately.</p>
+            <ul>
+              <li>Needs to understand scope fast</li>
+              <li>Wants one screen per task</li>
+              <li>Trusts metrics over guesswork</li>
+              <li>Hates switching between tabs</li>
+            </ul>
+          </div>
+          <div class="user-card">
+            <div class="uc-tag sre">Core User</div>
+            <h4>SRE</h4>
+            <p>Owns reliability metrics, SLOs, and postmortems. Uses the platform for both live incidents and retrospective analysis to prevent recurrence.</p>
+            <ul>
+              <li>Cares deeply about root cause</li>
+              <li>Wants trend data, not just snapshots</li>
+              <li>Writes post-incident reports</li>
+              <li>Advocates for systemic fixes</li>
+            </ul>
+          </div>
+          <div class="user-card">
+            <div class="uc-tag lead">Secondary User</div>
+            <h4>Engineering Lead</h4>
+            <p>Manages escalations, communicates status to stakeholders, and tracks team workload. Needs high-level signal, not operational detail.</p>
+            <ul>
+              <li>Needs status at a glance</li>
+              <li>Wants to know who owns what</li>
+              <li>Reviews reports and trends</li>
+              <li>Escalates when needed</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="pq">
+          <p>Designing for the DevOps engineer under pressure meant designing for everyone else too — clarity and speed benefit all roles.</p>
+          <cite>User strategy</cite>
+        </div>
+
+        <p>A key design implication of this user set: the product must serve two different reading speeds simultaneously. During an active incident, the DevOps engineer needs to scan fast and act. In calmer moments — when reviewing trends, writing reports, or planning improvements — the SRE wants to read carefully and go deep. The interface has to support both without feeling schizophrenic.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 · RESEARCH -->
+  <section class="sec" id="research">
+    <div class="wrap sec-grid">
+      <aside class="rail">
+        <div class="rl">RESEARCH</div>
+        <div class="rl-line"></div>
+        <span class="rl-num">03</span>
+      </aside>
+      <div class="body">
+        <h2>I researched the space the way you would before designing for a real engineering team.</h2>
+        <p class="intro">This is a portfolio concept, but I approached the research phase as if I had access to real users. I drew from competitive analysis of existing platforms, published SRE literature, industry incident retrospectives, and public engineering blogs where teams have documented their real operational pain points.</p>
+
+        <div class="research-grid">
+          <div class="r-card">
+            <div class="rn">Method 01</div>
+            <h4>Competitive analysis</h4>
+            <p>Studied Datadog, PagerDuty, Grafana, New Relic, and Opsgenie. Each has strengths in specific layers — monitoring, alerting, or reporting — but none unifies the full investigation workflow in a single coherent experience. Most feel like collections of powerful features rather than products designed around a workflow.</p>
+          </div>
+          <div class="r-card">
+            <div class="rn">Method 02</div>
+            <h4>Industry incident reports</h4>
+            <p>Analysed public postmortems from companies including GitHub, Cloudflare, Stripe, and Shopify. A recurring pattern: the most costly part of incidents was not fixing the problem — it was the first 10–15 minutes of trying to understand what was actually broken and how far the impact had spread.</p>
+          </div>
+          <div class="r-card">
+            <div class="rn">Method 03</div>
+            <h4>SRE literature & Google's SRE book</h4>
+            <p>The Google SRE book and Betsy Beyer's follow-up work shaped how I thought about the operational lifecycle — detection, triage, mitigation, and postmortem as a complete cycle. This became the backbone of PulseOps's navigation model.</p>
+          </div>
+          <div class="r-card">
+            <div class="rn">Method 04</div>
+            <h4>Engineering blog analysis</h4>
+            <p>Engineering blogs from Netflix, Discord, Figma, and Linear surfaced recurring observations: engineers want their tools to surface relationships, not just raw data. The ability to understand "what depends on what" and "where did this start" emerged as the most underserved need.</p>
+          </div>
+        </div>
+
+        <div class="pq">
+          <p>The research kept returning to one word: orientation. Engineers don't need more data. They need to know where they are in the problem.</p>
+          <cite>Research synthesis</cite>
+        </div>
+
+        <p style="margin-top:28px">I also looked closely at the <strong style="color:var(--white);font-weight:500">information architecture</strong> of existing tools — how they group features, what they treat as primary navigation, and where they force context switches. Almost universally, the investigation workflow is split across at least three separate product areas. That fragmentation informed the core IA decision in PulseOps: treat detection, triage, diagnosis, and review as a single vertical, not as separate products bolted together.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 · INSIGHTS -->
+  <section class="sec" id="insights">
+    <div class="wrap sec-grid">
+      <aside class="rail">
+        <div class="rl">INSIGHTS</div>
+        <div class="rl-line"></div>
+        <span class="rl-num">04</span>
+      </aside>
+      <div class="body">
+        <h2>Five insights that shaped every design decision that followed.</h2>
+        <p class="intro">The research converged on a set of clear, recurring observations about how engineers experience incidents and what existing tools fail to provide. These insights were not just inputs — they became the evaluation criteria for every design choice in PulseOps.</p>
+
+        <div class="insight-list">
+          <div class="insight">
+            <div class="in">01</div>
+            <div>
+              <h4>Cognitive load peaks exactly when clarity matters most</h4>
+              <p>During an active incident, the brain is already under stress. Any interface element that requires interpretation — ambiguous iconography, inconsistent status labels, competing visual weights — adds friction at the worst possible moment. Enterprise tools that feel powerful during demos often fail in production because they were designed to look comprehensive, not to reduce cognitive load under stress.</p>
+              <span class="tag-badge tc">Information Architecture</span>
+            </div>
+          </div>
+          <div class="insight">
+            <div class="in">02</div>
+            <div>
+              <h4>Service relationships are the missing layer in most monitoring UIs</h4>
+              <p>When engineers see an alert, their first question is rarely "what's broken?" — they already know that. Their first question is "what does this affect?" Existing tools surface individual service metrics well, but they almost never make service dependencies visible in context during an active incident. Understanding propagation — the blast radius of a failure — is critical and deeply underserved.</p>
+              <span class="tag-badge tp">Systems Thinking</span>
+            </div>
+          </div>
+          <div class="insight">
+            <div class="in">03</div>
+            <div>
+              <h4>The fastest diagnosis happens when context is already assembled</h4>
+              <p>In current workflows, engineers manually correlate alerts with metrics, logs, and deployment history to find root cause. This correlation work is repetitive, error-prone, and slow. The insight here is not that AI is the solution — it's that the interface should pre-assemble relevant context so engineers can evaluate signals rather than gather them. Whether that's done algorithmically or through smart data layout, the principle is the same.</p>
+              <span class="tag-badge tg">AI-assisted workflows</span>
+            </div>
+          </div>
+          <div class="insight">
+            <div class="in">04</div>
+            <div>
+              <h4>Alert volume is a design failure, not an operational reality</h4>
+              <p>When systems generate hundreds of alerts per hour, engineers stop reading them. Alert fatigue is not a monitoring problem — it's a design problem. The interface needs to actively help users distinguish signals that require attention from those that are informational. Severity, recency, and impact scope are not just metadata; they're the primary interface for triage and they deserve to be treated as first-class design elements.</p>
+              <span class="tag-badge ta">Alerts Design</span>
+            </div>
+          </div>
+          <div class="insight">
+            <div class="in">05</div>
+            <div>
+              <h4>Post-incident work is treated as a chore, not a feature</h4>
+              <p>Most monitoring products stop at resolution. They help teams detect and respond, but they don't create any structure around learning. Post-incident reports are usually written in external docs, disconnected from the actual investigation data. When the platform can generate and scaffold those reports from the investigation context, the quality of postmortems improves and teams are more likely to actually complete them — closing the operational feedback loop.</p>
+              <span class="tag-badge tc">Operational Lifecycle</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 · DESIGN DECISIONS -->
+  <section class="sec" id="decisions">
+    <div class="wrap sec-grid">
+      <aside class="rail">
+        <div class="rl">DESIGN DECISIONS</div>
+        <div class="rl-line"></div>
+        <span class="rl-num">05</span>
+      </aside>
+      <div class="body">
+        <h2>Every design decision was a direct response to a research finding.</h2>
+        <p class="intro">This section maps the key design choices in PulseOps back to the insights that drove them. Good enterprise design isn't about aesthetics first — it's about understanding operational reality and building an interface that reflects it accurately.</p>
+
+        <div class="principles">
+          <div class="pr">
+            <div class="pn">Decision 01</div>
+            <h4>One workflow, not a feature collection</h4>
+            <p>The entire platform is organized around the incident lifecycle — monitor, detect, triage, diagnose, review — rather than by feature type. Navigation follows the user's mental workflow during an incident, not the product team's internal taxonomy.</p>
+          </div>
+          <div class="pr">
+            <div class="pn">Decision 02</div>
+            <h4>Dark, high-contrast visual system</h4>
+            <p>Dark mode wasn't chosen for aesthetics — it was the right choice for an environment where screens are often read in dim server rooms or late at night. High contrast between critical, warning, and healthy states makes status scannable in under two seconds.</p>
+          </div>
+          <div class="pr">
+            <div class="pn">Decision 03</div>
+            <h4>AI root cause as a first-class feature</h4>
+            <p>Machine learning anomaly detection is surfaced prominently in the investigation view — not tucked into a sidebar. The confidence score and affected service count give engineers enough signal to evaluate the suggestion without blindly trusting it.</p>
+          </div>
+          <div class="pr">
+            <div class="pn">Decision 04</div>
+            <h4>Service dependency map in the product core</h4>
+            <p>The architecture overview lives in the main infrastructure area, not in a separate observability product. During an incident, seeing which services depend on the failing component is critical. Making this visible in context — not behind a separate tool — reduces context switching significantly.</p>
+          </div>
+          <div class="pr">
+            <div class="pn">Decision 05</div>
+            <h4>Incident timeline as the primary narrative</h4>
+            <p>Every incident has a story — what triggered the alert, when an engineer was assigned, when root cause was found, when the fix was deployed. Presenting this as a chronological timeline in the investigation view helps teams coordinate and gives leads a quick status view without needing a separate briefing.</p>
+          </div>
+          <div class="pr">
+            <div class="pn">Decision 06</div>
+            <h4>Reports as part of the platform, not an export</h4>
+            <p>Post-incident reports are generated from the investigation data already captured in the system. This removes the friction of writing a postmortem from memory and increases the chance teams complete them — turning each incident into a recorded learning event.</p>
+          </div>
+        </div>
+
+        <div class="pq" style="margin-top:40px">
+          <p>The hardest design decisions weren't about what to add. They were about what to leave out — choosing what information an engineer needs right now versus what can wait.</p>
+          <cite>Design philosophy</cite>
+        </div>
+
+        <div class="split2" style="margin-top:38px">
+          <div class="panel">
+            <h3>Information hierarchy principles</h3>
+            <p>Across every screen, I applied a consistent hierarchy logic that prioritizes operationally critical information over completeness.</p>
+            <div class="ilist">
+              <div class="il"><strong>Status before detail</strong><span>Is the system healthy or not? That question must be answerable within 2 seconds on every primary view.</span></div>
+              <div class="il"><strong>Severity is visual, not textual</strong><span>Critical incidents and alerts use color, not just labels — because color is processed faster than text under stress.</span></div>
+              <div class="il"><strong>Actions surface contextually</strong><span>Acknowledge, Escalate, Mark Resolved — these appear in context, not in a remote settings panel.</span></div>
+              <div class="il"><strong>Drill-down, not sideways</strong><span>The navigation model keeps engineers moving deeper into one incident rather than navigating laterally to separate tools.</span></div>
+            </div>
+          </div>
+          <div class="panel">
+            <h3>Technical UX considerations</h3>
+            <p>Designing for a DevOps audience means respecting technical literacy. The interface doesn't over-explain — it uses the language engineers already know.</p>
+            <div class="ilist">
+              <div class="il"><strong>INC numbering system</strong><span>Incident IDs (INC-2401) mirror real operational conventions — they're how engineers talk about incidents in Slack and runbooks.</span></div>
+              <div class="il"><strong>P50/P95/P99 latency percentiles</strong><span>Standard SRE notation, not simplified. These users know what these mean and expect to see them.</span></div>
+              <div class="il"><strong>Correlated metrics layout</strong><span>Error rate, latency, CPU, and request failures are shown together because causality runs between them.</span></div>
+              <div class="il"><strong>Confidence scoring on AI analysis</strong><span>98% confidence with a named root cause gives engineers enough signal to act without replacing their judgment.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 · FINAL SOLUTION -->
+  <section class="sec" id="solution">
+    <div class="wrap sec-grid">
+      <aside class="rail">
+        <div class="rl">SOLUTION</div>
+        <div class="rl-line"></div>
+        <span class="rl-num">06</span>
+      </aside>
+      <div class="body">
+        <h2>A complete investigation experience, from first alert to final report.</h2>
+        <p class="intro">PulseOps is a nine-screen product that covers the full incident lifecycle without requiring engineers to leave the platform. Each screen connects to the next. Each view answers one clear operational question before passing the user forward.</p>
+
+        <div class="showcase">
+
+          <article class="story">
+            <div class="sc">
+              <div class="ey">01 / Orientation</div>
+              <h3>Operations Dashboard</h3>
+              <p>The dashboard answers the most fundamental operational question — is the system healthy right now? — before offering any detail. Uptime, active incidents, alert counts, and service health are surfaced in order of operational priority, not visual symmetry.</p>
+              <div class="nl">
+                <div class="n"><strong>Design decision</strong><span>System uptime (99.8%) is the hero metric — it's the one number engineering leadership cares about most and the first anchor an engineer needs during triage.</span></div>
+                <div class="n"><strong>Service health panel</strong><span>Shows response times and status for all critical services at a glance. Color-coded status badges (Healthy / Warning / Critical) make the system state readable in under three seconds.</span></div>
+              </div>
+            </div>
+            <div class="frame">
+              <div class="frame-top"><div class="dot"></div><div class="dot"></div><div class="dot"></div><span>Dashboard</span></div>
+              <div class="frame-body"><img src="dashboard1.png" alt="PulseOps operations dashboard"/></div>
+            </div>
+          </article>
+
+          <article class="story alt">
+            <div class="frame">
+              <div class="frame-top"><div class="dot"></div><div class="dot"></div><div class="dot"></div><span>Active Incidents</span></div>
+              <div class="frame-body"><img src="incident2.png" alt="PulseOps incidents list"/></div>
+            </div>
+            <div class="sc">
+              <div class="ey">02 / Triage</div>
+              <h3>Incident Management</h3>
+              <p>The incidents view turns raw system events into a prioritizable list. Severity, service, assignee, user impact, and time detected are all visible at row level — so engineers can make a triage decision without opening a single incident first.</p>
+              <div class="nl">
+                <div class="n"><strong>Technical detail</strong><span>Impact is shown as approximate user count (~2,400 users) rather than a percentage — because "2,400 users affected" is a more operationally meaningful statement than "0.6% of traffic."</span></div>
+                <div class="n"><strong>Filter chips</strong><span>Critical (2), High (2), Investigating (3) — allow one-click narrowing to the most urgent incidents without a full filter panel interaction.</span></div>
+              </div>
+            </div>
+          </article>
+
+          <article class="story">
+            <div class="sc">
+              <div class="ey">03 / Investigation</div>
+              <h3>Root Cause Analysis</h3>
+              <p>This is the most technically complex screen — and the one that most directly addresses the core problem. It surfaces correlated metrics, AI anomaly detection, an incident timeline, service impact mapping, suggested actions, and raw logs in one unified view.</p>
+              <div class="nl">
+                <div class="n"><strong>AI anomaly banner</strong><span>Machine learning models flagged the database connection pool exhaustion at 14:32 UTC with 98% confidence. The banner shows root cause, affected services, and confidence score — all the context needed to evaluate the finding quickly.</span></div>
+                <div class="n"><strong>Service impact map</strong><span>Four services shown as cards with their status (API Gateway: Warning, Database: Critical) — giving engineers an immediate visual of the blast radius without opening a separate service map tool.</span></div>
+                <div class="n"><strong>Incident timeline</strong><span>Chronological sequence from alert trigger to resolution — supports coordination, status communication, and later becomes the foundation for the post-incident report.</span></div>
+              </div>
+            </div>
+            <div class="frame">
+              <div class="frame-top"><div class="dot"></div><div class="dot"></div><div class="dot"></div><span>Root Cause Analysis</span></div>
+              <div class="frame-body"><img src="rootcauseanalysis3.png" alt="PulseOps root cause analysis view"/></div>
+            </div>
+          </article>
+
+          <article class="story alt">
+            <div class="frame">
+              <div class="frame-top"><div class="dot"></div><div class="dot"></div><div class="dot"></div><span>System Alerts</span></div>
+              <div class="frame-body"><img src="alerts4.png" alt="PulseOps system alerts"/></div>
+            </div>
+            <div class="sc">
+              <div class="ey">04 / Signal management</div>
+              <h3>System Alerts</h3>
+              <p>47 active alerts. Instead of presenting them as a flat, equally-weighted list, PulseOps groups them by severity with individual status indicators — so engineers can acknowledge contextually rather than processing the list top to bottom.</p>
+              <div class="nl">
+                <div class="n"><strong>Severity taxonomy</strong><span>Critical (12), Warning (28), Info (7). The counts at the top give engineers an immediate sense of the noise level before reading a single alert title.</span></div>
+                <div class="n"><strong>Status per alert</strong><span>Investigating, Critical, Warning, Healthy — each alert has its own status badge, supporting triage decisions at the row level without opening a detail panel.</span></div>
+              </div>
+            </div>
+          </article>
+
+          <article class="story">
+            <div class="sc">
+              <div class="ey">05 / System topology</div>
+              <h3>Services Architecture</h3>
+              <p>The services view makes infrastructure relationships visible — which services exist, how they connect, and where degradation is occurring right now. This directly addresses the second insight: engineers need to see propagation, not just the failing component.</p>
+              <div class="nl">
+                <div class="n"><strong>Dependency graph</strong><span>Six services shown with real-time latency values and status. The Database Cluster (Critical, 480ms) is visually distinct from the healthy services — its position in the graph immediately suggests which services are at risk of cascading failure.</span></div>
+                <div class="n"><strong>Architecture overview</strong><span>Showing the topology in the product core — not behind a separate observability tool — means engineers can check service relationships during an active incident without changing contexts.</span></div>
+              </div>
+            </div>
+            <div class="frame">
+              <div class="frame-top"><div class="dot"></div><div class="dot"></div><div class="dot"></div><span>Services</span></div>
+              <div class="frame-body"><img src="services5.png" alt="PulseOps services architecture"/></div>
+            </div>
+          </article>
+
+          <article class="story alt">
+            <div class="frame">
+              <div class="frame-top"><div class="dot"></div><div class="dot"></div><div class="dot"></div><span>Infrastructure</span></div>
+              <div class="frame-body"><img src="infrastructure6.png" alt="PulseOps infrastructure monitoring"/></div>
+            </div>
+            <div class="sc">
+              <div class="ey">06 / Resource monitoring</div>
+              <h3>Infrastructure</h3>
+              <p>A dedicated layer for resource metrics — CPU, memory, network throughput, and disk I/O — presented as time-series charts over 24 hours. This view provides the raw telemetry layer that contextualizes alert signals and supports deeper diagnosis.</p>
+              <div class="nl">
+                <div class="n"><strong>Design principle</strong><span>Metrics are treated as supporting evidence for a diagnosis, not as the primary interface. The charts don't compete with each other — they're arranged to tell a coherent resource story.</span></div>
+                <div class="n"><strong>Color encoding</strong><span>Blue for CPU, purple for memory, red for disk I/O — each chart has its own identity within a unified visual system, making pattern-matching across charts easier.</span></div>
+              </div>
+            </div>
+          </article>
+
+          <article class="story">
+            <div class="sc">
+              <div class="ey">07 / Analytics</div>
+              <h3>Analytics &amp; Anomaly View</h3>
+              <p>The analytics screen provides a deeper analytical layer — time-series data on error rates, CPU usage, latency percentiles, and request failures. It contextualizes what the AI flagged in the root cause view with the full day's data.</p>
+              <div class="nl">
+                <div class="n"><strong>Key design moment</strong><span>The anomaly detection banner (Database Connection Pool Exhaustion, 98% confidence) sits above the charts — connecting the AI finding to the raw metric evidence that supports it.</span></div>
+                <div class="n"><strong>Chart selection</strong><span>Error rate, CPU, latency percentiles, and request failures are the four most diagnostically correlated metrics — showing them together in one view makes causality visible.</span></div>
+              </div>
+            </div>
+            <div class="frame">
+              <div class="frame-top"><div class="dot"></div><div class="dot"></div><div class="dot"></div><span>Analytics</span></div>
+              <div class="frame-body"><img src="analytics7.png" alt="PulseOps analytics view"/></div>
+            </div>
+          </article>
+
+          <article class="story alt">
+            <div class="frame">
+              <div class="frame-top"><div class="dot"></div><div class="dot"></div><div class="dot"></div><span>Reports</span></div>
+              <div class="frame-body"><img src="reports8.png" alt="PulseOps post-incident reports"/></div>
+            </div>
+            <div class="sc">
+              <div class="ey">08 / Learning loop</div>
+              <h3>Post-Incident Reports</h3>
+              <p>PulseOps closes the operational loop with structured post-incident reports generated from the investigation data. The report for INC-2401 captures detection time, resolution time, total duration, affected users, root cause, resolution steps, and prevention recommendations.</p>
+              <div class="nl">
+                <div class="n"><strong>Why this matters</strong><span>Most platforms stop at resolution. This screen represents the learning layer — turning incidents into documented, searchable records that improve the team's operational intelligence over time.</span></div>
+                <div class="n"><strong>Report scaffold</strong><span>The structure (Summary → Root Cause → Resolution Steps → Prevention Recommendations) mirrors the format used by leading engineering teams in their public postmortems.</span></div>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+        <div class="strip3" style="margin-top:52px">
+          <div class="s3"><small>Navigation model</small><strong>Dashboard → Incidents → Root Cause → Alerts → Services → Infrastructure → Analytics → Reports → Settings</strong></div>
+          <div class="s3"><small>Core UX principle</small><strong>Move from broad signal to precise diagnosis without changing mental context</strong></div>
+          <div class="s3"><small>Visual principle</small><strong>Contrast, spacing, and hierarchy before decoration — always</strong></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 · IMPACT -->
+  <section class="sec" id="impact">
+    <div class="wrap sec-grid">
+      <aside class="rail">
+        <div class="rl">IMPACT</div>
+        <div class="rl-line"></div>
+        <span class="rl-num">07</span>
+      </aside>
+      <div class="body">
+        <h2>What PulseOps demonstrates — and what it would do in production.</h2>
+        <p class="intro">As a portfolio concept grounded in real operational workflows, PulseOps has both design outcomes and hypothetical product outcomes. The design outcomes are demonstrable. The product outcomes are what the platform would realistically achieve if deployed to an engineering team.</p>
+
+        <div class="impact-grid">
+          <div class="imp">
+            <div class="itp green">Design outcome</div>
+            <h3>Coherent enterprise product story</h3>
+            <p>Nine screens that behave like one product, not nine isolated interfaces. Every view connects to the next step in the operational workflow — making the case study readable as a product experience, not a portfolio of polished frames.</p>
+          </div>
+          <div class="imp">
+            <div class="itp purple">Design outcome</div>
+            <h3>Systems thinking on screen</h3>
+            <p>The service dependency map, the correlated metrics layout, and the AI anomaly banner all demonstrate the ability to design for complex technical relationships — not just clean, simple interfaces. Enterprise design requires both.</p>
+          </div>
+          <div class="imp">
+            <div class="itp cyan">Hypothetical product impact</div>
+            <h3>Reduced mean time to resolve</h3>
+            <p>By consolidating detection, triage, investigation, and reporting in one workflow, PulseOps would meaningfully reduce the context-switching overhead that inflates incident duration. Pre-assembled investigation context and AI anomaly detection would shrink the diagnosis phase — the most cognitively expensive part of incident response.</p>
+          </div>
+          <div class="imp">
+            <div class="itp amber">Hypothetical product impact</div>
+            <h3>Higher-quality postmortems</h3>
+            <p>When reports are generated from investigation data rather than reconstructed from memory, the quality and completion rate of post-incident reviews improves significantly. This closes the operational feedback loop — turning every incident into a documented improvement opportunity rather than a forgotten fire drill.</p>
+          </div>
+        </div>
+
+        <div class="pq">
+          <p>The strongest signal that a design concept works is not that it looks good. It's that it makes the operational problem feel solvable.</p>
+          <cite>Project reflection</cite>
+        </div>
+
+        <p>This project demonstrates product thinking across the full range of what enterprise UX demands: information architecture grounded in real workflows, visual hierarchy that serves fast decision-making under pressure, technical literacy in both the domain language and the interface conventions, and an understanding of how a product's structure supports or undermines the people using it.</p>
+
+        <div class="split2" style="margin-top:38px">
+          <div class="panel">
+            <h3>What this project shows</h3>
+            <p>The ability to design a believable, technically grounded enterprise product from first principles — without making it visually cold or generically "B2B." Complexity handled cleanly, workflow design with a real operational backbone, and the discipline to make every screen belong to one coherent product.</p>
+            <div class="ilist">
+              <div class="il"><strong>Enterprise information architecture</strong><span>Nine screens, one coherent navigation model, one operational workflow.</span></div>
+              <div class="il"><strong>Technical domain competence</strong><span>Correct use of SRE conventions, metrics notation, incident nomenclature.</span></div>
+              <div class="il"><strong>AI integration in UX</strong><span>AI as investigation support, not as a gimmick — with transparent confidence scoring.</span></div>
+              <div class="il"><strong>Visual system discipline</strong><span>Consistent color semantics, typography hierarchy, and dark-mode craft.</span></div>
+            </div>
+          </div>
+          <div class="panel">
+            <h3>What comes next</h3>
+            <p>If I were to expand this concept into a higher-fidelity or production-ready design, these are the areas I'd develop next.</p>
+            <div class="ilist">
+              <div class="il"><strong>Collaborative incident response</strong><span>Real-time presence indicators, inline comments, and shared investigation notes for team-based response.</span></div>
+              <div class="il"><strong>Alert rule management</strong><span>A dedicated interface for configuring, testing, and refining monitoring thresholds — closing the alert fatigue loop by design.</span></div>
+              <div class="il"><strong>Runbook integration</strong><span>Surfacing the relevant runbook steps in context during the investigation view, linked to the specific incident type.</span></div>
+              <div class="il"><strong>Mobile on-call view</strong><span>A stripped-down mobile interface for the engineer who is paged at 2 AM and needs the critical context before they get to a laptop.</span></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <div class="footer-copy">
+      <h3>Designed to think like an engineer. Built to feel like a product.</h3>
+      <p>PulseOps is a portfolio concept by Dheeraj Allu — a product designer who works at the intersection of complex systems, technical users, and interface clarity. Every screen was shaped by operational reality, not by what looked best in isolation.</p>
+    </div>
+    <a class="cta" href="#top">↑ Back to top</a>
   </div>
+</footer>
 
-  <main class="pulseops-page">
+<script>
+  const nav = document.getElementById('nav');
+  const progressBar = document.getElementById('progressBar');
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
 
-    <section class="pulseops-hero">
-      <div class="container">
-        <span class="pulseops-kicker">Enterprise Product Design Case Study</span>
+  function updateNavState(){
+    const scrolled = window.scrollY > 20;
+    nav.classList.toggle('scrolled', scrolled);
 
-        <h1 class="pulseops-title">PulseOps</h1>
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    progressBar.style.width = Math.min(progress, 100) + '%';
+  }
 
-        <p class="pulseops-subtitle">
-          Designing a calmer and more structured way for engineering teams to monitor system health,
-          triage incidents, and investigate root causes across complex infrastructure.
-        </p>
+  window.addEventListener('scroll', updateNavState);
+  window.addEventListener('load', updateNavState);
+  window.addEventListener('resize', updateNavState);
 
-        <div class="pulseops-meta">
-          <div class="pulseops-meta-item">
-            <span>Role</span>
-            <strong>Product Designer</strong>
-          </div>
-          <div class="pulseops-meta-item">
-            <span>Project Type</span>
-            <strong>Concept Project</strong>
-          </div>
-          <div class="pulseops-meta-item">
-            <span>Focus</span>
-            <strong>Enterprise UX, Monitoring, Incident Response</strong>
-          </div>
-        </div>
+  if (navToggle && navLinks) {
+    navToggle.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', String(isOpen));
+    });
 
-        <div class="pulseops-hero-image">
-          <img src="pics/pulseops/dashboard1.png" alt="PulseOps Dashboard Overview">
-        </div>
-      </div>
-    </section>
-
-    <section class="pulseops-section">
-      <div class="container">
-        <span class="pulseops-label">Context</span>
-        <h2 class="pulseops-heading">Monitoring tools are powerful, but during real incidents they can still feel hard to think with.</h2>
-
-        <div class="pulseops-body">
-          <p>
-            Modern distributed systems generate large volumes of telemetry data. Alerts, logs, infrastructure metrics,
-            and service health signals are often spread across multiple tools. When something fails, engineers are expected
-            to quickly understand what broke, how far the issue has spread, and what action should come next.
-          </p>
-          <p>
-            I designed PulseOps around that moment of pressure. Rather than treating the product as a collection of isolated
-            dashboards, I approached it as one connected investigation workflow — from high-level monitoring to deep diagnosis.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <section class="pulseops-section">
-      <div class="container">
-        <span class="pulseops-label">Approach</span>
-        <h2 class="pulseops-heading">The goal was not to add more data. It was to reduce uncertainty and improve orientation.</h2>
-
-        <div class="pulseops-principles">
-          <div class="pulseops-principle">
-            <h4>Reduce cognitive switching</h4>
-            <p>
-              Teams should not need to jump between disconnected views just to understand whether an issue is local, spreading,
-              or already critical. Related decisions should stay close together.
-            </p>
-          </div>
-
-          <div class="pulseops-principle">
-            <h4>Show system relationships clearly</h4>
-            <p>
-              Enterprise products become much more useful when they expose service dependencies and infrastructure relationships,
-              not just charts and status panels.
-            </p>
-          </div>
-
-          <div class="pulseops-principle">
-            <h4>Prioritize signal over decoration</h4>
-            <p>
-              The interface should feel premium and composed, but hierarchy, contrast, and clarity should always do more work than visual effects.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="pulseops-section">
-      <div class="container">
-        <span class="pulseops-label">Product</span>
-        <h2 class="pulseops-heading">PulseOps was shaped as a complete enterprise workflow, not just a polished dashboard concept.</h2>
-
-        <div class="pulseops-story">
-          <div class="pulseops-story-copy">
-            <h3 class="pulseops-story-title">Operations dashboard</h3>
-            <p class="pulseops-story-text">
-              The dashboard establishes orientation. It gives engineering teams a clear overview of uptime, incidents,
-              service health, and operational signals without overwhelming them with competing metrics.
-            </p>
-          </div>
-          <div class="pulseops-frame">
-            <div class="pulseops-frame-top">
-              <span class="pulseops-dot"></span>
-              <span class="pulseops-dot"></span>
-              <span class="pulseops-dot"></span>
-              <span class="pulseops-frame-label">Dashboard</span>
-            </div>
-            <img src="pics/pulseops/dashboard1.png" alt="PulseOps Dashboard">
-          </div>
-        </div>
-
-        <div class="pulseops-story">
-          <div class="pulseops-story-copy">
-            <h3 class="pulseops-story-title">Incident management</h3>
-            <p class="pulseops-story-text">
-              This view turns monitoring into action. Severity, ownership, status, and affected services are structured
-              so teams can quickly understand what demands attention and coordinate response around one shared view.
-            </p>
-          </div>
-          <div class="pulseops-frame">
-            <div class="pulseops-frame-top">
-              <span class="pulseops-dot"></span>
-              <span class="pulseops-dot"></span>
-              <span class="pulseops-dot"></span>
-              <span class="pulseops-frame-label">Incidents</span>
-            </div>
-            <img src="pics/pulseops/incident2.png" alt="PulseOps Incident Management">
-          </div>
-        </div>
-
-        <div class="pulseops-story">
-          <div class="pulseops-story-copy">
-            <h3 class="pulseops-story-title">Service architecture</h3>
-            <p class="pulseops-story-text">
-              One of the key parts of the product is making service relationships visible. This helps engineers see how
-              failures propagate across infrastructure rather than treating each issue as an isolated event.
-            </p>
-          </div>
-          <div class="pulseops-frame">
-            <div class="pulseops-frame-top">
-              <span class="pulseops-dot"></span>
-              <span class="pulseops-dot"></span>
-              <span class="pulseops-dot"></span>
-              <span class="pulseops-frame-label">Services</span>
-            </div>
-            <img src="pics/pulseops/services5.png" alt="PulseOps Services Architecture">
-          </div>
-        </div>
-
-        <div class="pulseops-story">
-          <div class="pulseops-story-copy">
-            <h3 class="pulseops-story-title">Infrastructure monitoring</h3>
-            <p class="pulseops-story-text">
-              This layer adds depth to the monitoring experience. Resource metrics, traffic patterns, and system signals
-              provide the technical context teams need when an incident starts moving beyond one service.
-            </p>
-          </div>
-          <div class="pulseops-frame">
-            <div class="pulseops-frame-top">
-              <span class="pulseops-dot"></span>
-              <span class="pulseops-dot"></span>
-              <span class="pulseops-dot"></span>
-              <span class="pulseops-frame-label">Infrastructure</span>
-            </div>
-            <img src="pics/pulseops/infrastructure6.png" alt="PulseOps Infrastructure Monitoring">
-          </div>
-        </div>
-
-        <div class="pulseops-story">
-          <div class="pulseops-story-copy">
-            <h3 class="pulseops-story-title">Alerts and analytics</h3>
-            <p class="pulseops-story-text">
-              Alerts are only useful when teams can quickly judge relevance and urgency. These views were designed to support
-              faster scanning and help users connect operational signals back to real system conditions.
-            </p>
-          </div>
-          <div class="pulseops-frame" style="margin-bottom: 28px;">
-            <div class="pulseops-frame-top">
-              <span class="pulseops-dot"></span>
-              <span class="pulseops-dot"></span>
-              <span class="pulseops-dot"></span>
-              <span class="pulseops-frame-label">Alerts</span>
-            </div>
-            <img src="pics/pulseops/alerts4.png" alt="PulseOps Alerts">
-          </div>
-          <div class="pulseops-frame">
-            <div class="pulseops-frame-top">
-              <span class="pulseops-dot"></span>
-              <span class="pulseops-dot"></span>
-              <span class="pulseops-dot"></span>
-              <span class="pulseops-frame-label">Analytics</span>
-            </div>
-            <img src="pics/pulseops/analytics7.png" alt="PulseOps Analytics">
-          </div>
-        </div>
-
-        <div class="pulseops-story">
-          <div class="pulseops-story-copy">
-            <h3 class="pulseops-story-title">Root cause analysis</h3>
-            <p class="pulseops-story-text">
-              This screen made the concept feel complete. Without it, the product could monitor and list incidents,
-              but it would not truly support investigation. The goal here was to help teams move from “something is wrong”
-              to a more informed understanding of where the issue began.
-            </p>
-          </div>
-          <div class="pulseops-frame">
-            <div class="pulseops-frame-top">
-              <span class="pulseops-dot"></span>
-              <span class="pulseops-dot"></span>
-              <span class="pulseops-dot"></span>
-              <span class="pulseops-frame-label">Root Cause Analysis</span>
-            </div>
-            <img src="pics/pulseops/root cause analysis3.png" alt="PulseOps Root Cause Analysis">
-          </div>
-        </div>
-
-        <div class="pulseops-story">
-          <div class="pulseops-story-copy">
-            <h3 class="pulseops-story-title">Post-incident reporting</h3>
-            <p class="pulseops-story-text">
-              Good enterprise tools do not stop at detection or resolution. They support the learning loop as well.
-              This reporting view closes the system by helping teams review incidents and improve operational reliability over time.
-            </p>
-          </div>
-          <div class="pulseops-frame">
-            <div class="pulseops-frame-top">
-              <span class="pulseops-dot"></span>
-              <span class="pulseops-dot"></span>
-              <span class="pulseops-dot"></span>
-              <span class="pulseops-frame-label">Reports</span>
-            </div>
-            <img src="pics/pulseops/reports8.png" alt="PulseOps Reports">
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="pulseops-section">
-      <div class="container">
-        <span class="pulseops-label">Outcome</span>
-        <h2 class="pulseops-heading">The project feels stronger because it is framed as one product story, not just a set of polished screens.</h2>
-
-        <div class="pulseops-body">
-          <p>
-            PulseOps helped me explore how enterprise tools can feel rigorous without becoming visually cold or difficult to scan.
-            The value of the project is not only in the interface styling, but in the way the product structure, workflows, and screen hierarchy work together.
-          </p>
-        </div>
-
-        <div class="pulseops-outcome-grid">
-          <div class="pulseops-card">
-            <h4>What this project demonstrates</h4>
-            <p>
-              Enterprise workflow thinking, system visibility, information hierarchy, and the ability to design more believable B2B product experiences.
-            </p>
-          </div>
-
-          <div class="pulseops-card">
-            <h4>What I would improve next</h4>
-            <p>
-              I would extend the concept with collaborative incident actions, alert rule management, and more detailed annotations inside the investigation workflow.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="pulseops-next">
-      <div class="container">
-        <h3>Thanks for viewing PulseOps.</h3>
-        <p>
-          This case study was designed to feel aligned with the rest of the portfolio while still presenting a deeper enterprise product story.
-        </p>
-        <a href="work.html">Back to Work</a>
-      </div>
-    </section>
-
-  </main>
-
-  <footer>
-    <div>
-      Designed <i class="fa fa-heart"></i> by
-      <a target="_blank" href="#0000">Dheeraj Allu</a>
-    </div>
-  </footer>
-
-  <script src="js/jquery.min.js"></script>
-  <script src="js/main.js"></script>
-  <script src="js/scrolltopcontrol.js"></script>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      var toggles = document.querySelectorAll('.navbar-toggle');
-
-      toggles.forEach(function (toggle) {
-        var targetSelector = toggle.getAttribute('data-target');
-        if (!targetSelector) return;
-
-        var menu = document.querySelector(targetSelector);
-        if (!menu) return;
-
-        toggle.addEventListener('click', function (e) {
-          e.preventDefault();
-          menu.classList.toggle('in');
-          toggle.classList.toggle('is-open');
-        });
-
-        var menuLinks = menu.querySelectorAll('a');
-        menuLinks.forEach(function (link) {
-          link.addEventListener('click', function () {
-            menu.classList.remove('in');
-            toggle.classList.remove('is-open');
-          });
-        });
+    navLinks.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
       });
     });
-  </script>
-
+  }
+</script>
 </body>
 </html>

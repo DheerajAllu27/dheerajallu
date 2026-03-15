@@ -2040,3 +2040,182 @@ section {
     margin-top: 10px !important;
   }
 }
+/* ===== FINAL CASE STUDY CARD FIX ===== */
+
+.cs-showcase-fixed{
+  position: relative;
+  padding: 80px 0 110px;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(122, 92, 255, 0.08), transparent 28%),
+    radial-gradient(circle at 85% 25%, rgba(56, 214, 255, 0.06), transparent 24%),
+    linear-gradient(180deg, #020202 0%, #050505 100%);
+}
+
+.cs-grid-fixed{
+  width: min(1180px, calc(100% - 48px));
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+}
+
+.cs-card-fixed{
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 420px;
+  min-height: 420px;
+  overflow: hidden;
+  border-radius: 28px;
+  background: #090909;
+  border: 1px solid rgba(255,255,255,0.08);
+  text-decoration: none;
+  isolation: isolate;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.34);
+  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+.cs-card-fixed:hover{
+  transform: translateY(-8px);
+  border-color: rgba(171,138,255,0.28);
+  box-shadow: 0 24px 56px rgba(0,0,0,0.48);
+}
+
+.cs-card-img-fixed{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: brightness(0.9) contrast(1.06) saturate(1.04);
+  transform: scale(1.01);
+  transition: transform 0.45s ease, filter 0.35s ease;
+  z-index: 1;
+}
+
+.cs-card-fixed:hover .cs-card-img-fixed{
+  transform: scale(1.05);
+  filter: brightness(1) contrast(1.08) saturate(1.08);
+}
+
+.cs-card-glow-fixed{
+  position: absolute;
+  inset: -20%;
+  z-index: 0;
+  opacity: 0;
+  pointer-events: none;
+  filter: blur(28px);
+  transform: scale(0.94);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(127, 96, 255, 0.28), transparent 24%),
+    radial-gradient(circle at 80% 25%, rgba(74, 224, 255, 0.20), transparent 22%),
+    radial-gradient(circle at 50% 85%, rgba(255, 95, 196, 0.16), transparent 25%);
+}
+
+.cs-card-fixed:hover .cs-card-glow-fixed{
+  opacity: 1;
+  transform: scale(1);
+}
+
+.cs-card-overlay-fixed{
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background:
+    linear-gradient(180deg, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.22) 42%, rgba(0,0,0,0.84) 100%),
+    linear-gradient(135deg, rgba(14,14,14,0.06) 0%, rgba(122,92,255,0.08) 48%, rgba(14,14,14,0.12) 100%);
+}
+
+.cs-card-content-fixed{
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 138px;
+}
+
+.cs-tag-fixed{
+  display: inline-flex;
+  align-self: flex-start;
+  margin-bottom: 12px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(8,8,8,0.46);
+  backdrop-filter: blur(10px);
+  color: rgba(255,255,255,0.84);
+  font-size: 11px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.cs-card-content-fixed p{
+  margin: 0;
+  color: #7b7a7a;
+  font-size: clamp(22px, 2.2vw, 30px);
+  line-height: 1.08;
+  font-weight: 450;
+  text-shadow: 0 6px 24px rgba(0,0,0,0.42);
+}
+
+/* makes last odd card align nicely */
+.cs-grid-fixed > .cs-card-fixed:last-child:nth-child(odd){
+  grid-column: 1 / -1;
+  max-width: calc(50% - 14px);
+}
+
+@media (max-width: 991px){
+  .cs-grid-fixed{
+    grid-template-columns: 1fr;
+    width: min(720px, calc(100% - 32px));
+  }
+
+  .cs-card-fixed{
+    height: 390px;
+    min-height: 390px;
+  }
+
+  .cs-grid-fixed > .cs-card-fixed:last-child:nth-child(odd){
+    grid-column: auto;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 575px){
+  .cs-showcase-fixed{
+    padding: 60px 0 90px;
+  }
+
+  .cs-grid-fixed{
+    width: calc(100% - 24px);
+    gap: 20px;
+  }
+
+  .cs-card-fixed{
+    height: 320px;
+    min-height: 320px;
+    border-radius: 22px;
+  }
+
+  .cs-card-content-fixed{
+    padding: 18px 18px 20px;
+    min-height: 118px;
+  }
+
+  .cs-card-content-fixed p{
+    font-size: 22px;
+  }
+
+  .cs-tag-fixed{
+    font-size: 10px;
+    padding: 7px 10px;
+  }
+}
