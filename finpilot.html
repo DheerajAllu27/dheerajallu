@@ -1,0 +1,1455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FinPilot — Case Study by Dheeraj Allu</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@300;400;500&family=Josefin+Sans:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#060608;--bg2:#0c0c10;--bg3:#121216;--bg4:#1a1a20;
+  --text:#c8c8c4;--text-s:#8a8a86;--text-d:#4e4e4a;
+  --white:#eaeae6;
+  --em:#3ddc84;--em2:#2bb866;--em-dim:rgba(61,220,132,0.08);
+  --gold:#e8b84a;--gold-dim:rgba(232,184,74,0.08);
+  --coral:#e86a4a;--coral-dim:rgba(232,106,74,0.08);
+  --blue:#4a8ae8;--blue-dim:rgba(74,138,232,0.08);
+  --red:#e84a5a;--red-dim:rgba(232,74,90,0.08);
+  --amber:#d4a03a;
+  --border:rgba(255,255,255,0.06);--border-h:rgba(255,255,255,0.1);
+  --font-h:'Cormorant Garamond',serif;
+  --font-b:'Josefin Sans',sans-serif;
+  --font-m:'JetBrains Mono',monospace;
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{background:var(--bg);color:var(--text);font-family:var(--font-b);font-weight:300;line-height:1.72;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:var(--em);color:#000}
+
+.s{max-width:1120px;margin:0 auto;padding:120px 40px}
+.s-wide{max-width:1320px;margin:0 auto;padding:120px 40px}
+.s-sm{max-width:1120px;margin:0 auto;padding:80px 40px}
+
+h1,h2,h3{font-family:var(--font-h);font-weight:400;line-height:1.12;color:var(--white)}
+h1{font-size:clamp(3.2rem,7vw,6.5rem);letter-spacing:-0.03em}
+h2{font-size:clamp(1.8rem,4vw,3rem);letter-spacing:-0.02em;margin-bottom:16px}
+h3{font-size:clamp(1.3rem,2.2vw,1.8rem);margin-bottom:12px}
+h4{font-size:1.1rem;margin-bottom:8px;font-family:var(--font-b);font-weight:400;color:var(--white)}
+p{color:var(--text-s);font-size:15px;line-height:1.8;max-width:700px}
+p+p{margin-top:14px}
+.a{color:var(--em)}
+.ag{color:var(--gold)}
+.ar{color:var(--coral)}
+
+.lbl{font-family:var(--font-m);font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--em2);display:block;margin-bottom:14px}
+.lbl-g{color:var(--gold)}.lbl-c{color:var(--coral)}.lbl-b{color:var(--blue)}.lbl-r{color:var(--red)}
+
+.div{max-width:1120px;margin:0 auto;height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent)}
+.div-em{max-width:1120px;margin:0 auto;height:1px;background:linear-gradient(90deg,transparent,var(--em),transparent);opacity:0.2}
+
+/* Focus */
+.focus{padding:140px 40px;text-align:center}
+.focus h2{font-size:clamp(2.2rem,5vw,4rem);max-width:800px;margin:0 auto;line-height:1.2}
+.focus p{margin:20px auto 0;max-width:500px}
+
+/* Callout */
+.co{background:var(--bg2);border-left:2px solid var(--em);border-radius:0 8px 8px 0;padding:20px 24px;margin-top:24px;max-width:680px}
+.co-g{border-color:var(--gold)}.co-c{border-color:var(--coral)}.co-r{border-color:var(--red)}
+.co .co-l{font-family:var(--font-m);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--em2);margin-bottom:6px}
+.co-g .co-l{color:var(--gold)}.co-c .co-l{color:var(--coral)}.co-r .co-l{color:var(--red)}
+.co p{font-size:14px;max-width:100%}
+
+/* Quote */
+.qt{background:var(--bg2);border-radius:12px;padding:28px 32px;margin-top:24px;position:relative}
+.qt::before{content:'"';font-family:var(--font-h);font-size:3rem;color:var(--em);opacity:0.25;position:absolute;top:6px;left:14px;line-height:1}
+.qt p{font-style:italic;font-size:16px;color:var(--white);padding-left:24px;max-width:100%}
+.qt cite{display:block;font-family:var(--font-m);font-size:10px;color:var(--text-d);margin-top:10px;padding-left:24px;letter-spacing:1px;font-style:normal}
+
+/* Grid */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:32px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:32px}
+
+/* Card */
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:28px 24px;position:relative;overflow:hidden;transition:border-color .3s}
+.card:hover{border-color:var(--border-h)}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;opacity:0.5}
+.card.t-em::before{background:linear-gradient(90deg,var(--em),transparent)}
+.card.t-g::before{background:linear-gradient(90deg,var(--gold),transparent)}
+.card.t-c::before{background:linear-gradient(90deg,var(--coral),transparent)}
+.card .cn{font-family:var(--font-m);font-size:9px;color:var(--em2);letter-spacing:2px;margin-bottom:14px}
+.card p{font-size:14px;max-width:100%}
+
+.two{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;margin-top:36px}
+
+/* Persona */
+.per{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:24px 20px;transition:border-color .3s}
+.per:hover{border-color:var(--border-h)}
+.per-top{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.per-av{width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:var(--font-m);font-size:10px}
+.per-n{font-weight:400;font-size:15px;color:var(--white)}
+.per-r{font-family:var(--font-m);font-size:10px;color:var(--text-d);letter-spacing:0.5px}
+.per p{font-size:13px;max-width:100%}
+.pp{margin-top:10px;display:flex;flex-direction:column;gap:5px}
+.pp span{font-size:12px;color:var(--text-s);padding-left:14px;position:relative}
+.pp span::before{content:'—';position:absolute;left:0;color:var(--text-d)}
+
+/* Flow vertical */
+.fv{display:flex;flex-direction:column;gap:0;margin-top:32px;position:relative;padding-left:32px}
+.fv::before{content:'';position:absolute;left:11px;top:20px;bottom:20px;width:1px;background:linear-gradient(to bottom,var(--em),var(--gold),var(--coral))}
+.fv-s{position:relative;padding:18px 0 18px 24px}
+.fv-d{position:absolute;left:-32px;top:22px;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-m);font-size:10px;color:#000;z-index:1}
+.fv-s h4{font-size:15px;font-weight:400;margin-bottom:4px}
+.fv-s p{font-size:14px;max-width:600px}
+.fv-box{background:var(--bg2);border-radius:8px;padding:14px 18px;margin-top:10px;font-size:13px;color:var(--text-s);max-width:600px;border:1px solid var(--border)}
+.fv-box code{font-family:var(--font-m);font-size:12px;color:var(--coral);background:var(--coral-dim);padding:1px 5px;border-radius:3px}
+.fv-edge{background:var(--bg3);border-radius:8px;padding:12px 18px;margin-top:10px;max-width:600px;border-left:2px solid var(--gold)}
+.fv-edge p{font-size:12px;color:var(--gold);max-width:100%}
+.fv-edge .el{font-family:var(--font-m);font-size:9px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px}
+
+/* Before/After */
+.ba{display:grid;grid-template-columns:1fr auto 1fr;gap:0;margin-top:36px}
+.ba-c{padding:28px 24px}
+.ba-b{background:var(--bg2);border-radius:12px 0 0 12px;border:1px solid rgba(232,74,90,0.1)}
+.ba-a{background:var(--bg2);border-radius:0 12px 12px 0;border:1px solid rgba(61,220,132,0.1)}
+.ba-div{width:1px;background:linear-gradient(to bottom,var(--red),var(--text-d),var(--em));margin:16px 0}
+.ba-l{font-family:var(--font-m);font-size:9px;letter-spacing:3px;text-transform:uppercase;margin-bottom:8px}
+.ba-b .ba-l{color:var(--red)}.ba-a .ba-l{color:var(--em)}
+.ba-i{display:flex;align-items:flex-start;gap:8px;margin-bottom:12px}
+.ba-i p{font-size:13px;max-width:100%;margin:0}
+.ba-ic{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;margin-top:2px}
+.ba-b .ba-ic{background:var(--red-dim);color:var(--red)}.ba-a .ba-ic{background:var(--em-dim);color:var(--em)}
+.ba-m{font-family:var(--font-m);font-size:11px;margin-top:14px;padding-top:10px;border-top:1px solid var(--border)}
+
+/* Trust */
+.tr{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:24px 20px;margin-bottom:16px;transition:border-color .3s}
+.tr:hover{border-color:var(--border-h)}
+.tr h4{display:flex;align-items:center;gap:8px;font-size:14px}
+.tr-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+
+/* Constraint */
+.cg{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:20px}
+.ct{background:var(--bg2);border-radius:8px;padding:14px 16px;border-left:2px solid var(--text-d)}
+.ct .ctl{font-family:var(--font-m);font-size:9px;color:var(--text-d);letter-spacing:2px;text-transform:uppercase;margin-bottom:5px}
+.ct p{font-size:12px;max-width:100%}
+
+/* Rejected */
+.rej{background:var(--bg3);border-radius:8px;padding:16px 20px;margin-top:14px;border:1px solid var(--border)}
+.rej-l{font-family:var(--font-m);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:6px}
+.rej h4{font-size:14px;color:var(--text-d);margin-bottom:4px;text-decoration:line-through;text-decoration-color:var(--red)}
+.rej p{font-size:12px;max-width:100%}
+
+/* Deploy */
+.dg{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:36px}
+.dc{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:28px 24px;position:relative;overflow:hidden;transition:border-color .3s}
+.dc:hover{border-color:var(--border-h)}
+.dc::before{content:'';position:absolute;top:0;left:0;width:2px;height:100%}
+.dc-1::before{background:var(--em)}.dc-2::before{background:var(--gold)}.dc-3::before{background:var(--coral)}.dc-4::before{background:var(--blue)}
+.dtag{display:inline-block;font-family:var(--font-m);font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:3px 8px;border-radius:100px;margin-bottom:12px}
+.dc-1 .dtag{background:var(--em-dim);color:var(--em)}.dc-2 .dtag{background:var(--gold-dim);color:var(--gold)}.dc-3 .dtag{background:var(--coral-dim);color:var(--coral)}.dc-4 .dtag{background:var(--blue-dim);color:var(--blue)}
+
+/* Phase */
+.ph{display:flex;align-items:baseline;gap:16px;margin-bottom:14px}
+.ph-n{font-family:var(--font-h);font-size:clamp(4rem,8vw,7rem);color:var(--bg3);font-weight:300;line-height:1;-webkit-text-stroke:1px rgba(61,220,132,0.1)}
+
+/* Flow horizontal */
+.fs{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:28px}
+.fst{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:20px 16px;position:relative}
+.fst::after{content:'→';position:absolute;right:-12px;top:50%;transform:translateY(-50%);color:var(--text-d);font-size:1rem}
+.fst:last-child::after{display:none}
+.fst .sn{font-family:var(--font-m);font-size:9px;color:var(--em2);letter-spacing:2px;margin-bottom:8px}
+.fst h4{font-size:14px;margin-bottom:4px;font-weight:400}
+.fst p{font-size:12px;line-height:1.6;max-width:100%}
+
+/* Tools */
+.tg{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px}
+.tc{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:16px;transition:border-color .3s}
+.tc:hover{border-color:var(--border-h)}
+.tc .ti{width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:10px;font-family:var(--font-m);margin-bottom:10px}
+.tc h4{font-size:14px;margin-bottom:3px;font-weight:400}
+.tc p{font-size:12px;line-height:1.5;max-width:100%}
+
+/* ReAct */
+.rl{display:flex;align-items:center;justify-content:center;gap:0;margin:36px 0;flex-wrap:wrap}
+.rs{display:flex;flex-direction:column;align-items:center;gap:6px;padding:14px 20px}
+.rs .rc{width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-m);font-size:10px;font-weight:500}
+.rs span{font-size:11px;color:var(--text-s)}
+.ra{color:var(--text-d);font-size:1.2rem}
+
+/* Diagram */
+.dw{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:32px;margin-top:32px;overflow-x:auto}
+.dw svg{display:block;margin:0 auto}
+.dcap{font-family:var(--font-m);font-size:10px;color:var(--text-d);text-align:center;margin-top:16px;letter-spacing:1px}
+
+/* Arch */
+.ar-row{display:flex;align-items:stretch;gap:10px;padding:14px 0}
+.ar-row+.ar-row{border-top:1px solid var(--border)}
+.ar-l{min-width:130px;display:flex;align-items:center;font-family:var(--font-m);font-size:10px;color:var(--text-d);letter-spacing:2px;text-transform:uppercase;flex-shrink:0}
+.ar-items{display:flex;gap:8px;flex-wrap:wrap;flex:1}
+.ar-ch{padding:8px 14px;border-radius:6px;font-size:13px;font-weight:300;border:1px solid}
+
+/* Principles */
+.prg{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:36px}
+.pr{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:24px 20px;transition:border-color .3s}
+.pr:hover{border-color:var(--border-h)}
+.pr .pn{font-family:var(--font-h);font-size:2.5rem;color:var(--bg4);font-weight:300;line-height:1;margin-bottom:10px;-webkit-text-stroke:1px rgba(61,220,132,0.08)}
+.pr p{font-size:12px;line-height:1.6;max-width:100%}
+
+/* Wireframes */
+.wfl{display:flex;align-items:center;gap:14px;margin-bottom:40px}
+.wfl .wfb{font-family:var(--font-m);font-size:9px;letter-spacing:3px;text-transform:uppercase;padding:4px 10px;border-radius:100px;flex-shrink:0}
+.wfl .wfln{flex:1;height:1px;background:var(--border)}
+.wfs{margin-bottom:52px}
+.wfs-h{display:flex;align-items:baseline;gap:14px;margin-bottom:12px}
+.wfs-h h4{font-family:var(--font-b);font-size:15px;font-weight:400}
+.wfs-h .wfn{font-family:var(--font-m);font-size:10px;color:var(--text-d);letter-spacing:1px}
+.wfs-d{font-size:13px;color:var(--text-s);margin-bottom:16px;max-width:560px}
+.wff{background:#0d0d14;border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.wff svg{display:block;width:100%}
+.wfa{font-family:var(--font-m);font-size:10px;color:var(--text-d);margin-top:10px;letter-spacing:0.5px}
+.wfd{background:var(--bg3);border-radius:8px;padding:14px 18px;margin-top:14px;border-left:2px solid var(--em);max-width:640px}
+.wfd .wdl{font-family:var(--font-m);font-size:9px;color:var(--em2);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px}
+.wfd p{font-size:12px;max-width:100%}
+
+/* Hero */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 40%,rgba(61,220,132,0.04),transparent 70%),radial-gradient(ellipse 40% 40% at 70% 60%,rgba(232,184,74,0.03),transparent)}
+.hero-c{position:relative;text-align:center;max-width:860px;padding:0 40px}
+.hero h1 .em{background:linear-gradient(135deg,var(--em),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-tag{font-family:var(--font-m);font-size:11px;color:var(--text-d);letter-spacing:3px;margin-top:32px}
+.hero-meta{display:flex;gap:40px;justify-content:center;margin-top:48px;flex-wrap:wrap}
+.hm{text-align:center}
+.hm .v{font-family:var(--font-h);font-size:22px;color:var(--white)}
+.hm span{display:block;font-family:var(--font-m);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--text-d);margin-top:4px}
+.hero-scroll{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px}
+.hero-scroll span{font-family:var(--font-m);font-size:9px;color:var(--text-d);letter-spacing:3px;text-transform:uppercase}
+.sl{width:1px;height:36px;background:linear-gradient(to bottom,var(--em),transparent);animation:sp 2s ease-in-out infinite}
+@keyframes sp{0%,100%{opacity:.3;transform:scaleY(.6)}50%{opacity:1;transform:scaleY(1)}}
+
+/* Closing */
+.closing{text-align:center;padding:120px 40px;position:relative}
+.closing::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 40% at 50% 50%,rgba(61,220,132,0.03),transparent)}
+.closing h2{font-size:clamp(2.2rem,4.5vw,3.5rem)}
+.closing p{margin:20px auto 0;max-width:520px;font-size:15px}
+.cls{display:flex;gap:20px;justify-content:center;margin-top:36px;flex-wrap:wrap}
+.cls a{font-family:var(--font-m);font-size:12px;color:var(--em);text-decoration:none;letter-spacing:1px;padding:8px 20px;border:1px solid rgba(61,220,132,0.25);border-radius:100px;transition:all .3s}
+.cls a:hover{background:var(--em-dim);border-color:var(--em)}
+
+/* Responsive */
+@media(max-width:900px){
+  .s,.s-wide,.s-sm{padding-left:24px;padding-right:24px}
+  .two,.g2{grid-template-columns:1fr;gap:28px}
+  .g3,.tg{grid-template-columns:1fr 1fr}
+  .dg{grid-template-columns:1fr}
+  .ba{grid-template-columns:1fr}.ba-b{border-radius:12px 12px 0 0}.ba-a{border-radius:0 0 12px 12px}.ba-div{width:100%;height:1px;margin:0}
+  .cg{grid-template-columns:1fr}
+  .prg{grid-template-columns:repeat(3,1fr)}
+  .fs{grid-template-columns:1fr 1fr}.fst::after{display:none}
+}
+@media(max-width:600px){
+  .g3,.tg,.prg{grid-template-columns:1fr}
+  .fs{grid-template-columns:1fr}
+  .hero-meta{flex-direction:column;gap:14px}
+}
+@media(prefers-reduced-motion:no-preference){
+  .fi{opacity:0;transform:translateY(20px);transition:opacity .7s,transform .7s}
+  .fi.visible{opacity:1;transform:none}
+  .card:hover,.per:hover,.pr:hover,.tc:hover,.dc:hover,.tr:hover{transform:translateY(-2px);transition:transform .3s,border-color .3s}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-c fi">
+    <div class="lbl">Case study</div>
+    <h1>Fin<span class="em">Pilot.</span></h1>
+    <p class="hero-tag">AI agents that work where fintech teams work.</p>
+    <div class="hero-meta">
+      <div class="hm"><div class="v">2025</div><span>Year</span></div>
+      <div class="hm"><div class="v">Concept</div><span>Type</span></div>
+      <div class="hm"><div class="v">Fintech</div><span>Domain</span></div>
+      <div class="hm"><div class="v">AI / UX</div><span>Focus</span></div>
+    </div>
+  </div>
+  <div class="hero-scroll"><span>Scroll</span><div class="sl"></div></div>
+</section>
+
+<div class="div-em"></div>
+
+<!-- ===== CONTEXT ===== -->
+<div class="s">
+  <div class="two fi">
+    <div>
+      <div class="lbl">Context</div>
+      <h2>An AI agent platform for <span class="a">enterprise fintech.</span></h2>
+      <p>Train it on company knowledge. Connect it to enterprise tools. Deploy it inside the products teams already use. Not a chatbot. An intelligent layer that actually does things.</p>
+      <p>I designed the full system — research, architecture, interaction model, builder experience, and end-user interface across four fintech roles.</p>
+    </div>
+    <div>
+      <div class="co">
+        <div class="co-l">Core question</div>
+        <p style="color:var(--white)">How do you design an AI system that financial professionals will trust with real money decisions?</p>
+      </div>
+      <div class="cg" style="margin-top:20px">
+        <div class="ct"><div class="ctl">Regulatory</div><p>Every agent action must be auditable. Compliance is non-negotiable.</p></div>
+        <div class="ct"><div class="ctl">Latency</div><p>Traders need sub-second responses. 3 seconds = missed opportunity.</p></div>
+        <div class="ct"><div class="ctl">Trust</div><p>One wrong margin number could cost millions. Accuracy beats speed.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="div"></div>
+
+<!-- ===== PROBLEM ===== -->
+<div class="s">
+  <div class="lbl fi">The problem</div>
+  <h2 class="fi">Six tools. Two hundred PDFs.<br><span class="a">Zero connection.</span></h2>
+  <p class="fi">Financial teams aren't slow because they're bad at their jobs. They're slow because their tools don't talk to each other and their knowledge is buried in documents nobody reads.</p>
+
+  <div class="g3 fi">
+    <div class="card t-em"><div class="cn">01</div><h4>Knowledge locked in PDFs</h4><p>Finding a margin policy takes 20 minutes of searching through a 240-page manual. Multiply by 15 queries per day.</p></div>
+    <div class="card t-em"><div class="cn">02</div><h4>Every task spans 3+ systems</h4><p>CRM → OMS → compliance rules → Jira. Four tools, four logins, zero integration between any of them.</p></div>
+    <div class="card t-em"><div class="cn">03</div><h4>Manual work eats senior time</h4><p>Reconciliation, compliance checks, and reports are rule-based — but they consume hours that should go toward judgment work.</p></div>
+  </div>
+</div>
+
+<div class="div"></div>
+
+<!-- ===== RESEARCH ===== -->
+<div class="s">
+  <div class="lbl lbl-g fi">Research</div>
+  <h2 class="fi">The people behind <span class="ag">the terminals.</span></h2>
+  <p class="fi">Conceptual research based on 12 published fintech workflow studies, SEC enforcement data, and enterprise AI deployment post-mortems. Personas are synthesized archetypes — not direct interviews.</p>
+
+  <div class="g2 fi" style="margin-top:40px">
+    <div class="per">
+      <div class="per-top"><div class="per-av" style="background:var(--coral-dim);color:var(--coral)">SR</div><div><div class="per-n">Sarah R.</div><div class="per-r">Senior options trader · 8 years</div></div></div>
+      <p>Manages 40+ positions daily. Needs market data, risk metrics, and execution speed in one view.</p>
+      <div class="pp"><span>Loses 30+ min daily searching for policy details mid-trade</span><span>Missed a hedge window because risk data was in a separate system</span><span>"If it gives me wrong margin numbers, that's my job"</span></div>
+    </div>
+    <div class="per">
+      <div class="per-top"><div class="per-av" style="background:var(--em-dim);color:var(--em)">MK</div><div><div class="per-n">Marcus K.</div><div class="per-r">Compliance analyst · 5 years</div></div></div>
+      <p>Reviews flagged transactions, prepares audit reports. Citation accuracy is everything.</p>
+      <div class="pp"><span>Spends 3+ hours daily on routine reviews that follow clear rules</span><span>Can't find which policy version applies to a 6-month-old trade</span><span>"If I can't cite it, I can't use it"</span></div>
+    </div>
+    <div class="per">
+      <div class="per-top"><div class="per-av" style="background:var(--red-dim);color:var(--red)">LP</div><div><div class="per-n">Lisa P.</div><div class="per-r">Risk manager · 12 years</div></div></div>
+      <p>Monitors portfolio risk across funds. Needs to spot problems before they escalate.</p>
+      <div class="pp"><span>Dashboards show data but don't explain why it changed</span><span>Stress tests need data from 3 systems + manual Excel work</span><span>Reports are outdated by the time they're ready</span></div>
+    </div>
+    <div class="per">
+      <div class="per-top"><div class="per-av" style="background:var(--blue-dim);color:var(--blue)">JT</div><div><div class="per-n">James T.</div><div class="per-r">Operations analyst · 3 years</div></div></div>
+      <p>Handles settlement, reconciliation, and exception management.</p>
+      <div class="pp"><span>30% of exceptions take 80% of time</span><span>New hires take 4-6 months to handle edge cases alone</span><span>"The SOP says one thing, reality is different"</span></div>
+    </div>
+  </div>
+
+  <h3 class="fi" style="margin-top:48px">What I found.</h3>
+  <div class="two fi" style="margin-top:20px">
+    <div>
+      <div class="co"><div class="co-l">Insight 01</div><p style="color:var(--white)">Trust is the product, not intelligence. An agent that's right 95% but can't show its work is worse than one at 90% that cites everything.</p></div>
+      <div class="co co-g" style="margin-top:12px"><div class="co-l">Insight 02</div><p style="color:var(--white)">Users don't distrust AI — they distrust outputs they can't verify quickly. If citation + verification takes 30 seconds, adoption follows. If 5 minutes, they'll search the PDF themselves.</p></div>
+    </div>
+    <div>
+      <div class="co co-c"><div class="co-l">Insight 03</div><p style="color:var(--white)">The high-value work is connecting systems, not answering questions. An agent that orchestrates across CRM + risk + Jira is 10x more valuable than one that chats.</p></div>
+      <div class="co" style="margin-top:12px"><div class="co-l">Insight 04</div><p style="color:var(--white)">Different roles need fundamentally different agent personalities. Same brain. Different error tolerances.</p></div>
+      <div class="co co-r" style="margin-top:12px"><div class="co-l">Insight 05</div><p style="color:var(--white)">The builder (admin) is the forgotten user. Their frustration directly determines agent quality.</p></div>
+    </div>
+  </div>
+
+  <div class="qt fi" style="margin-top:28px">
+    <p>"I don't need AI to be smart. I need it to be right, and I need to prove it was right when auditors come knocking."</p>
+    <cite>— Synthesized from compliance analyst patterns</cite>
+  </div>
+</div>
+
+<!-- ===== FOCUS ===== -->
+<section class="focus fi">
+  <h2>AI is not the interface.<br><span class="a">Trust is.</span></h2>
+  <p>This insight became the foundation for every design decision.</p>
+</section>
+
+<div class="div-em"></div>
+
+<!-- ===== CONCEPT ===== -->
+<div class="s">
+  <div class="lbl fi">The solution</div>
+  <h2 class="fi">One brain. Multiple surfaces.<br><span class="a">Role-based behavior.</span></h2>
+
+  <div class="two fi" style="margin-top:28px">
+    <div>
+      <p>FinPilot has two sides. The <strong style="color:var(--white)">builder side</strong> — upload knowledge, connect tools, set permissions, test. The <strong style="color:var(--white)">user side</strong> — the agent deployed inside the products teams already use.</p>
+      <p>Same trained agent, different face depending on who's using it. Traders get speed. Compliance gets citations. Ops gets checklists.</p>
+
+      <div class="rej" style="margin-top:28px"><div class="rej-l">Rejected</div><h4>Standalone AI app</h4><p>Research showed teams won't adopt another tool. The agent must live inside existing workflows.</p></div>
+      <div class="rej" style="margin-top:10px"><div class="rej-l">Rejected</div><h4>Single interface for all roles</h4><p>A trader needs action buttons. Compliance needs audit trails. One interface can't serve both.</p></div>
+    </div>
+    <div>
+      <h4 style="margin-bottom:16px">Three phases.</h4>
+      <div class="card" style="margin-bottom:12px;padding:18px 20px"><div style="display:flex;align-items:center;gap:10px;margin-bottom:6px"><div style="width:24px;height:24px;border-radius:6px;background:var(--em-dim);display:flex;align-items:center;justify-content:center;font-family:var(--font-m);font-size:9px;color:var(--em)">01</div><h4 style="margin:0;font-size:14px">Build the brain</h4></div><p style="font-size:13px">Train on company documents using RAG. Upload → chunk → embed → retrieve.</p></div>
+      <div class="card" style="margin-bottom:12px;padding:18px 20px"><div style="display:flex;align-items:center;gap:10px;margin-bottom:6px"><div style="width:24px;height:24px;border-radius:6px;background:var(--gold-dim);display:flex;align-items:center;justify-content:center;font-family:var(--font-m);font-size:9px;color:var(--gold)">02</div><h4 style="margin:0;font-size:14px">Give it hands</h4></div><p style="font-size:13px">Connect OMS, risk engine, CRM, compliance DB. Agent reasons, calls tools, synthesizes.</p></div>
+      <div class="card" style="padding:18px 20px"><div style="display:flex;align-items:center;gap:10px;margin-bottom:6px"><div style="width:24px;height:24px;border-radius:6px;background:var(--blue-dim);display:flex;align-items:center;justify-content:center;font-family:var(--font-m);font-size:9px;color:var(--blue)">03</div><h4 style="margin:0;font-size:14px">Deploy into products</h4></div><p style="font-size:13px">Embedded copilot, proactive alerts, standalone workspace, backend automation.</p></div>
+    </div>
+  </div>
+</div>
+
+<div class="div"></div>
+
+<!-- ===== END-TO-END FLOW ===== -->
+<div class="s">
+  <div class="lbl lbl-c fi">User flow</div>
+  <h2 class="fi">Marcus investigates a <span class="ar">flagged transaction.</span></h2>
+  <p class="fi">Step by step. Where the agent helps. Where the human decides. Where it breaks.</p>
+
+  <div class="fv fi" style="margin-top:40px">
+    <div class="fv-s"><div class="fv-d" style="background:var(--red)">1</div><h4>Trigger: proactive alert</h4><p>FinPilot detects a trade pattern matching wash sale criteria. Marcus sees a notification — he didn't search for it.</p><div class="fv-box"><strong style="color:var(--white)">Alert:</strong> "Trade #7842 (Acme Capital) — MSFT sell + repurchase within 14 days. Potential wash sale. Confidence: 87%."</div></div>
+
+    <div class="fv-s"><div class="fv-d" style="background:var(--em)">2</div><h4>Agent pre-compiles context</h4><p>One click opens a side panel with both trades, time gap, client details, and the relevant regulation — all pulled automatically.</p><div class="fv-box"><strong style="color:var(--white)">Tools called:</strong><br><code>OMS.get_trade_history(client: 4521, ticker: MSFT, 30d)</code><br><code>ComplianceDB.get_rule(wash_sale_irs_1091)</code><br><code>CRM.get_client_profile(4521)</code></div></div>
+
+    <div class="fv-s"><div class="fv-d" style="background:var(--em)">3</div><h4>Analysis with sources</h4><p>Agent summarizes the case. Every claim links to its source. Confidence: 87% — the 13% gap is flagged explicitly.</p><div class="fv-box"><strong style="color:var(--white)">Trust mechanism:</strong> Each fact links to its source document. Marcus can click any citation to see the original text. The agent doesn't hide what it doesn't know.</div></div>
+
+    <div class="fv-s"><div class="fv-d" style="background:var(--gold)">4</div><h4 style="color:var(--gold)">Edge case: ambiguous account type</h4><p>Sell was in taxable account, repurchase in IRA. The agent doesn't guess — it flags: "Cross-account rules apply but enforcement varies. Recommend manual review."</p><div class="fv-edge"><div class="el">Edge case</div><p>The agent states what it doesn't know. Provides the regulation text. Flags for human judgment. This is where Marcus's expertise matters.</p></div></div>
+
+    <div class="fv-s"><div class="fv-d" style="background:var(--em)">5</div><h4>Marcus makes the call</h4><p>After reviewing cross-account guidance, he confirms: wash sale violation. Agent executes the mechanical follow-up — not the compliance decision.</p><div class="fv-box"><strong style="color:var(--white)">Human decision point.</strong> The agent presented evidence and ambiguity. Marcus applied judgment. The agent cannot make compliance decisions.</div></div>
+
+    <div class="fv-s"><div class="fv-d" style="background:var(--em)">6</div><h4>Agent handles documentation</h4><p>Audit record, Jira ticket, compliance database entry — all generated automatically with full citation trail.</p><div class="fv-box"><code>ComplianceDB.log_investigation(WS-2025-0342)</code><br><code>Jira.create_ticket(client_notification, medium)</code><br><code>OMS.flag_trade(7842, wash_sale_confirmed)</code></div></div>
+
+    <div class="fv-s"><div class="fv-d" style="background:var(--em)">7</div><h4>12 minutes. Not 2 hours.</h4><p>Same investigation. Fraction of the time. Because the agent did the research, and the human did the judgment.</p></div>
+  </div>
+
+  <div class="co fi" style="margin-top:28px"><div class="co-l">Key principle</div><p style="color:var(--white)">The agent never made the compliance decision. It gathered evidence, flagged ambiguity, and documented the outcome. The human made the call.</p></div>
+</div>
+
+<div class="div-em"></div>
+
+<!-- ===== BEFORE / AFTER ===== -->
+<div class="s-sm">
+  <div class="lbl fi">Impact</div>
+  <h2 class="fi">Same task. <span class="a">Different reality.</span></h2>
+  <p class="fi" style="margin-bottom:24px">Compliance investigation — before and after. Estimated from workflow simulation.</p>
+
+  <div class="ba fi">
+    <div class="ba-c ba-b">
+      <div class="ba-l">Before</div>
+      <h4>Manual workflow</h4>
+      <div class="ba-i"><div class="ba-ic">1</div><p>Scan monitoring report for flags</p></div>
+      <div class="ba-i"><div class="ba-ic">2</div><p>Log into OMS, search trade history</p></div>
+      <div class="ba-i"><div class="ba-ic">3</div><p>Open compliance PDF, search wash sale rules</p></div>
+      <div class="ba-i"><div class="ba-ic">4</div><p>Cross-reference trade dates manually</p></div>
+      <div class="ba-i"><div class="ba-ic">5</div><p>Log into CRM for client details</p></div>
+      <div class="ba-i"><div class="ba-ic">6</div><p>Write summary in Word</p></div>
+      <div class="ba-i"><div class="ba-ic">7</div><p>Create Jira ticket manually</p></div>
+      <div class="ba-i"><div class="ba-ic">8</div><p>Log findings in compliance DB</p></div>
+      <div class="ba-m" style="color:var(--red)">~2h 15m · 4 systems · 8 manual steps</div>
+    </div>
+    <div class="ba-div"></div>
+    <div class="ba-c ba-a">
+      <div class="ba-l">After</div>
+      <h4>Agent-assisted</h4>
+      <div class="ba-i"><div class="ba-ic">✓</div><p>Proactive alert with pre-compiled context</p></div>
+      <div class="ba-i"><div class="ba-ic">✓</div><p>Agent pulls trade history, regulation, client data</p></div>
+      <div class="ba-i"><div class="ba-ic">✓</div><p>Analysis with source citations + confidence</p></div>
+      <div class="ba-i"><div class="ba-ic">✓</div><p>Ambiguity flagged — human makes the call</p></div>
+      <div class="ba-i"><div class="ba-ic">✓</div><p>Audit record, Jira ticket, compliance log auto-generated</p></div>
+      <div style="height:48px"></div>
+      <div class="ba-m" style="color:var(--em)">~12m · 1 interface · 2 human decisions<br><span style="font-size:10px;color:var(--text-d);margin-top:4px;display:block">Estimated based on workflow simulation</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="div-em"></div>
+
+<!-- ===== TRUST ===== -->
+<div class="s">
+  <div class="lbl lbl-r fi">Trust & safety</div>
+  <h2 class="fi">Designing for the moment <span class="ar">the agent is wrong.</span></h2>
+  <p class="fi">One wrong margin number = millions in liability. The trust layer isn't a feature. It's the product.</p>
+
+  <div class="g2 fi" style="margin-top:36px">
+    <div class="tr"><h4><span class="tr-dot" style="background:var(--em)"></span>Source citations</h4><p style="font-size:13px;max-width:100%;margin-top:6px">Every claim links to document, section, and version. Click to see original text. Not optional — hard requirement for compliance.</p></div>
+    <div class="tr"><h4><span class="tr-dot" style="background:var(--gold)"></span>Confidence scoring</h4><p style="font-size:13px;max-width:100%;margin-top:6px">90%+ = green badge. Below 80% = explicit uncertainty flag. Below 60% = refuses to answer definitively.</p></div>
+    <div class="tr"><h4><span class="tr-dot" style="background:var(--coral)"></span>Reasoning trace</h4><p style="font-size:13px;max-width:100%;margin-top:6px">Expand any response to see: which tools called, which docs retrieved, how the answer was synthesized. Makes the agent's thinking auditable.</p></div>
+    <div class="tr"><h4><span class="tr-dot" style="background:var(--red)"></span>Failure handling</h4><p style="font-size:13px;max-width:100%;margin-top:6px">Doesn't know? Says so. Tool fails? Clear error + retry. Outdated source? Flags the last-updated date. No silent failures.</p></div>
+  </div>
+
+  <div class="two fi" style="margin-top:36px">
+    <div>
+      <h3>Human override</h3>
+      <p style="margin-top:6px"><strong style="color:var(--em)">Auto-execute:</strong> Read-only queries, data lookups, reports.</p>
+      <p style="margin-top:6px"><strong style="color:var(--gold)">Confirm to proceed:</strong> Trade modifications, escalations. Agent suggests, human approves.</p>
+      <p style="margin-top:6px"><strong style="color:var(--red)">Human only:</strong> Policy changes, regulatory submissions, compliance decisions.</p>
+    </div>
+    <div>
+      <h3>Audit logging</h3>
+      <p style="margin-top:6px">Every interaction logged: query, tools called, sources retrieved, response, user action. Immutable and timestamped.</p>
+      <div class="co co-r" style="margin-top:14px;padding:14px 18px"><div class="co-l">Constraint</div><p style="font-size:12px">Audit logs retained 7 years per SEC Rule 17a-4. Written to immutable store, not app cache.</p></div>
+    </div>
+  </div>
+</div>
+
+<div class="div"></div>
+
+<!-- ===== PHASE 1 ===== -->
+<div class="s" id="phase1">
+  <div class="ph fi"><div class="ph-n">01</div><div><div class="lbl">Phase 1</div><h2>Build the brain.</h2><p>Company knowledge → searchable AI memory.</p></div></div>
+
+  <div class="two fi" style="margin-top:32px">
+    <div>
+      <h3>RAG in plain terms.</h3>
+      <p style="margin-top:6px">Documents get broken into chunks, converted to vectors, stored in a specialized database. When someone asks a question, the system finds the most relevant chunks and gives them to the AI as context. No retraining needed.</p>
+    </div>
+    <div>
+      <h3>Why RAG, not fine-tuning?</h3>
+      <p style="margin-top:6px">Fine-tuning = retrain the whole model. Expensive, slow, hard to update. RAG = upload a new doc, it's searchable in minutes.</p>
+      <div class="co" style="margin-top:14px;padding:14px 18px"><div class="co-l">Trade-off</div><p style="font-size:13px">RAG for factual, document-grounded answers. Fine-tuning for domain-specific reasoning. FinPilot uses RAG primarily.</p></div>
+    </div>
+  </div>
+
+  <h3 class="fi" style="margin-top:40px">Ingestion pipeline.</h3>
+  <div class="fs fi">
+    <div class="fst"><div class="sn">01</div><h4>Collect</h4><p>Compliance manuals, trading policies, SOPs, filings.</p></div>
+    <div class="fst"><div class="sn">02</div><h4>Parse</h4><p>Extract clean text. Handle PDF layouts, tables, images.</p></div>
+    <div class="fst"><div class="sn">03</div><h4>Chunk</h4><p>Semantic splits at topic boundaries. Size matters.</p></div>
+    <div class="fst"><div class="sn">04</div><h4>Embed</h4><p>Convert chunks to vectors. Similar meaning = similar numbers.</p></div>
+    <div class="fst"><div class="sn">05</div><h4>Store</h4><p>Vector DB + metadata: source, page, section, date.</p></div>
+    <div class="fst"><div class="sn">06</div><h4>Retrieve</h4><p>Query → embed → find nearest chunks → feed to LLM.</p></div>
+  </div>
+</div>
+
+<div class="div"></div>
+
+<!-- ===== PHASE 2 ===== -->
+<div class="s" id="phase2">
+  <div class="ph fi"><div class="ph-n">02</div><div><div class="lbl lbl-c">Phase 2</div><h2>Give it <span class="ar">hands.</span></h2><p>Tools that let the agent act, not just talk.</p></div></div>
+
+  <div class="tg fi">
+    <div class="tc"><div class="ti" style="background:var(--coral-dim);color:var(--coral)">OMS</div><h4>Order management</h4><p>Trade status, orders, positions</p></div>
+    <div class="tc"><div class="ti" style="background:var(--red-dim);color:var(--red)">RSK</div><h4>Risk engine</h4><p>Stress tests, exposure, VaR</p></div>
+    <div class="tc"><div class="ti" style="background:var(--blue-dim);color:var(--blue)">CRM</div><h4>Client database</h4><p>Account info, history, records</p></div>
+    <div class="tc"><div class="ti" style="background:var(--em-dim);color:var(--em)">CDB</div><h4>Compliance DB</h4><p>Rules, violations, audit logs</p></div>
+    <div class="tc"><div class="ti" style="background:var(--gold-dim);color:var(--gold)">MKT</div><h4>Market data</h4><p>Prices, VIX, historical</p></div>
+    <div class="tc"><div class="ti" style="background:rgba(255,255,255,0.04);color:var(--text-s)">COM</div><h4>Communication</h4><p>Slack, email, Jira</p></div>
+  </div>
+
+  <h3 class="fi" style="margin-top:40px">The reasoning loop.</h3>
+  <p class="fi">Think → Plan → Execute → Observe → Respond. If insufficient, loop again.</p>
+  <div class="rl fi">
+    <div class="rs"><div class="rc" style="background:var(--em-dim);color:var(--em)">Think</div><span>Analyze</span></div><div class="ra">→</div>
+    <div class="rs"><div class="rc" style="background:var(--gold-dim);color:var(--gold)">Plan</div><span>Pick tools</span></div><div class="ra">→</div>
+    <div class="rs"><div class="rc" style="background:var(--coral-dim);color:var(--coral)">Execute</div><span>Call APIs</span></div><div class="ra">→</div>
+    <div class="rs"><div class="rc" style="background:var(--blue-dim);color:var(--blue)">Observe</div><span>Read results</span></div><div class="ra">→</div>
+    <div class="rs"><div class="rc" style="background:var(--em-dim);color:var(--em)">Respond</div><span>Or loop</span></div>
+  </div>
+</div>
+
+<div class="div"></div>
+
+<!-- ===== PHASE 3 ===== -->
+<div class="s" id="phase3">
+  <div class="ph fi"><div class="ph-n">03</div><div><div class="lbl lbl-b">Phase 3</div><h2>Deploy into <span style="color:var(--blue)">products.</span></h2><p>Four ways the agent reaches users.</p></div></div>
+
+  <div class="dg fi">
+    <div class="dc dc-1"><div class="dtag">Embedded copilot</div><h4>Inside the existing app</h4><p style="font-size:13px;max-width:100%">Side panel. Context-aware. Knows what screen you're on. Ask a question, get an answer without leaving your workflow.</p></div>
+    <div class="dc dc-2"><div class="dtag">Standalone workspace</div><h4>Deep analysis hub</h4><p style="font-size:13px;max-width:100%">Full-screen for complex multi-step conversations. Scenarios, comparisons, report generation.</p></div>
+    <div class="dc dc-3"><div class="dtag">Proactive agent</div><h4>Monitors and pushes</h4><p style="font-size:13px;max-width:100%">Doesn't wait. Watches metrics, pushes alerts with context and recommended actions.</p></div>
+    <div class="dc dc-4"><div class="dtag">Backend automation</div><h4>Invisible workflows</h4><p style="font-size:13px;max-width:100%">No UI. Nightly reconciliation, daily compliance checks. Only surfaces exceptions.</p></div>
+  </div>
+</div>
+
+<!-- ===== FOCUS 2 ===== -->
+<section class="focus fi">
+  <h2>The agent handles the research.<br><span class="ag">The human handles the judgment.</span></h2>
+</section>
+
+<div class="div-em"></div>
+
+<!-- ===== ARCHITECTURE ===== -->
+<div class="s">
+  <div class="lbl fi">Architecture</div>
+  <h2 class="fi">Six layers.</h2>
+  <div class="dw fi" style="margin-top:28px">
+    <div class="ar-row"><div class="ar-l">Interface</div><div class="ar-items"><div class="ar-ch" style="background:var(--blue-dim);border-color:rgba(74,138,232,0.15);color:var(--blue)">Embedded copilot</div><div class="ar-ch" style="background:var(--blue-dim);border-color:rgba(74,138,232,0.15);color:var(--blue)">Standalone workspace</div><div class="ar-ch" style="background:var(--blue-dim);border-color:rgba(74,138,232,0.15);color:var(--blue)">Alert system</div><div class="ar-ch" style="background:var(--blue-dim);border-color:rgba(74,138,232,0.15);color:var(--blue)">Admin panel</div></div></div>
+    <div class="ar-row"><div class="ar-l">Orchestration</div><div class="ar-items"><div class="ar-ch" style="background:var(--em-dim);border-color:rgba(61,220,132,0.15);color:var(--em)">Agent orchestrator</div><div class="ar-ch" style="background:var(--em-dim);border-color:rgba(61,220,132,0.15);color:var(--em)">ReAct loop</div><div class="ar-ch" style="background:var(--em-dim);border-color:rgba(61,220,132,0.15);color:var(--em)">Workflow engine</div></div></div>
+    <div class="ar-row"><div class="ar-l">Tools / API</div><div class="ar-items"><div class="ar-ch" style="background:var(--coral-dim);border-color:rgba(232,106,74,0.15);color:var(--coral)">OMS</div><div class="ar-ch" style="background:var(--coral-dim);border-color:rgba(232,106,74,0.15);color:var(--coral)">Risk engine</div><div class="ar-ch" style="background:var(--coral-dim);border-color:rgba(232,106,74,0.15);color:var(--coral)">CRM</div><div class="ar-ch" style="background:var(--coral-dim);border-color:rgba(232,106,74,0.15);color:var(--coral)">Compliance DB</div><div class="ar-ch" style="background:var(--coral-dim);border-color:rgba(232,106,74,0.15);color:var(--coral)">Market data</div></div></div>
+    <div class="ar-row"><div class="ar-l">Knowledge</div><div class="ar-items"><div class="ar-ch" style="background:var(--gold-dim);border-color:rgba(232,184,74,0.15);color:var(--gold)">Vector database</div><div class="ar-ch" style="background:var(--gold-dim);border-color:rgba(232,184,74,0.15);color:var(--gold)">Document store</div><div class="ar-ch" style="background:var(--gold-dim);border-color:rgba(232,184,74,0.15);color:var(--gold)">Embedding pipeline</div></div></div>
+    <div class="ar-row"><div class="ar-l">AI / Model</div><div class="ar-items"><div class="ar-ch" style="background:var(--em-dim);border-color:rgba(61,220,132,0.15);color:var(--em)">Foundation LLM</div><div class="ar-ch" style="background:var(--em-dim);border-color:rgba(61,220,132,0.15);color:var(--em)">Fine-tuned layer</div><div class="ar-ch" style="background:var(--em-dim);border-color:rgba(61,220,132,0.15);color:var(--em)">Evaluation suite</div></div></div>
+    <div class="ar-row"><div class="ar-l">Security</div><div class="ar-items"><div class="ar-ch" style="background:var(--red-dim);border-color:rgba(232,74,90,0.12);color:var(--red)">Role-based access</div><div class="ar-ch" style="background:var(--red-dim);border-color:rgba(232,74,90,0.12);color:var(--red)">Guardrails</div><div class="ar-ch" style="background:var(--red-dim);border-color:rgba(232,74,90,0.12);color:var(--red)">Audit logging</div><div class="ar-ch" style="background:var(--red-dim);border-color:rgba(232,74,90,0.12);color:var(--red)">7-year retention</div></div></div>
+  </div>
+</div>
+
+<div class="div-em"></div>
+
+<!-- ===== BUILDER DEEP DIVE ===== -->
+<div class="s" style="background:linear-gradient(180deg,rgba(61,220,132,0.015),transparent)">
+  <div class="lbl fi">Builder experience</div>
+  <h2 class="fi">The admin who configures it<br><span class="a">determines how good it is.</span></h2>
+  <p class="fi">Most AI case studies skip this. But the person uploading documents and debugging wrong outputs is the most underserved user.</p>
+
+  <div class="qt fi" style="margin-top:28px">
+    <p>"I uploaded our entire compliance library and the agent still gives wrong answers about margin calls. No idea which document is causing it."</p>
+    <cite>— Synthesized from enterprise AI admin frustrations</cite>
+  </div>
+
+  <h3 class="fi" style="margin-top:40px">The real journey.</h3>
+
+  <div class="fv fi" style="margin-top:28px">
+    <div class="fv-s"><div class="fv-d" style="background:var(--em)">1</div><h4>Upload documents</h4><p>340+ files. Inconsistent formatting, scanned pages, watermarks, broken tables.</p><div class="fv-box"><strong style="color:var(--white)">UX:</strong> Per-file status with actionable errors. "3 files have unreadable pages (scanned without OCR)" — not just a progress bar.</div></div>
+
+    <div class="fv-s"><div class="fv-d" style="background:var(--em)">2</div><h4>System chunks and embeds</h4><p>Admin doesn't need vector math. They need to verify the system understood their documents.</p><div class="fv-box"><strong style="color:var(--white)">UX: chunk preview with highlighting.</strong> Browse any document, see chunk boundaries overlaid. If a table got split across chunks, you see it immediately.</div></div>
+
+    <div class="fv-s"><div class="fv-d" style="background:var(--coral)">3</div><h4>Test and find problems</h4><p>Agent gives wrong margin answer. Most tools show the wrong answer but no way to trace why.</p><div class="fv-box"><strong style="color:var(--white)">UX: side-by-side debug.</strong> Left: agent response. Right: which chunks retrieved, from which docs, relevance scores. Admin sees: "Pulled from 2019 policy instead of 2024 update."</div><div class="fv-edge"><div class="el">Failure: wrong answers</div><p>Debugging panel shows retrieval chain. Wrong chunks retrieved = document pollution. Right chunks but wrong answer = model reasoning issue. UI flags the distinction.</p></div></div>
+
+    <div class="fv-s"><div class="fv-d" style="background:var(--gold)">4</div><h4>Debug missing data</h4><p>"Agent says it doesn't know our options SOP, but I uploaded it last week."</p><div class="fv-box"><strong style="color:var(--white)">UX: knowledge gap detector.</strong> Run coverage check — input questions, see which have strong matches vs gaps. For gaps: "Not yet processed? Scanned without OCR? Terminology mismatch?" — with the fix for each.</div></div>
+
+    <div class="fv-s"><div class="fv-d" style="background:var(--em)">5</div><h4>Iterate and deploy</h4><p>Saved test suite. Automatic accuracy scoring by topic. Hit 90%+ → promote to production.</p><div class="fv-box"><strong style="color:var(--white)">UX: evaluation dashboard.</strong> "Compliance: 94%. Trading policy: 87% — 3 questions consistently wrong." Click failing questions → direct to debug mode.</div></div>
+  </div>
+
+  <div class="rej fi" style="margin-top:24px"><div class="rej-l">Rejected</div><h4>Technical chunking controls (token size, overlap %)</h4><p>Target admin is PM/ops, not ML engineer. Replaced with 3 presets: Detailed / Balanced / Broad — with visual preview of how each splits a sample document.</p></div>
+</div>
+
+<div class="div-em"></div>
+
+<!-- ===== WIREFRAMES ===== -->
+<div class="s-wide" id="wireframes">
+  <div class="lbl fi">Wireframes</div>
+  <h2 class="fi">Both sides of <span class="a">FinPilot.</span></h2>
+  <p class="fi">Styled low-fidelity. Layout and interaction patterns — not visual polish.</p>
+
+  <div class="wfl fi" style="margin-top:52px">
+    <span class="wfb" style="background:var(--em-dim);color:var(--em)">Builder side</span>
+    <span class="wfln"></span>
+    <span style="font-family:var(--font-m);font-size:10px;color:var(--text-d)">Admin configures the agent</span>
+  </div>
+
+  <!-- Builder wireframes will go here — inserting from backup -->
+      <!-- B1: Builder Dashboard -->
+    <div class="wfs fi">
+      <div class="wfs-h">
+        <span class="wfn">B-01</span>
+        <h4>Builder dashboard</h4>
+      </div>
+      <p class="wfs-d">The home base for agent administrators. Shows agent health, usage metrics, knowledge base status, and quick actions. Designed for a PM or ops lead who manages the agent.</p>
+      <div class="wff">
+        <svg viewBox="0 0 1200 720" xmlns="http://www.w3.org/2000/svg">
+          <!-- Background -->
+          <rect width="1200" height="720" fill="#0d0d14"/>
+
+          <!-- Top bar -->
+          <rect x="0" y="0" width="1200" height="52" fill="#101018"/>
+          <rect x="20" y="14" width="24" height="24" rx="6" fill="#7c6aef" opacity="0.4"/>
+          <rect x="52" y="20" width="70" height="12" rx="3" fill="#e8e6e1" opacity="0.7"/>
+          <rect x="900" y="18" width="180" height="16" rx="8" fill="#16161f"/>
+          <circle cx="1120" cy="26" r="12" fill="#16161f"/>
+          <circle cx="1156" cy="26" r="12" fill="#7c6aef" opacity="0.2"/>
+
+          <!-- Sidebar -->
+          <rect x="0" y="52" width="220" height="668" fill="#101018"/>
+          <rect x="16" y="72" width="188" height="36" rx="8" fill="rgba(124,106,239,0.1)"/>
+          <rect x="44" y="84" width="80" height="10" rx="3" fill="#a78bfa" opacity="0.7"/>
+          <circle cx="32" cy="90" r="4" fill="#a78bfa" opacity="0.5"/>
+
+          <rect x="44" y="128" width="72" height="9" rx="3" fill="#9a978f" opacity="0.4"/>
+          <circle cx="32" cy="132" r="4" fill="#5a584f"/>
+          <rect x="44" y="160" width="88" height="9" rx="3" fill="#9a978f" opacity="0.4"/>
+          <circle cx="32" cy="164" r="4" fill="#5a584f"/>
+          <rect x="44" y="192" width="64" height="9" rx="3" fill="#9a978f" opacity="0.4"/>
+          <circle cx="32" cy="196" r="4" fill="#5a584f"/>
+          <rect x="44" y="224" width="96" height="9" rx="3" fill="#9a978f" opacity="0.4"/>
+          <circle cx="32" cy="228" r="4" fill="#5a584f"/>
+          <rect x="44" y="256" width="56" height="9" rx="3" fill="#9a978f" opacity="0.4"/>
+          <circle cx="32" cy="260" r="4" fill="#5a584f"/>
+
+          <!-- Nav labels -->
+          <text x="44" y="88" fill="#a78bfa" font-family="JetBrains Mono" font-size="9" opacity="0.9">Dashboard</text>
+          <text x="44" y="136" fill="#9a978f" font-family="JetBrains Mono" font-size="9" opacity="0.6">Knowledge base</text>
+          <text x="44" y="168" fill="#9a978f" font-family="JetBrains Mono" font-size="9" opacity="0.6">Tool connections</text>
+          <text x="44" y="200" fill="#9a978f" font-family="JetBrains Mono" font-size="9" opacity="0.6">Permissions</text>
+          <text x="44" y="232" fill="#9a978f" font-family="JetBrains Mono" font-size="9" opacity="0.6">Testing playground</text>
+          <text x="44" y="264" fill="#9a978f" font-family="JetBrains Mono" font-size="9" opacity="0.6">Settings</text>
+
+          <!-- Main content area -->
+          <!-- Page title -->
+          <text x="256" y="96" fill="#e8e6e1" font-family="Josefin Sans" font-size="18" font-weight="600">Agent dashboard</text>
+          <text x="256" y="114" fill="#5a584f" font-family="JetBrains Mono" font-size="10">FinPilot v2.1 · Last updated 2h ago</text>
+
+          <!-- Status cards row -->
+          <rect x="256" y="136" width="220" height="100" rx="10" fill="#16161f" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          <text x="276" y="160" fill="#5a584f" font-family="JetBrains Mono" font-size="8" letter-spacing="0.1em">AGENT STATUS</text>
+          <circle cx="276" cy="190" r="6" fill="#34d399"/>
+          <text x="290" y="194" fill="#34d399" font-family="Josefin Sans" font-size="16" font-weight="600">Online</text>
+          <text x="276" y="218" fill="#5a584f" font-family="JetBrains Mono" font-size="9">Uptime 99.7% · 30d</text>
+
+          <rect x="492" y="136" width="220" height="100" rx="10" fill="#16161f" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          <text x="512" y="160" fill="#5a584f" font-family="JetBrains Mono" font-size="8" letter-spacing="0.1em">QUERIES TODAY</text>
+          <text x="512" y="194" fill="#a78bfa" font-family="Cormorant Garamond" font-size="32" font-weight="300">1,247</text>
+          <text x="512" y="218" fill="#34d399" font-family="JetBrains Mono" font-size="9">↑ 18% vs yesterday</text>
+
+          <rect x="728" y="136" width="220" height="100" rx="10" fill="#16161f" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          <text x="748" y="160" fill="#5a584f" font-family="JetBrains Mono" font-size="8" letter-spacing="0.1em">ACCURACY RATE</text>
+          <text x="748" y="194" fill="#34d399" font-family="Cormorant Garamond" font-size="32" font-weight="300">94.2%</text>
+          <text x="748" y="218" fill="#5a584f" font-family="JetBrains Mono" font-size="9">Based on user feedback</text>
+
+          <rect x="964" y="136" width="210" height="100" rx="10" fill="#16161f" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          <text x="984" y="160" fill="#5a584f" font-family="JetBrains Mono" font-size="8" letter-spacing="0.1em">KNOWLEDGE BASE</text>
+          <text x="984" y="194" fill="#f97316" font-family="Cormorant Garamond" font-size="32" font-weight="300">342</text>
+          <text x="984" y="218" fill="#5a584f" font-family="JetBrains Mono" font-size="9">Documents · 12.4k chunks</text>
+
+          <!-- Usage chart placeholder -->
+          <rect x="256" y="260" width="456" height="240" rx="10" fill="#16161f" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          <text x="276" y="288" fill="#5a584f" font-family="JetBrains Mono" font-size="8" letter-spacing="0.1em">QUERY VOLUME · 30 DAYS</text>
+          <!-- Chart bars -->
+          <rect x="296" y="390" width="12" height="80" rx="2" fill="rgba(124,106,239,0.25)"/>
+          <rect x="320" y="370" width="12" height="100" rx="2" fill="rgba(124,106,239,0.3)"/>
+          <rect x="344" y="350" width="12" height="120" rx="2" fill="rgba(124,106,239,0.35)"/>
+          <rect x="368" y="380" width="12" height="90" rx="2" fill="rgba(124,106,239,0.25)"/>
+          <rect x="392" y="340" width="12" height="130" rx="2" fill="rgba(124,106,239,0.4)"/>
+          <rect x="416" y="360" width="12" height="110" rx="2" fill="rgba(124,106,239,0.35)"/>
+          <rect x="440" y="320" width="12" height="150" rx="2" fill="rgba(124,106,239,0.5)"/>
+          <rect x="464" y="330" width="12" height="140" rx="2" fill="rgba(124,106,239,0.45)"/>
+          <rect x="488" y="350" width="12" height="120" rx="2" fill="rgba(124,106,239,0.35)"/>
+          <rect x="512" y="310" width="12" height="160" rx="2" fill="rgba(124,106,239,0.55)"/>
+          <rect x="536" y="300" width="12" height="170" rx="2" fill="rgba(124,106,239,0.6)"/>
+          <rect x="560" y="330" width="12" height="140" rx="2" fill="rgba(124,106,239,0.45)"/>
+          <rect x="584" y="290" width="12" height="180" rx="2" fill="rgba(124,106,239,0.65)"/>
+          <rect x="608" y="310" width="12" height="160" rx="2" fill="rgba(124,106,239,0.55)"/>
+          <rect x="632" y="280" width="12" height="190" rx="2" fill="#7c6aef" opacity="0.7"/>
+          <rect x="656" y="300" width="12" height="170" rx="2" fill="#7c6aef" opacity="0.8"/>
+          <line x1="276" y1="470" x2="692" y2="470" stroke="#5a584f" stroke-width="0.5" opacity="0.3"/>
+
+          <!-- Recent activity panel -->
+          <rect x="728" y="260" width="446" height="240" rx="10" fill="#16161f" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          <text x="748" y="288" fill="#5a584f" font-family="JetBrains Mono" font-size="8" letter-spacing="0.1em">RECENT ACTIVITY</text>
+          <!-- Activity items -->
+          <circle cx="756" cy="316" r="4" fill="#34d399"/>
+          <text x="770" y="320" fill="#9a978f" font-family="Josefin Sans" font-size="11">New doc uploaded: Q4_Compliance_Update.pdf</text>
+          <text x="1100" y="320" fill="#5a584f" font-family="JetBrains Mono" font-size="9" text-anchor="end">2m ago</text>
+
+          <circle cx="756" cy="348" r="4" fill="#a78bfa"/>
+          <text x="770" y="352" fill="#9a978f" font-family="Josefin Sans" font-size="11">Agent answered 23 queries from Trading desk</text>
+          <text x="1100" y="352" fill="#5a584f" font-family="JetBrains Mono" font-size="9" text-anchor="end">15m ago</text>
+
+          <circle cx="756" cy="380" r="4" fill="#f97316"/>
+          <text x="770" y="384" fill="#9a978f" font-family="Josefin Sans" font-size="11">Tool connection test failed: Risk Engine API</text>
+          <text x="1100" y="384" fill="#5a584f" font-family="JetBrains Mono" font-size="9" text-anchor="end">1h ago</text>
+
+          <circle cx="756" cy="412" r="4" fill="#34d399"/>
+          <text x="770" y="416" fill="#9a978f" font-family="Josefin Sans" font-size="11">Permissions updated for Compliance role</text>
+          <text x="1100" y="416" fill="#5a584f" font-family="JetBrains Mono" font-size="9" text-anchor="end">3h ago</text>
+
+          <circle cx="756" cy="444" r="4" fill="#a78bfa"/>
+          <text x="770" y="448" fill="#9a978f" font-family="Josefin Sans" font-size="11">Weekly evaluation score: 94.2% accuracy</text>
+          <text x="1100" y="448" fill="#5a584f" font-family="JetBrains Mono" font-size="9" text-anchor="end">6h ago</text>
+
+          <!-- Tool health row -->
+          <rect x="256" y="524" width="918" height="170" rx="10" fill="#16161f" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          <text x="276" y="552" fill="#5a584f" font-family="JetBrains Mono" font-size="8" letter-spacing="0.1em">CONNECTED TOOLS</text>
+
+          <rect x="276" y="570" width="160" height="100" rx="8" fill="#0d0d14" stroke="rgba(52,211,153,0.2)" stroke-width="1"/>
+          <circle cx="296" cy="592" r="4" fill="#34d399"/>
+          <text x="308" y="596" fill="#e8e6e1" font-family="Josefin Sans" font-size="11" font-weight="500">Order Mgmt</text>
+          <text x="296" y="618" fill="#5a584f" font-family="JetBrains Mono" font-size="9">Latency: 45ms</text>
+          <text x="296" y="636" fill="#34d399" font-family="JetBrains Mono" font-size="9">● Connected</text>
+
+          <rect x="452" y="570" width="160" height="100" rx="8" fill="#0d0d14" stroke="rgba(249,115,22,0.2)" stroke-width="1"/>
+          <circle cx="472" cy="592" r="4" fill="#f97316"/>
+          <text x="484" y="596" fill="#e8e6e1" font-family="Josefin Sans" font-size="11" font-weight="500">Risk Engine</text>
+          <text x="472" y="618" fill="#5a584f" font-family="JetBrains Mono" font-size="9">Latency: 320ms</text>
+          <text x="472" y="636" fill="#f97316" font-family="JetBrains Mono" font-size="9">● Degraded</text>
+
+          <rect x="628" y="570" width="160" height="100" rx="8" fill="#0d0d14" stroke="rgba(52,211,153,0.2)" stroke-width="1"/>
+          <circle cx="648" cy="592" r="4" fill="#34d399"/>
+          <text x="660" y="596" fill="#e8e6e1" font-family="Josefin Sans" font-size="11" font-weight="500">CRM</text>
+          <text x="648" y="618" fill="#5a584f" font-family="JetBrains Mono" font-size="9">Latency: 62ms</text>
+          <text x="648" y="636" fill="#34d399" font-family="JetBrains Mono" font-size="9">● Connected</text>
+
+          <rect x="804" y="570" width="160" height="100" rx="8" fill="#0d0d14" stroke="rgba(52,211,153,0.2)" stroke-width="1"/>
+          <circle cx="824" cy="592" r="4" fill="#34d399"/>
+          <text x="836" y="596" fill="#e8e6e1" font-family="Josefin Sans" font-size="11" font-weight="500">Compliance DB</text>
+          <text x="824" y="618" fill="#5a584f" font-family="JetBrains Mono" font-size="9">Latency: 78ms</text>
+          <text x="824" y="636" fill="#34d399" font-family="JetBrains Mono" font-size="9">● Connected</text>
+
+          <rect x="980" y="570" width="160" height="100" rx="8" fill="#0d0d14" stroke="rgba(52,211,153,0.2)" stroke-width="1"/>
+          <circle cx="1000" cy="592" r="4" fill="#34d399"/>
+          <text x="1012" y="596" fill="#e8e6e1" font-family="Josefin Sans" font-size="11" font-weight="500">Market Data</text>
+          <text x="1000" y="618" fill="#5a584f" font-family="JetBrains Mono" font-size="9">Latency: 12ms</text>
+          <text x="1000" y="636" fill="#34d399" font-family="JetBrains Mono" font-size="9">● Connected</text>
+        </svg>
+      </div>
+      <div class="wfa">Dashboard provides at-a-glance agent health, usage trends, recent activity feed, and tool connection status with latency indicators</div>
+      <div class="wfd">
+        <div class="wdl">Design decision</div>
+        <p>Tool health cards show latency numbers, not just green/red status. In financial systems, a "connected" tool with 320ms latency is functionally degraded — traders notice. Showing the number lets admins act before users complain.</p>
+      </div>
+    </div>
+
+    <!-- B2: Knowledge Base -->
+    <div class="wfs fi">
+      <div class="wfs-h">
+        <span class="wfn">B-02</span>
+        <h4>Knowledge base management</h4>
+      </div>
+      <p class="wfs-d">Where admins upload, manage, and monitor the company documents that power the agent's knowledge. Shows upload interface, document list, chunk preview, and embedding status.</p>
+      <div class="wff">
+        <svg viewBox="0 0 1200 720" xmlns="http://www.w3.org/2000/svg">
+          <rect width="1200" height="720" fill="#0d0d14"/>
+          <!-- Top bar -->
+          <rect x="0" y="0" width="1200" height="52" fill="#101018"/>
+          <rect x="20" y="14" width="24" height="24" rx="6" fill="#7c6aef" opacity="0.4"/>
+          <text x="52" y="30" fill="#e8e6e1" font-family="Josefin Sans" font-size="12" font-weight="500" opacity="0.7">FinPilot</text>
+          <!-- Sidebar (collapsed indicators) -->
+          <rect x="0" y="52" width="220" height="668" fill="#101018"/>
+          <rect x="44" y="128" width="72" height="9" rx="3" fill="#9a978f" opacity="0.4"/>
+          <rect x="16" y="120" width="188" height="36" rx="8" fill="rgba(52,211,153,0.08)"/>
+          <text x="44" y="142" fill="#34d399" font-family="JetBrains Mono" font-size="9" opacity="0.9">Knowledge base</text>
+          <circle cx="32" cy="138" r="4" fill="#34d399" opacity="0.5"/>
+
+          <!-- Page header -->
+          <text x="256" y="96" fill="#e8e6e1" font-family="Josefin Sans" font-size="18" font-weight="600">Knowledge base</text>
+          <text x="256" y="114" fill="#5a584f" font-family="JetBrains Mono" font-size="10">342 documents · 12,438 chunks · Last sync 2h ago</text>
+
+          <!-- Upload zone -->
+          <rect x="256" y="136" width="918" height="100" rx="12" fill="none" stroke="#7c6aef" stroke-width="1" stroke-dasharray="6 4" opacity="0.3"/>
+          <text x="715" y="180" text-anchor="middle" fill="#a78bfa" font-family="Josefin Sans" font-size="13" opacity="0.6">Drop files here or click to upload</text>
+          <text x="715" y="200" text-anchor="middle" fill="#5a584f" font-family="JetBrains Mono" font-size="9">Supports PDF, DOCX, MD, TXT, CSV · Max 50MB per file</text>
+
+          <!-- Filter bar -->
+          <rect x="256" y="260" width="918" height="40" rx="8" fill="#16161f"/>
+          <rect x="268" y="270" width="120" height="20" rx="4" fill="#0d0d14"/>
+          <text x="280" y="284" fill="#5a584f" font-family="JetBrains Mono" font-size="9">Search docs...</text>
+          <rect x="400" y="270" width="80" height="20" rx="4" fill="rgba(124,106,239,0.1)"/>
+          <text x="416" y="284" fill="#a78bfa" font-family="JetBrains Mono" font-size="9">All types</text>
+          <rect x="492" y="270" width="80" height="20" rx="4" fill="#0d0d14"/>
+          <text x="508" y="284" fill="#5a584f" font-family="JetBrains Mono" font-size="9">Status ▾</text>
+
+          <!-- Document table -->
+          <rect x="256" y="316" width="918" height="32" rx="0" fill="#16161f"/>
+          <text x="276" y="336" fill="#5a584f" font-family="JetBrains Mono" font-size="8" letter-spacing="0.08em">DOCUMENT NAME</text>
+          <text x="580" y="336" fill="#5a584f" font-family="JetBrains Mono" font-size="8" letter-spacing="0.08em">TYPE</text>
+          <text x="700" y="336" fill="#5a584f" font-family="JetBrains Mono" font-size="8" letter-spacing="0.08em">CHUNKS</text>
+          <text x="820" y="336" fill="#5a584f" font-family="JetBrains Mono" font-size="8" letter-spacing="0.08em">STATUS</text>
+          <text x="980" y="336" fill="#5a584f" font-family="JetBrains Mono" font-size="8" letter-spacing="0.08em">UPDATED</text>
+
+          <!-- Row 1 -->
+          <rect x="256" y="348" width="918" height="48" fill="none"/>
+          <line x1="256" y1="396" x2="1174" y2="396" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+          <rect x="276" y="361" width="22" height="22" rx="4" fill="rgba(239,68,68,0.1)"/>
+          <text x="283" y="376" fill="#ef4444" font-family="JetBrains Mono" font-size="8">PDF</text>
+          <text x="308" y="376" fill="#e8e6e1" font-family="Josefin Sans" font-size="12">Compliance_Manual_v4.2.pdf</text>
+          <text x="580" y="376" fill="#9a978f" font-family="JetBrains Mono" font-size="10">Policy</text>
+          <text x="700" y="376" fill="#9a978f" font-family="JetBrains Mono" font-size="10">847</text>
+          <circle cx="828" cy="372" r="4" fill="#34d399"/>
+          <text x="840" y="376" fill="#34d399" font-family="JetBrains Mono" font-size="10">Embedded</text>
+          <text x="980" y="376" fill="#5a584f" font-family="JetBrains Mono" font-size="10">Dec 14, 2025</text>
+
+          <!-- Row 2 -->
+          <rect x="256" y="396" width="918" height="48" fill="none"/>
+          <line x1="256" y1="444" x2="1174" y2="444" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+          <rect x="276" y="409" width="22" height="22" rx="4" fill="rgba(59,130,246,0.1)"/>
+          <text x="280" y="424" fill="#3b82f6" font-family="JetBrains Mono" font-size="7">DOC</text>
+          <text x="308" y="424" fill="#e8e6e1" font-family="Josefin Sans" font-size="12">Trading_Policies_2025.docx</text>
+          <text x="580" y="424" fill="#9a978f" font-family="JetBrains Mono" font-size="10">Policy</text>
+          <text x="700" y="424" fill="#9a978f" font-family="JetBrains Mono" font-size="10">324</text>
+          <circle cx="828" cy="420" r="4" fill="#34d399"/>
+          <text x="840" y="424" fill="#34d399" font-family="JetBrains Mono" font-size="10">Embedded</text>
+          <text x="980" y="424" fill="#5a584f" font-family="JetBrains Mono" font-size="10">Dec 10, 2025</text>
+
+          <!-- Row 3 -->
+          <rect x="256" y="444" width="918" height="48" fill="none"/>
+          <line x1="256" y1="492" x2="1174" y2="492" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+          <rect x="276" y="457" width="22" height="22" rx="4" fill="rgba(239,68,68,0.1)"/>
+          <text x="283" y="472" fill="#ef4444" font-family="JetBrains Mono" font-size="8">PDF</text>
+          <text x="308" y="472" fill="#e8e6e1" font-family="Josefin Sans" font-size="12">SEC_Regulatory_Filing_Q3.pdf</text>
+          <text x="580" y="472" fill="#9a978f" font-family="JetBrains Mono" font-size="10">Regulatory</text>
+          <text x="700" y="472" fill="#9a978f" font-family="JetBrains Mono" font-size="10">512</text>
+          <circle cx="828" cy="468" r="4" fill="#f59e0b"/>
+          <text x="840" y="472" fill="#f59e0b" font-family="JetBrains Mono" font-size="10">Processing</text>
+          <text x="980" y="472" fill="#5a584f" font-family="JetBrains Mono" font-size="10">Dec 18, 2025</text>
+
+          <!-- Row 4 -->
+          <rect x="256" y="492" width="918" height="48" fill="none"/>
+          <line x1="256" y1="540" x2="1174" y2="540" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+          <rect x="276" y="505" width="22" height="22" rx="4" fill="rgba(52,211,153,0.1)"/>
+          <text x="283" y="520" fill="#34d399" font-family="JetBrains Mono" font-size="8">MD</text>
+          <text x="308" y="520" fill="#e8e6e1" font-family="Josefin Sans" font-size="12">Client_Onboarding_SOP.md</text>
+          <text x="580" y="520" fill="#9a978f" font-family="JetBrains Mono" font-size="10">SOP</text>
+          <text x="700" y="520" fill="#9a978f" font-family="JetBrains Mono" font-size="10">156</text>
+          <circle cx="828" cy="516" r="4" fill="#34d399"/>
+          <text x="840" y="520" fill="#34d399" font-family="JetBrains Mono" font-size="10">Embedded</text>
+          <text x="980" y="520" fill="#5a584f" font-family="JetBrains Mono" font-size="10">Nov 28, 2025</text>
+
+          <!-- Chunk preview panel -->
+          <rect x="256" y="564" width="918" height="130" rx="10" fill="#16161f" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          <text x="276" y="588" fill="#5a584f" font-family="JetBrains Mono" font-size="8" letter-spacing="0.1em">CHUNK PREVIEW · Compliance_Manual_v4.2.pdf · Chunk #142</text>
+          <rect x="276" y="600" width="880" height="76" rx="6" fill="#0d0d14"/>
+          <text x="288" y="620" fill="#9a978f" font-family="Josefin Sans" font-size="11">"Section 4.1 — Margin Requirements: All client accounts must maintain a minimum</text>
+          <text x="288" y="638" fill="#9a978f" font-family="Josefin Sans" font-size="11">margin ratio of 25% for equity positions. Accounts falling below this threshold</text>
+          <text x="288" y="656" fill="#9a978f" font-family="Josefin Sans" font-size="11">will trigger an automated margin call notification to the client within 24 hours..."</text>
+        </svg>
+      </div>
+      <div class="wfa">Document management with drag-drop upload, status tracking per file, chunk counts, and inline chunk preview for verification</div>
+      <div class="wfd">
+        <div class="wdl">Why chunk previews exist</div>
+        <p>Admins need to verify the agent's knowledge is correct before deployment. The chunk preview lets them see exactly what text the agent will retrieve for a given topic — catching bad parsing, broken tables, or garbled PDFs before they cause wrong answers in production.</p>
+      </div>
+    </div>
+
+    <!-- B3: Testing Playground -->
+    <div class="wfs fi">
+      <div class="wfs-h">
+        <span class="wfn">B-03</span>
+        <h4>Testing playground</h4>
+      </div>
+      <p class="wfs-d">Where admins test agent responses before deployment. Shows the conversation, source citations, tool calls made, and confidence scoring — so teams can verify accuracy before going live.</p>
+      <div class="wff">
+        <svg viewBox="0 0 1200 720" xmlns="http://www.w3.org/2000/svg">
+          <rect width="1200" height="720" fill="#0d0d14"/>
+          <rect x="0" y="0" width="1200" height="52" fill="#101018"/>
+          <rect x="20" y="14" width="24" height="24" rx="6" fill="#7c6aef" opacity="0.4"/>
+          <text x="52" y="30" fill="#e8e6e1" font-family="Josefin Sans" font-size="12" font-weight="500" opacity="0.7">FinPilot</text>
+          <!-- Sidebar -->
+          <rect x="0" y="52" width="220" height="668" fill="#101018"/>
+          <rect x="16" y="216" width="188" height="36" rx="8" fill="rgba(52,211,153,0.08)"/>
+          <text x="44" y="238" fill="#34d399" font-family="JetBrains Mono" font-size="9" opacity="0.9">Testing playground</text>
+
+          <!-- Page header -->
+          <text x="256" y="96" fill="#e8e6e1" font-family="Josefin Sans" font-size="18" font-weight="600">Testing playground</text>
+          <rect x="440" y="80" width="100" height="24" rx="12" fill="rgba(52,211,153,0.1)"/>
+          <text x="462" y="96" fill="#34d399" font-family="JetBrains Mono" font-size="9">Role: Trader</text>
+          <rect x="552" y="80" width="120" height="24" rx="12" fill="#16161f"/>
+          <text x="570" y="96" fill="#5a584f" font-family="JetBrains Mono" font-size="9">Role: Compliance</text>
+          <rect x="684" y="80" width="80" height="24" rx="12" fill="#16161f"/>
+          <text x="700" y="96" fill="#5a584f" font-family="JetBrains Mono" font-size="9">Role: Risk</text>
+
+          <!-- Chat area -->
+          <rect x="256" y="120" width="580" height="540" rx="10" fill="#16161f" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+
+          <!-- User message -->
+          <rect x="500" y="148" width="316" height="44" rx="10" fill="rgba(124,106,239,0.12)"/>
+          <text x="516" y="174" fill="#e8e6e1" font-family="Josefin Sans" font-size="12">What's the margin requirement for AAPL options?</text>
+
+          <!-- Agent response -->
+          <rect x="280" y="212" width="400" height="180" rx="10" fill="#0d0d14"/>
+          <text x="300" y="238" fill="#e8e6e1" font-family="Josefin Sans" font-size="12">For AAPL options positions, the margin requirement</text>
+          <text x="300" y="258" fill="#e8e6e1" font-family="Josefin Sans" font-size="12">depends on the strategy:</text>
+          <text x="300" y="288" fill="#9a978f" font-family="Josefin Sans" font-size="11">• Long calls/puts: 100% of premium (no margin)</text>
+          <text x="300" y="308" fill="#9a978f" font-family="Josefin Sans" font-size="11">• Covered calls: No additional margin required</text>
+          <text x="300" y="328" fill="#9a978f" font-family="Josefin Sans" font-size="11">• Naked puts: 20% of underlying + premium</text>
+          <text x="300" y="358" fill="#5a584f" font-family="JetBrains Mono" font-size="9">Source: Trading_Policies_2025.docx · Section 3.4</text>
+          <rect x="300" y="370" width="80" height="16" rx="4" fill="rgba(52,211,153,0.1)"/>
+          <text x="316" y="382" fill="#34d399" font-family="JetBrains Mono" font-size="8">94% confident</text>
+
+          <!-- User follow-up -->
+          <rect x="460" y="412" width="356" height="44" rx="10" fill="rgba(124,106,239,0.12)"/>
+          <text x="476" y="438" fill="#e8e6e1" font-family="Josefin Sans" font-size="12">Check if client #4521 has enough margin for this</text>
+
+          <!-- Agent response with tool call -->
+          <rect x="280" y="476" width="400" height="140" rx="10" fill="#0d0d14"/>
+          <rect x="300" y="496" width="200" height="20" rx="4" fill="rgba(249,115,22,0.08)" stroke="rgba(249,115,22,0.2)" stroke-width="0.5"/>
+          <text x="312" y="510" fill="#f97316" font-family="JetBrains Mono" font-size="9">↗ CRM.get_client_portfolio(4521)</text>
+          <text x="300" y="540" fill="#e8e6e1" font-family="Josefin Sans" font-size="12">Client #4521 (Acme Capital) has $2.4M in available</text>
+          <text x="300" y="560" fill="#e8e6e1" font-family="Josefin Sans" font-size="12">margin. That's sufficient for the naked put strategy</text>
+          <text x="300" y="580" fill="#e8e6e1" font-family="Josefin Sans" font-size="12">on AAPL. Current utilization is at 62%.</text>
+          <rect x="300" y="592" width="80" height="16" rx="4" fill="rgba(52,211,153,0.1)"/>
+          <text x="316" y="604" fill="#34d399" font-family="JetBrains Mono" font-size="8">98% confident</text>
+
+          <!-- Input bar -->
+          <rect x="270" y="624" width="552" height="24" rx="6" fill="#0d0d14"/>
+          <text x="286" y="640" fill="#5a584f" font-family="JetBrains Mono" font-size="9">Ask a test question...</text>
+
+          <!-- Right panel: evaluation -->
+          <rect x="856" y="120" width="318" height="540" rx="10" fill="#16161f" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          <text x="876" y="148" fill="#5a584f" font-family="JetBrains Mono" font-size="8" letter-spacing="0.1em">EVALUATION PANEL</text>
+
+          <text x="876" y="180" fill="#9a978f" font-family="Josefin Sans" font-size="11" font-weight="500">Sources used</text>
+          <rect x="876" y="192" width="278" height="60" rx="6" fill="#0d0d14"/>
+          <text x="892" y="212" fill="#34d399" font-family="JetBrains Mono" font-size="9">✓ Trading_Policies_2025.docx</text>
+          <text x="892" y="230" fill="#34d399" font-family="JetBrains Mono" font-size="9">✓ Margin_Requirements_v3.pdf</text>
+
+          <text x="876" y="280" fill="#9a978f" font-family="Josefin Sans" font-size="11" font-weight="500">Tools called</text>
+          <rect x="876" y="292" width="278" height="44" rx="6" fill="#0d0d14"/>
+          <text x="892" y="312" fill="#f97316" font-family="JetBrains Mono" font-size="9">CRM.get_client_portfolio(4521)</text>
+          <text x="892" y="326" fill="#34d399" font-family="JetBrains Mono" font-size="9">✓ Success · 62ms</text>
+
+          <text x="876" y="364" fill="#9a978f" font-family="Josefin Sans" font-size="11" font-weight="500">Reasoning trace</text>
+          <rect x="876" y="376" width="278" height="100" rx="6" fill="#0d0d14"/>
+          <text x="892" y="396" fill="#5a584f" font-family="JetBrains Mono" font-size="9">1. Parse question → margin + AAPL options</text>
+          <text x="892" y="414" fill="#5a584f" font-family="JetBrains Mono" font-size="9">2. Search KB → Trading_Policies §3.4</text>
+          <text x="892" y="432" fill="#5a584f" font-family="JetBrains Mono" font-size="9">3. User asks about client → call CRM</text>
+          <text x="892" y="450" fill="#5a584f" font-family="JetBrains Mono" font-size="9">4. Compare margin available vs required</text>
+          <text x="892" y="468" fill="#5a584f" font-family="JetBrains Mono" font-size="9">5. Synthesize answer with source cite</text>
+
+          <text x="876" y="510" fill="#9a978f" font-family="Josefin Sans" font-size="11" font-weight="500">Rate this response</text>
+          <rect x="876" y="524" width="56" height="28" rx="6" fill="rgba(52,211,153,0.08)" stroke="rgba(52,211,153,0.2)" stroke-width="0.5"/>
+          <text x="892" y="542" fill="#34d399" font-family="Josefin Sans" font-size="11">👍</text>
+          <rect x="940" y="524" width="56" height="28" rx="6" fill="#0d0d14"/>
+          <text x="956" y="542" fill="#5a584f" font-family="Josefin Sans" font-size="11">👎</text>
+          <rect x="1004" y="524" width="80" height="28" rx="6" fill="#0d0d14"/>
+          <text x="1020" y="542" fill="#5a584f" font-family="JetBrains Mono" font-size="9">Add note</text>
+        </svg>
+      </div>
+      <div class="wfa">Split view: live conversation testing (left) with evaluation panel showing sources, tool calls, reasoning trace, and feedback controls (right)</div>
+      <div class="wfd">
+        <div class="wdl">Why the evaluation panel is always visible</div>
+        <p>Early concepts hid the reasoning trace behind a "Show details" toggle. We surfaced it permanently because admins testing the agent need to see not just what it said, but why — which sources it used, which tools it called, and how long each took. Hidden details don't get checked. Visible details build trust before deployment.</p>
+      </div>
+    </div>
+
+
+
+  <div class="wfl fi" style="margin-top:60px">
+    <span class="wfb" style="background:var(--gold-dim);color:var(--gold)">User side</span>
+    <span class="wfln"></span>
+    <span style="font-family:var(--font-m);font-size:10px;color:var(--text-d)">Agent in fintech products</span>
+  </div>
+
+  <!-- User wireframes will go here -->
+      <!-- U1: Trading Terminal with Copilot -->
+    <div class="wfs fi">
+      <div class="wfs-h">
+        <span class="wfn">U-01</span>
+        <h4>Embedded copilot — trading terminal</h4>
+      </div>
+      <p class="wfs-d">The agent appears as a collapsible side panel within the trader's existing terminal. It has full context of the current view and can execute actions directly. Speed-optimized with one-click confirmations.</p>
+      <div class="wff">
+        <svg viewBox="0 0 1200 720" xmlns="http://www.w3.org/2000/svg">
+          <rect width="1200" height="720" fill="#0d0d14"/>
+
+          <!-- Trading terminal main area -->
+          <rect x="0" y="0" width="840" height="720" fill="#0a0a10"/>
+
+          <!-- Terminal top bar -->
+          <rect x="0" y="0" width="840" height="40" fill="#101018"/>
+          <text x="16" y="26" fill="#9a978f" font-family="JetBrains Mono" font-size="10" font-weight="500">TradeView Pro</text>
+          <rect x="140" y="10" width="60" height="20" rx="4" fill="rgba(52,211,153,0.08)"/>
+          <text x="152" y="24" fill="#34d399" font-family="JetBrains Mono" font-size="8">MARKET</text>
+          <rect x="208" y="10" width="50" height="20" rx="4" fill="#16161f"/>
+          <text x="218" y="24" fill="#5a584f" font-family="JetBrains Mono" font-size="8">ORDERS</text>
+          <rect x="266" y="10" width="70" height="20" rx="4" fill="#16161f"/>
+          <text x="278" y="24" fill="#5a584f" font-family="JetBrains Mono" font-size="8">POSITIONS</text>
+
+          <!-- Price chart area -->
+          <rect x="16" y="56" width="808" height="320" rx="8" fill="#0d0d14" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+          <text x="32" y="80" fill="#e8e6e1" font-family="Josefin Sans" font-size="16" font-weight="600">AAPL</text>
+          <text x="90" y="80" fill="#34d399" font-family="JetBrains Mono" font-size="14">$198.42</text>
+          <text x="185" y="80" fill="#34d399" font-family="JetBrains Mono" font-size="10">+2.14 (+1.09%)</text>
+          <!-- Chart line (simplified) -->
+          <polyline points="40,300 80,280 120,290 160,260 200,270 240,240 280,250 320,220 360,210 400,230 440,200 480,190 520,210 560,180 600,170 640,185 680,160 720,150 760,165 800,140" fill="none" stroke="#34d399" stroke-width="1.5" opacity="0.7"/>
+          <rect x="40" y="300" width="768" height="60" rx="0" fill="rgba(52,211,153,0.02)"/>
+          <!-- Volume bars -->
+          <rect x="60" y="330" width="16" height="24" rx="1" fill="rgba(52,211,153,0.15)"/>
+          <rect x="100" y="320" width="16" height="34" rx="1" fill="rgba(52,211,153,0.2)"/>
+          <rect x="140" y="335" width="16" height="19" rx="1" fill="rgba(52,211,153,0.12)"/>
+          <rect x="180" y="310" width="16" height="44" rx="1" fill="rgba(52,211,153,0.25)"/>
+          <rect x="220" y="325" width="16" height="29" rx="1" fill="rgba(52,211,153,0.15)"/>
+          <rect x="260" y="315" width="16" height="39" rx="1" fill="rgba(52,211,153,0.2)"/>
+
+          <!-- Positions table -->
+          <rect x="16" y="392" width="808" height="180" rx="8" fill="#0d0d14" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+          <text x="32" y="416" fill="#5a584f" font-family="JetBrains Mono" font-size="8" letter-spacing="0.1em">OPEN POSITIONS</text>
+          <text x="32" y="448" fill="#e8e6e1" font-family="Josefin Sans" font-size="11">AAPL 200C Dec</text>
+          <text x="200" y="448" fill="#34d399" font-family="JetBrains Mono" font-size="11">+50 contracts</text>
+          <text x="380" y="448" fill="#34d399" font-family="JetBrains Mono" font-size="11">+$12,400</text>
+          <text x="32" y="476" fill="#e8e6e1" font-family="Josefin Sans" font-size="11">NVDA 480P Jan</text>
+          <text x="200" y="476" fill="#9a978f" font-family="JetBrains Mono" font-size="11">+25 contracts</text>
+          <text x="380" y="476" fill="#ef4444" font-family="JetBrains Mono" font-size="11">-$3,200</text>
+          <text x="32" y="504" fill="#e8e6e1" font-family="Josefin Sans" font-size="11">SPY 580C Feb</text>
+          <text x="200" y="504" fill="#9a978f" font-family="JetBrains Mono" font-size="11">+100 contracts</text>
+          <text x="380" y="504" fill="#34d399" font-family="JetBrains Mono" font-size="11">+$8,750</text>
+
+          <!-- Order entry -->
+          <rect x="16" y="588" width="808" height="116" rx="8" fill="#0d0d14" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+          <text x="32" y="612" fill="#5a584f" font-family="JetBrains Mono" font-size="8" letter-spacing="0.1em">QUICK ORDER</text>
+          <rect x="32" y="624" width="120" height="32" rx="6" fill="#16161f"/>
+          <text x="48" y="644" fill="#9a978f" font-family="JetBrains Mono" font-size="10">AAPL</text>
+          <rect x="168" y="624" width="80" height="32" rx="6" fill="rgba(52,211,153,0.08)"/>
+          <text x="192" y="644" fill="#34d399" font-family="Josefin Sans" font-size="11">BUY</text>
+          <rect x="264" y="624" width="80" height="32" rx="6" fill="#16161f"/>
+          <text x="288" y="644" fill="#ef4444" font-family="Josefin Sans" font-size="11">SELL</text>
+
+          <!-- FinPilot Copilot Panel (right side) -->
+          <rect x="840" y="0" width="360" height="720" fill="#101018" stroke="rgba(124,106,239,0.15)" stroke-width="1"/>
+
+          <!-- Copilot header -->
+          <rect x="840" y="0" width="360" height="48" fill="#16161f"/>
+          <rect x="860" y="12" width="20" height="20" rx="5" fill="#7c6aef" opacity="0.4"/>
+          <text x="888" y="26" fill="#a78bfa" font-family="Josefin Sans" font-size="12" font-weight="600">FinPilot</text>
+          <rect x="960" y="14" width="60" height="16" rx="8" fill="rgba(52,211,153,0.1)"/>
+          <text x="972" y="26" fill="#34d399" font-family="JetBrains Mono" font-size="8">Trader</text>
+          <text x="1168" y="26" fill="#5a584f" font-family="Josefin Sans" font-size="14" text-anchor="end">×</text>
+
+          <!-- Context awareness badge -->
+          <rect x="856" y="60" width="328" height="28" rx="6" fill="rgba(124,106,239,0.06)"/>
+          <text x="872" y="78" fill="#a78bfa" font-family="JetBrains Mono" font-size="9">Viewing: AAPL · 3 open positions</text>
+
+          <!-- Chat messages -->
+          <!-- User -->
+          <rect x="960" y="108" width="220" height="36" rx="10" fill="rgba(124,106,239,0.1)"/>
+          <text x="976" y="130" fill="#e8e6e1" font-family="Josefin Sans" font-size="11">Best hedge for my AAPL calls?</text>
+
+          <!-- Agent response -->
+          <rect x="860" y="160" width="290" height="200" rx="10" fill="#0d0d14"/>
+          <text x="876" y="184" fill="#e8e6e1" font-family="Josefin Sans" font-size="11" font-weight="500">Given your 50 AAPL 200C Dec:</text>
+          <text x="876" y="210" fill="#9a978f" font-family="Josefin Sans" font-size="10">1. Protective put (195P) — cost: $4.2k</text>
+          <text x="876" y="230" fill="#9a978f" font-family="Josefin Sans" font-size="10">2. Collar (195P/210C) — cost: $1.8k</text>
+          <text x="876" y="250" fill="#9a978f" font-family="Josefin Sans" font-size="10">3. Reduce position by 40% — no cost</text>
+          <text x="876" y="280" fill="#5a584f" font-family="JetBrains Mono" font-size="8">Based on current IV: 28.4% · Greeks analyzed</text>
+          <rect x="876" y="296" width="130" height="24" rx="6" fill="rgba(52,211,153,0.08)" stroke="rgba(52,211,153,0.2)" stroke-width="0.5"/>
+          <text x="904" y="312" fill="#34d399" font-family="Josefin Sans" font-size="10">Execute collar →</text>
+          <rect x="1012" y="296" width="80" height="24" rx="6" fill="#16161f"/>
+          <text x="1028" y="312" fill="#5a584f" font-family="Josefin Sans" font-size="10">Details</text>
+          <rect x="876" y="330" width="80" height="16" rx="4" fill="rgba(52,211,153,0.06)"/>
+          <text x="888" y="342" fill="#34d399" font-family="JetBrains Mono" font-size="8">96% confident</text>
+
+          <!-- User follow-up -->
+          <rect x="980" y="380" width="200" height="36" rx="10" fill="rgba(124,106,239,0.1)"/>
+          <text x="996" y="402" fill="#e8e6e1" font-family="Josefin Sans" font-size="11">Show unusual activity in tech</text>
+
+          <!-- Agent -->
+          <rect x="860" y="432" width="290" height="140" rx="10" fill="#0d0d14"/>
+          <rect x="876" y="452" width="160" height="18" rx="4" fill="rgba(249,115,22,0.08)"/>
+          <text x="888" y="464" fill="#f97316" font-family="JetBrains Mono" font-size="8">↗ MarketData.scan_unusual()</text>
+          <text x="876" y="492" fill="#e8e6e1" font-family="Josefin Sans" font-size="11" font-weight="500">3 unusual activity alerts:</text>
+          <text x="876" y="514" fill="#f97316" font-family="Josefin Sans" font-size="10">• MSFT 420C — 5x avg vol</text>
+          <text x="876" y="534" fill="#f59e0b" font-family="Josefin Sans" font-size="10">• META 520P — 3x avg vol</text>
+          <text x="876" y="554" fill="#9a978f" font-family="Josefin Sans" font-size="10">• GOOGL 180C — 2x avg vol</text>
+
+          <!-- Input bar -->
+          <rect x="856" y="596" width="328" height="36" rx="8" fill="#0d0d14" stroke="rgba(255,255,255,0.06)" stroke-width="0.5"/>
+          <text x="872" y="618" fill="#5a584f" font-family="JetBrains Mono" font-size="10">Ask FinPilot...</text>
+          <rect x="1148" y="602" width="24" height="24" rx="6" fill="rgba(124,106,239,0.2)"/>
+
+          <!-- Quick actions -->
+          <text x="856" y="656" fill="#5a584f" font-family="JetBrains Mono" font-size="8" letter-spacing="0.08em">QUICK ACTIONS</text>
+          <rect x="856" y="666" width="100" height="24" rx="12" fill="#16161f"/>
+          <text x="876" y="682" fill="#9a978f" font-family="JetBrains Mono" font-size="8">Risk check</text>
+          <rect x="964" y="666" width="100" height="24" rx="12" fill="#16161f"/>
+          <text x="980" y="682" fill="#9a978f" font-family="JetBrains Mono" font-size="8">P&L summary</text>
+          <rect x="1072" y="666" width="100" height="24" rx="12" fill="#16161f"/>
+          <text x="1088" y="682" fill="#9a978f" font-family="JetBrains Mono" font-size="8">Market pulse</text>
+        </svg>
+      </div>
+      <div class="wfa">Copilot panel (right) is context-aware — it knows the trader is viewing AAPL with 3 open positions. Responses include actionable buttons for one-click execution.</div>
+      <div class="wfd">
+        <div class="wdl">Why one-click execution, not chat-only</div>
+        <p>Traders operate in milliseconds. Typing "execute the collar strategy" and waiting for a response costs time. The one-click "Execute collar →" button appears directly in the agent's recommendation — reducing the action to a single tap. The agent suggests, the trader confirms with muscle memory, not conversation.</p>
+      </div>
+    </div>
+
+    <!-- U2: Risk Dashboard with Proactive Alert -->
+    <div class="wfs fi">
+      <div class="wfs-h">
+        <span class="wfn">U-02</span>
+        <h4>Proactive alert — risk dashboard</h4>
+      </div>
+      <p class="wfs-d">The agent monitors risk metrics continuously and pushes alerts when thresholds are breached. Shows the proactive notification banner, the risk dashboard context, and suggested actions — the agent reaches out before the user asks.</p>
+      <div class="wff">
+        <svg viewBox="0 0 1200 720" xmlns="http://www.w3.org/2000/svg">
+          <rect width="1200" height="720" fill="#0d0d14"/>
+          <!-- Top bar -->
+          <rect x="0" y="0" width="1200" height="40" fill="#101018"/>
+          <text x="16" y="26" fill="#9a978f" font-family="JetBrains Mono" font-size="10" font-weight="500">RiskView Pro</text>
+
+          <!-- Proactive alert banner -->
+          <rect x="0" y="40" width="1200" height="64" fill="rgba(239,68,68,0.06)" stroke="rgba(239,68,68,0.15)" stroke-width="0 0 1 0"/>
+          <rect x="16" y="52" width="28" height="28" rx="7" fill="rgba(239,68,68,0.15)"/>
+          <text x="24" y="71" fill="#ef4444" font-family="Josefin Sans" font-size="14" font-weight="600" text-anchor="middle">!</text>
+          <text x="56" y="66" fill="#ef4444" font-family="Josefin Sans" font-size="12" font-weight="600">FinPilot Alert:</text>
+          <text x="164" y="66" fill="#e8e6e1" font-family="Josefin Sans" font-size="12">Portfolio VaR exceeded threshold by 18% — Energy sector exposure spiked due to crude oil movement</text>
+          <text x="56" y="86" fill="#5a584f" font-family="JetBrains Mono" font-size="9">Triggered 3 min ago · Auto-analysis complete · 3 recommended actions</text>
+          <rect x="1040" y="56" width="120" height="28" rx="6" fill="rgba(124,106,239,0.1)" stroke="rgba(124,106,239,0.2)" stroke-width="0.5"/>
+          <text x="1072" y="74" fill="#a78bfa" font-family="Josefin Sans" font-size="11">View analysis →</text>
+
+          <!-- Dashboard content -->
+          <text x="32" y="140" fill="#e8e6e1" font-family="Josefin Sans" font-size="18" font-weight="600">Portfolio risk overview</text>
+
+          <!-- Risk metric cards -->
+          <rect x="16" y="160" width="280" height="120" rx="10" fill="#16161f" stroke="rgba(239,68,68,0.15)" stroke-width="1"/>
+          <text x="36" y="184" fill="#5a584f" font-family="JetBrains Mono" font-size="8" letter-spacing="0.1em">VALUE AT RISK (95%)</text>
+          <text x="36" y="224" fill="#ef4444" font-family="Cormorant Garamond" font-size="36" font-weight="300">$4.8M</text>
+          <text x="36" y="256" fill="#ef4444" font-family="JetBrains Mono" font-size="10">↑ $2.1M → $4.8M (+128%)</text>
+          <rect x="220" y="168" width="60" height="18" rx="4" fill="rgba(239,68,68,0.1)"/>
+          <text x="234" y="180" fill="#ef4444" font-family="JetBrains Mono" font-size="8">BREACH</text>
+
+          <rect x="312" y="160" width="280" height="120" rx="10" fill="#16161f" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          <text x="332" y="184" fill="#5a584f" font-family="JetBrains Mono" font-size="8" letter-spacing="0.1em">DELTA EXPOSURE</text>
+          <text x="332" y="224" fill="#f59e0b" font-family="Cormorant Garamond" font-size="36" font-weight="300">$12.3M</text>
+          <text x="332" y="256" fill="#f59e0b" font-family="JetBrains Mono" font-size="10">↑ 23% vs. yesterday</text>
+
+          <rect x="608" y="160" width="280" height="120" rx="10" fill="#16161f" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          <text x="628" y="184" fill="#5a584f" font-family="JetBrains Mono" font-size="8" letter-spacing="0.1em">SHARPE RATIO</text>
+          <text x="628" y="224" fill="#34d399" font-family="Cormorant Garamond" font-size="36" font-weight="300">1.42</text>
+          <text x="628" y="256" fill="#34d399" font-family="JetBrains Mono" font-size="10">Within target range</text>
+
+          <rect x="904" y="160" width="280" height="120" rx="10" fill="#16161f" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          <text x="924" y="184" fill="#5a584f" font-family="JetBrains Mono" font-size="8" letter-spacing="0.1em">MARGIN UTILIZATION</text>
+          <text x="924" y="224" fill="#f59e0b" font-family="Cormorant Garamond" font-size="36" font-weight="300">78%</text>
+          <text x="924" y="256" fill="#f59e0b" font-family="JetBrains Mono" font-size="10">Approaching 80% warning</text>
+
+          <!-- FinPilot analysis panel (expanded from alert) -->
+          <rect x="16" y="300" width="760" height="400" rx="12" fill="#16161f" stroke="rgba(124,106,239,0.15)" stroke-width="1"/>
+          <rect x="16" y="300" width="760" height="44" rx="12 12 0 0" fill="rgba(124,106,239,0.06)"/>
+          <rect x="32" y="312" width="20" height="20" rx="5" fill="#7c6aef" opacity="0.4"/>
+          <text x="60" y="326" fill="#a78bfa" font-family="Josefin Sans" font-size="13" font-weight="600">FinPilot risk analysis</text>
+          <text x="220" y="326" fill="#5a584f" font-family="JetBrains Mono" font-size="9">Auto-generated · 3 min ago</text>
+
+          <text x="36" y="372" fill="#e8e6e1" font-family="Josefin Sans" font-size="12" font-weight="500">What happened</text>
+          <text x="36" y="396" fill="#9a978f" font-family="Josefin Sans" font-size="11">Crude oil futures spiked 4.2% following OPEC production cut announcement.</text>
+          <text x="36" y="416" fill="#9a978f" font-family="Josefin Sans" font-size="11">Your energy sector allocation (32% of portfolio) drove VaR above the $4M limit.</text>
+
+          <text x="36" y="452" fill="#e8e6e1" font-family="Josefin Sans" font-size="12" font-weight="500">Recommended actions</text>
+
+          <rect x="36" y="468" width="720" height="56" rx="8" fill="#0d0d14" stroke="rgba(52,211,153,0.15)" stroke-width="0.5"/>
+          <text x="56" y="490" fill="#34d399" font-family="Josefin Sans" font-size="11" font-weight="500">Option 1: Reduce energy exposure by 15%</text>
+          <text x="56" y="508" fill="#5a584f" font-family="Josefin Sans" font-size="10">Sell $1.8M in XLE positions. Estimated VaR reduction to $3.6M. Cost: ~$2.4k in spreads.</text>
+          <rect x="660" y="478" width="80" height="28" rx="6" fill="rgba(52,211,153,0.08)" stroke="rgba(52,211,153,0.2)" stroke-width="0.5"/>
+          <text x="680" y="496" fill="#34d399" font-family="Josefin Sans" font-size="10">Execute</text>
+
+          <rect x="36" y="536" width="720" height="56" rx="8" fill="#0d0d14"/>
+          <text x="56" y="558" fill="#f59e0b" font-family="Josefin Sans" font-size="11" font-weight="500">Option 2: Hedge with crude oil puts</text>
+          <text x="56" y="576" fill="#5a584f" font-family="Josefin Sans" font-size="10">Buy CLF 72P contracts. Covers 80% of exposure. Premium: $34k. VaR reduction to $3.2M.</text>
+          <rect x="660" y="546" width="80" height="28" rx="6" fill="#16161f"/>
+          <text x="680" y="564" fill="#5a584f" font-family="Josefin Sans" font-size="10">Review</text>
+
+          <rect x="36" y="604" width="720" height="56" rx="8" fill="#0d0d14"/>
+          <text x="56" y="626" fill="#9a978f" font-family="Josefin Sans" font-size="11" font-weight="500">Option 3: Accept and monitor</text>
+          <text x="56" y="644" fill="#5a584f" font-family="Josefin Sans" font-size="10">Set enhanced monitoring. Alert if VaR exceeds $5.5M or energy allocation exceeds 35%.</text>
+          <rect x="660" y="614" width="80" height="28" rx="6" fill="#16161f"/>
+          <text x="676" y="632" fill="#5a584f" font-family="Josefin Sans" font-size="10">Accept</text>
+
+          <text x="36" y="686" fill="#5a584f" font-family="JetBrains Mono" font-size="9">Sources: Risk_Limits_Policy.pdf §2.3 · Market data (real-time) · Portfolio analytics engine</text>
+
+          <!-- Sector exposure sidebar -->
+          <rect x="792" y="300" width="392" height="400" rx="12" fill="#16161f" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          <text x="812" y="328" fill="#5a584f" font-family="JetBrains Mono" font-size="8" letter-spacing="0.1em">SECTOR EXPOSURE BREAKDOWN</text>
+
+          <text x="812" y="364" fill="#e8e6e1" font-family="Josefin Sans" font-size="11">Energy</text>
+          <rect x="812" y="374" width="352" height="12" rx="3" fill="#0d0d14"/>
+          <rect x="812" y="374" width="224" height="12" rx="3" fill="rgba(239,68,68,0.5)"/>
+          <text x="1044" y="384" fill="#ef4444" font-family="JetBrains Mono" font-size="9">32%</text>
+
+          <text x="812" y="412" fill="#e8e6e1" font-family="Josefin Sans" font-size="11">Technology</text>
+          <rect x="812" y="422" width="352" height="12" rx="3" fill="#0d0d14"/>
+          <rect x="812" y="422" width="176" height="12" rx="3" fill="rgba(124,106,239,0.5)"/>
+          <text x="996" y="432" fill="#a78bfa" font-family="JetBrains Mono" font-size="9">25%</text>
+
+          <text x="812" y="460" fill="#e8e6e1" font-family="Josefin Sans" font-size="11">Financials</text>
+          <rect x="812" y="470" width="352" height="12" rx="3" fill="#0d0d14"/>
+          <rect x="812" y="470" width="128" height="12" rx="3" fill="rgba(59,130,246,0.5)"/>
+          <text x="948" y="480" fill="#3b82f6" font-family="JetBrains Mono" font-size="9">18%</text>
+
+          <text x="812" y="508" fill="#e8e6e1" font-family="Josefin Sans" font-size="11">Healthcare</text>
+          <rect x="812" y="518" width="352" height="12" rx="3" fill="#0d0d14"/>
+          <rect x="812" y="518" width="88" height="12" rx="3" fill="rgba(52,211,153,0.5)"/>
+          <text x="908" y="528" fill="#34d399" font-family="JetBrains Mono" font-size="9">12%</text>
+
+          <text x="812" y="556" fill="#e8e6e1" font-family="Josefin Sans" font-size="11">Consumer</text>
+          <rect x="812" y="566" width="352" height="12" rx="3" fill="#0d0d14"/>
+          <rect x="812" y="566" width="56" height="12" rx="3" fill="rgba(245,158,11,0.5)"/>
+          <text x="876" y="576" fill="#f59e0b" font-family="JetBrains Mono" font-size="9">8%</text>
+
+          <text x="812" y="604" fill="#e8e6e1" font-family="Josefin Sans" font-size="11">Other</text>
+          <rect x="812" y="614" width="352" height="12" rx="3" fill="#0d0d14"/>
+          <rect x="812" y="614" width="36" height="12" rx="3" fill="rgba(155,155,155,0.4)"/>
+          <text x="856" y="624" fill="#9a978f" font-family="JetBrains Mono" font-size="9">5%</text>
+        </svg>
+      </div>
+      <div class="wfa">Proactive alert banner (top) triggers automatically when VaR breaches threshold. FinPilot analysis panel (left) provides context, cause, and 3 actionable options with one-click execution. Sector breakdown (right) for immediate visual context.</div>
+      <div class="wfd">
+        <div class="wdl">Why three options, not one recommendation</div>
+        <p>Early designs had the agent recommend a single "best" action. Rejected because risk management is judgment-heavy — the "best" option depends on market outlook, client relationships, and risk appetite that the agent can't fully assess. Three ranked options let the risk manager apply their expertise to the agent's analysis. The agent does the math; the human chooses the strategy.</p>
+      </div>
+    </div>
+
+    <!-- U3: Standalone Agent Workspace -->
+    <div class="wfs fi">
+      <div class="wfs-h">
+        <span class="wfn">U-03</span>
+        <h4>Standalone agent workspace</h4>
+      </div>
+      <p class="wfs-d">A dedicated, full-screen environment for deep multi-step analysis. Used when embedded panels aren't enough — complex report generation, multi-system queries, and iterative research with the agent.</p>
+      <div class="wff">
+        <svg viewBox="0 0 1200 720" xmlns="http://www.w3.org/2000/svg">
+          <rect width="1200" height="720" fill="#0d0d14"/>
+
+          <!-- Sidebar -->
+          <rect x="0" y="0" width="260" height="720" fill="#101018"/>
+          <rect x="16" y="16" width="28" height="28" rx="7" fill="#7c6aef" opacity="0.4"/>
+          <text x="52" y="34" fill="#a78bfa" font-family="Josefin Sans" font-size="14" font-weight="600">FinPilot</text>
+          <text x="52" y="50" fill="#5a584f" font-family="JetBrains Mono" font-size="8">Workspace</text>
+
+          <rect x="16" y="76" width="228" height="36" rx="8" fill="rgba(124,106,239,0.08)"/>
+          <text x="36" y="98" fill="#a78bfa" font-family="JetBrains Mono" font-size="10">+ New conversation</text>
+
+          <text x="16" y="140" fill="#5a584f" font-family="JetBrains Mono" font-size="8" letter-spacing="0.1em">RECENT CONVERSATIONS</text>
+          <rect x="16" y="156" width="228" height="36" rx="6" fill="rgba(52,211,153,0.06)"/>
+          <circle cx="32" cy="174" r="4" fill="#34d399"/>
+          <text x="44" y="178" fill="#e8e6e1" font-family="Josefin Sans" font-size="11">Q4 portfolio stress test</text>
+
+          <circle cx="32" cy="210" r="4" fill="#f97316"/>
+          <text x="44" y="214" fill="#9a978f" font-family="Josefin Sans" font-size="11">Client onboarding analysis</text>
+
+          <circle cx="32" cy="242" r="4" fill="#a78bfa"/>
+          <text x="44" y="246" fill="#9a978f" font-family="Josefin Sans" font-size="11">Compliance audit prep</text>
+
+          <circle cx="32" cy="274" r="4" fill="#3b82f6"/>
+          <text x="44" y="278" fill="#9a978f" font-family="Josefin Sans" font-size="11">Market volatility report</text>
+
+          <!-- Main chat area -->
+          <rect x="260" y="0" width="660" height="720" fill="#0a0a10"/>
+
+          <!-- User message -->
+          <rect x="540" y="40" width="360" height="56" rx="12" fill="rgba(124,106,239,0.1)"/>
+          <text x="560" y="62" fill="#e8e6e1" font-family="Josefin Sans" font-size="12">Run a full stress test on our Q4 portfolio against</text>
+          <text x="560" y="80" fill="#e8e6e1" font-family="Josefin Sans" font-size="12">a 2008-style financial crisis scenario.</text>
+
+          <!-- Agent response -->
+          <rect x="284" y="116" width="480" height="400" rx="12" fill="#101018"/>
+          <!-- Tool calls -->
+          <rect x="304" y="136" width="200" height="20" rx="4" fill="rgba(249,115,22,0.08)" stroke="rgba(249,115,22,0.15)" stroke-width="0.5"/>
+          <text x="316" y="150" fill="#f97316" font-family="JetBrains Mono" font-size="9">↗ RiskEngine.stress_test()</text>
+          <rect x="304" y="164" width="220" height="20" rx="4" fill="rgba(249,115,22,0.08)" stroke="rgba(249,115,22,0.15)" stroke-width="0.5"/>
+          <text x="316" y="178" fill="#f97316" font-family="JetBrains Mono" font-size="9">↗ CRM.get_portfolio_holdings()</text>
+          <rect x="304" y="192" width="260" height="20" rx="4" fill="rgba(249,115,22,0.08)" stroke="rgba(249,115,22,0.15)" stroke-width="0.5"/>
+          <text x="316" y="206" fill="#f97316" font-family="JetBrains Mono" font-size="9">↗ MarketData.get_historical(2008_crisis)</text>
+
+          <text x="304" y="240" fill="#e8e6e1" font-family="Josefin Sans" font-size="13" font-weight="500">2008-style stress test results</text>
+
+          <text x="304" y="268" fill="#9a978f" font-family="Josefin Sans" font-size="11">Under this scenario, your portfolio would experience:</text>
+
+          <text x="304" y="298" fill="#ef4444" font-family="Josefin Sans" font-size="12" font-weight="500">Portfolio loss: -$18.4M (-34.2%)</text>
+          <text x="304" y="322" fill="#f59e0b" font-family="Josefin Sans" font-size="11">Worst sector: Financials (-52.8%)</text>
+          <text x="304" y="342" fill="#9a978f" font-family="Josefin Sans" font-size="11">Best sector: Utilities (-8.3%)</text>
+          <text x="304" y="362" fill="#9a978f" font-family="Josefin Sans" font-size="11">VaR would peak at $8.2M (3.4x current limit)</text>
+          <text x="304" y="382" fill="#9a978f" font-family="Josefin Sans" font-size="11">Margin calls triggered on 4 of 12 accounts</text>
+
+          <!-- Mini chart placeholder -->
+          <rect x="304" y="400" width="440" height="60" rx="6" fill="#0d0d14"/>
+          <polyline points="320,450 360,440 400,430 440,450 480,445 520,438 560,425 600,415 640,420 680,408 720,400" fill="none" stroke="#ef4444" stroke-width="1.5" opacity="0.6"/>
+          <text x="316" y="414" fill="#5a584f" font-family="JetBrains Mono" font-size="8">Portfolio value under stress (simulated 12mo)</text>
+
+          <text x="304" y="490" fill="#5a584f" font-family="JetBrains Mono" font-size="8">Sources: Historical crisis data · Risk engine · Current holdings</text>
+          <rect x="304" y="498" width="120" height="10" rx="2" fill="rgba(52,211,153,0.06)"/>
+
+          <!-- Follow-up -->
+          <rect x="540" y="536" width="360" height="36" rx="12" fill="rgba(124,106,239,0.1)"/>
+          <text x="560" y="558" fill="#e8e6e1" font-family="Josefin Sans" font-size="12">Generate a PDF report I can share with the team</text>
+
+          <rect x="284" y="592" width="420" height="60" rx="12" fill="#101018"/>
+          <rect x="304" y="608" width="180" height="20" rx="4" fill="rgba(52,211,153,0.08)" stroke="rgba(52,211,153,0.2)" stroke-width="0.5"/>
+          <text x="316" y="622" fill="#34d399" font-family="JetBrains Mono" font-size="9">✓ Report generated</text>
+          <rect x="304" y="634" width="120" height="10" rx="5" fill="rgba(124,106,239,0.2)"/>
+
+          <!-- Input -->
+          <rect x="284" y="676" width="612" height="28" rx="8" fill="#16161f" stroke="rgba(255,255,255,0.06)" stroke-width="0.5"/>
+          <text x="304" y="694" fill="#5a584f" font-family="JetBrains Mono" font-size="10">Ask a follow-up or start a new analysis...</text>
+
+          <!-- Right panel: context -->
+          <rect x="920" y="0" width="280" height="720" fill="#101018" stroke="rgba(255,255,255,0.04)" stroke-width="1 0 0 1"/>
+          <text x="940" y="32" fill="#5a584f" font-family="JetBrains Mono" font-size="8" letter-spacing="0.1em">CONTEXT PANEL</text>
+
+          <text x="940" y="64" fill="#9a978f" font-family="Josefin Sans" font-size="11" font-weight="500">Tools used in this session</text>
+          <rect x="940" y="78" width="240" height="24" rx="6" fill="rgba(249,115,22,0.06)"/>
+          <text x="956" y="94" fill="#f97316" font-family="JetBrains Mono" font-size="9">Risk Engine · CRM · Market Data</text>
+
+          <text x="940" y="132" fill="#9a978f" font-family="Josefin Sans" font-size="11" font-weight="500">Sources referenced</text>
+          <text x="940" y="152" fill="#5a584f" font-family="JetBrains Mono" font-size="9">Risk_Limits_Policy.pdf</text>
+          <text x="940" y="168" fill="#5a584f" font-family="JetBrains Mono" font-size="9">Stress_Testing_Guidelines_v2.docx</text>
+          <text x="940" y="184" fill="#5a584f" font-family="JetBrains Mono" font-size="9">Historical_Crisis_Data_2008.csv</text>
+
+          <text x="940" y="220" fill="#9a978f" font-family="Josefin Sans" font-size="11" font-weight="500">Generated artifacts</text>
+          <rect x="940" y="236" width="240" height="36" rx="6" fill="#0d0d14"/>
+          <text x="956" y="252" fill="#34d399" font-family="JetBrains Mono" font-size="9">📄 Q4_Stress_Test_Report.pdf</text>
+          <text x="956" y="266" fill="#5a584f" font-family="JetBrains Mono" font-size="8">Download · Share</text>
+
+          <text x="940" y="304" fill="#9a978f" font-family="Josefin Sans" font-size="11" font-weight="500">Session confidence</text>
+          <rect x="940" y="318" width="240" height="8" rx="4" fill="#0d0d14"/>
+          <rect x="940" y="318" width="216" height="8" rx="4" fill="rgba(52,211,153,0.5)"/>
+          <text x="940" y="342" fill="#34d399" font-family="JetBrains Mono" font-size="9">92% overall · High confidence</text>
+        </svg>
+      </div>
+      <div class="wfa">Full-screen workspace for complex analysis. Left sidebar shows conversation history with color-coded personas. Center is the deep chat. Right panel tracks tools used, sources referenced, generated artifacts, and session confidence.</div>
+    </div>
+
+
+
+</div>
+
+<div class="div"></div>
+
+<!-- ===== PRINCIPLES ===== -->
+<div class="s">
+  <div class="lbl fi">Principles</div>
+  <h2 class="fi">Five rules.</h2>
+  <div class="prg fi">
+    <div class="pr"><div class="pn">01</div><h4>Embedded, not separate</h4><p>Lives inside existing workflows. Never pulls users away.</p></div>
+    <div class="pr"><div class="pn">02</div><h4>Transparent by default</h4><p>Show sources, reasoning, confidence. If you can't cite it, don't say it.</p></div>
+    <div class="pr"><div class="pn">03</div><h4>Progressive autonomy</h4><p>Suggestions first. Earn trust. Then automate.</p></div>
+    <div class="pr"><div class="pn">04</div><h4>Role-aware</h4><p>Same brain, different behavior. Different error tolerances.</p></div>
+    <div class="pr"><div class="pn">05</div><h4>Fail loudly</h4><p>Doesn't know? Says so. Tool fails? Shows why. No silent failures.</p></div>
+  </div>
+</div>
+
+<div class="div"></div>
+
+<!-- ===== VALIDATION ===== -->
+<div class="s">
+  <div class="lbl fi">Validation</div>
+  <h2 class="fi">What I'd <span class="a">test next.</span></h2>
+
+  <div class="two fi" style="margin-top:28px">
+    <div>
+      <h4>Key hypotheses.</h4>
+      <div class="co co-c" style="margin-top:12px;padding:16px 18px"><div class="co-l">H1</div><p style="font-size:12px;color:var(--white)"><strong>Do users trust confidence scores?</strong> Show same response with/without confidence to compliance analysts. Measure manual verification rate.</p></div>
+      <div class="co" style="margin-top:10px;padding:16px 18px"><div class="co-l">H2</div><p style="font-size:12px;color:var(--white)"><strong>Will compliance teams accept AI-generated logs?</strong> Present auto-generated investigation records. Ask: "Would you submit this to auditors?"</p></div>
+      <div class="co co-g" style="margin-top:10px;padding:16px 18px"><div class="co-l">H3</div><p style="font-size:12px;color:var(--white)"><strong>Is the 80% confidence threshold right?</strong> Run 200 queries at varying confidence. Calibrate against analyst error tolerance.</p></div>
+    </div>
+    <div>
+      <h4>Testing plan.</h4>
+      <div class="co" style="margin-top:12px;padding:16px 18px"><div class="co-l">Week 1–2</div><p style="font-size:12px;color:var(--white)">Prototype compliance flow. Test with 5 analysts. Measure: completion time, verification steps, trust (1-5).</p></div>
+      <div class="co co-g" style="margin-top:10px;padding:16px 18px"><div class="co-l">Week 3–6</div><p style="font-size:12px;color:var(--white)">Builder prototype. Can 3 ops admins identify and fix a wrong answer within 10 minutes?</p></div>
+      <div class="co co-c" style="margin-top:10px;padding:16px 18px"><div class="co-l">Month 2–3</div><p style="font-size:12px;color:var(--white)">A/B test: citations-only vs citations + confidence vs citations + reasoning trace. Lowest manual verification wins.</p></div>
+      <div class="co co-r" style="margin-top:16px;padding:16px 18px"><div class="co-l">Open question</div><p style="font-size:12px;color:var(--white)">Before/after estimates (~2h → ~12m) are from workflow simulation. Live numbers would differ — likely better for routine, worse for edge cases.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== FOCUS 3 ===== -->
+<section class="focus fi">
+  <h2>Design the system,<br>not just the screen.</h2>
+</section>
+
+<div class="div-em"></div>
+
+<!-- ===== CLOSING ===== -->
+<section class="closing">
+  <div class="fi">
+    <div class="lbl">Thank you</div>
+    <h2>Designed by <span class="a">Dheeraj Allu.</span></h2>
+    <p>Research, architecture, interaction design, trust engineering — and the product decisions that make AI systems safe enough for financial professionals to rely on.</p>
+    <p style="margin-top:14px;color:var(--white);font-size:14px">I'm looking for roles where I can design AI products at this depth.</p>
+    <div class="cls">
+      <a href="https://dheerajallu.art" target="_blank">Portfolio</a>
+      <a href="https://linkedin.com/in/dheerajallu" target="_blank">LinkedIn</a>
+      <a href="mailto:dheeraj@example.com">Contact</a>
+    </div>
+    <p style="margin:36px auto 0;font-family:var(--font-m);font-size:10px;color:var(--text-d);letter-spacing:2px">UX / Product Design · 6+ years enterprise platforms</p>
+  </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+  const els=document.querySelectorAll('.fi');
+  if(!matchMedia('(prefers-reduced-motion:reduce)').matches){
+    const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('visible');obs.unobserve(x.target)}})},{threshold:.1,rootMargin:'0px 0px -40px 0px'});
+    els.forEach(el=>obs.observe(el));
+  }else els.forEach(el=>el.classList.add('visible'));
+  const bar=document.createElement('div');
+  bar.style.cssText='position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--em),var(--gold));z-index:9999;transition:width .1s;width:0';
+  document.body.appendChild(bar);
+  addEventListener('scroll',()=>{bar.style.width=(scrollY/(document.documentElement.scrollHeight-innerHeight)*100)+'%'},{passive:true});
+});
+</script>
+</body>
+</html>

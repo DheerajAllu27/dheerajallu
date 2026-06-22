@@ -1,0 +1,301 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <!-- Background — near black with slight cool tint -->
+    <linearGradient id="bgG" x1="0" y1="0" x2="0.3" y2="1">
+      <stop offset="0%" stop-color="#030407"/>
+      <stop offset="100%" stop-color="#020305"/>
+    </linearGradient>
+
+    <!-- Accent gradient -->
+    <linearGradient id="acG" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#3ddc84"/>
+      <stop offset="55%" stop-color="#e8b84a"/>
+      <stop offset="100%" stop-color="#e86a4a"/>
+    </linearGradient>
+
+    <!-- Intense core glow -->
+    <radialGradient id="coreG" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#3ddc84" stop-opacity=".95"/>
+      <stop offset="30%" stop-color="#3ddc84" stop-opacity=".35"/>
+      <stop offset="70%" stop-color="#3ddc84" stop-opacity=".08"/>
+      <stop offset="100%" stop-color="#3ddc84" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Large outer halo -->
+    <radialGradient id="haloG" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#3ddc84" stop-opacity=".18"/>
+      <stop offset="50%" stop-color="#3ddc84" stop-opacity=".06"/>
+      <stop offset="100%" stop-color="#3ddc84" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Gold glow -->
+    <radialGradient id="goldG" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#e8b84a" stop-opacity=".12"/>
+      <stop offset="100%" stop-color="#e8b84a" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Ring gradients -->
+    <linearGradient id="ringG1" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#3ddc84"/>
+      <stop offset="100%" stop-color="#2bb866"/>
+    </linearGradient>
+    <linearGradient id="ringG2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#3ddc84" stop-opacity=".5"/>
+      <stop offset="100%" stop-color="#e8b84a" stop-opacity=".4"/>
+    </linearGradient>
+
+    <!-- Shield fill -->
+    <linearGradient id="shieldFill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3ddc84" stop-opacity=".25"/>
+      <stop offset="100%" stop-color="#3ddc84" stop-opacity=".04"/>
+    </linearGradient>
+
+    <!-- Circuit trace gradient - fades out from center -->
+    <linearGradient id="traceH" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#3ddc84" stop-opacity=".6"/>
+      <stop offset="100%" stop-color="#3ddc84" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="traceHR" x1="1" y1="0" x2="0" y2="0">
+      <stop offset="0%" stop-color="#3ddc84" stop-opacity=".6"/>
+      <stop offset="100%" stop-color="#3ddc84" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="traceV" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3ddc84" stop-opacity=".6"/>
+      <stop offset="100%" stop-color="#3ddc84" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="traceVU" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#3ddc84" stop-opacity=".6"/>
+      <stop offset="100%" stop-color="#3ddc84" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Scan line -->
+    <linearGradient id="scanG" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="transparent"/>
+      <stop offset="20%" stop-color="#3ddc84" stop-opacity=".08"/>
+      <stop offset="50%" stop-color="#3ddc84" stop-opacity=".18"/>
+      <stop offset="80%" stop-color="#3ddc84" stop-opacity=".08"/>
+      <stop offset="100%" stop-color="transparent"/>
+    </linearGradient>
+
+    <!-- Filters -->
+    <filter id="hardGlow">
+      <feGaussianBlur stdDeviation="3" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="megaGlow">
+      <feGaussianBlur stdDeviation="28"/>
+    </filter>
+    <filter id="midGlow">
+      <feGaussianBlur stdDeviation="10"/>
+    </filter>
+    <filter id="tinyGlow">
+      <feGaussianBlur stdDeviation="1.5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="textGlow">
+      <feGaussianBlur stdDeviation="4" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- ══ BACKGROUND ══ -->
+  <rect width="1600" height="900" fill="url(#bgG)"/>
+
+  <!-- ══ LARGE OUTER HALO — dominates upper half ══ -->
+  <ellipse cx="800" cy="288" rx="700" ry="480" fill="url(#haloG)"/>
+
+  <!-- ══ GOLD COUNTER-GLOW — lower left, adds tension ══ -->
+  <ellipse cx="380" cy="620" rx="380" ry="280" fill="url(#goldG)"/>
+
+  <!-- ══ FAINT GRID ══ -->
+  <g opacity=".025" stroke="#3ddc84" stroke-width=".5">
+    <line x1="320" y1="0" x2="320" y2="900"/>
+    <line x1="640" y1="0" x2="640" y2="900"/>
+    <line x1="960" y1="0" x2="960" y2="900"/>
+    <line x1="1280" y1="0" x2="1280" y2="900"/>
+    <line x1="0" y1="225" x2="1600" y2="225"/>
+    <line x1="0" y1="450" x2="1600" y2="450"/>
+    <line x1="0" y1="675" x2="1600" y2="675"/>
+  </g>
+
+  <!-- ══ CIRCUIT TRACES emanating from center (800,288) ══ -->
+  <!-- Right horizontal main -->
+  <line x1="800" y1="288" x2="1300" y2="288" stroke="url(#traceHR)" stroke-width="1" opacity=".5"/>
+  <!-- Left horizontal main -->
+  <line x1="800" y1="288" x2="300" y2="288" stroke="url(#traceH)" stroke-width="1" opacity=".5"/>
+  <!-- Up vertical -->
+  <line x1="800" y1="288" x2="800" y2="60" stroke="url(#traceVU)" stroke-width="1" opacity=".4"/>
+  <!-- Down vertical -->
+  <line x1="800" y1="288" x2="800" y2="516" stroke="url(#traceV)" stroke-width="1" opacity=".35"/>
+
+  <!-- Right branch traces -->
+  <polyline points="960,288 960,200 1100,200" fill="none" stroke="#3ddc84" stroke-width=".7" opacity=".22"/>
+  <polyline points="1100,288 1100,340 1260,340" fill="none" stroke="#3ddc84" stroke-width=".7" opacity=".18"/>
+  <polyline points="960,288 960,370 1060,370 1060,420" fill="none" stroke="#3ddc84" stroke-width=".6" opacity=".15"/>
+
+  <!-- Left branch traces -->
+  <polyline points="640,288 640,200 500,200" fill="none" stroke="#3ddc84" stroke-width=".7" opacity=".22"/>
+  <polyline points="500,288 500,340 340,340" fill="none" stroke="#3ddc84" stroke-width=".7" opacity=".18"/>
+  <polyline points="640,288 640,370 540,370 540,420" fill="none" stroke="#3ddc84" stroke-width=".6" opacity=".15"/>
+
+  <!-- Upper traces -->
+  <polyline points="800,180 680,180 680,100" fill="none" stroke="#3ddc84" stroke-width=".6" opacity=".18"/>
+  <polyline points="800,140 920,140 920,90" fill="none" stroke="#3ddc84" stroke-width=".6" opacity=".15"/>
+
+  <!-- Circuit node dots -->
+  <circle cx="960" cy="200" r="2.5" fill="#3ddc84" opacity=".45" filter="url(#tinyGlow)"/>
+  <circle cx="1100" cy="288" r="2" fill="#3ddc84" opacity=".35" filter="url(#tinyGlow)"/>
+  <circle cx="1260" cy="340" r="2" fill="#e8b84a" opacity=".4" filter="url(#tinyGlow)"/>
+  <circle cx="640" cy="200" r="2.5" fill="#3ddc84" opacity=".45" filter="url(#tinyGlow)"/>
+  <circle cx="500" cy="288" r="2" fill="#3ddc84" opacity=".35" filter="url(#tinyGlow)"/>
+  <circle cx="340" cy="340" r="2" fill="#e8b84a" opacity=".4" filter="url(#tinyGlow)"/>
+  <circle cx="680" cy="100" r="2" fill="#3ddc84" opacity=".3" filter="url(#tinyGlow)"/>
+  <circle cx="920" cy="90" r="2" fill="#3ddc84" opacity=".3" filter="url(#tinyGlow)"/>
+  <circle cx="1060" cy="420" r="2" fill="#e86a4a" opacity=".35" filter="url(#tinyGlow)"/>
+  <circle cx="540" cy="420" r="2" fill="#e86a4a" opacity=".35" filter="url(#tinyGlow)"/>
+
+  <!-- ══ SCAN LINE ══ -->
+  <rect x="0" y="270" width="1600" height="36" fill="url(#scanG)" opacity=".6"/>
+
+  <!-- ══ PARTICLES ══ -->
+  <g>
+    <circle cx="190" cy="130" r="1.2" fill="#3ddc84" opacity=".6"/>
+    <circle cx="350" cy="80" r=".9" fill="#3ddc84" opacity=".4"/>
+    <circle cx="1380" cy="150" r="1.1" fill="#3ddc84" opacity=".5"/>
+    <circle cx="1140" cy="740" r="1.2" fill="#3ddc84" opacity=".3"/>
+    <circle cx="460" cy="680" r=".8" fill="#3ddc84" opacity=".4"/>
+    <circle cx="220" cy="540" r="1" fill="#3ddc84" opacity=".28"/>
+    <circle cx="1440" cy="400" r=".9" fill="#3ddc84" opacity=".35"/>
+    <circle cx="120" cy="380" r="1" fill="#3ddc84" opacity=".25"/>
+    <circle cx="1300" cy="310" r="1.1" fill="#e8b84a" opacity=".5"/>
+    <circle cx="440" cy="210" r=".9" fill="#e8b84a" opacity=".35"/>
+    <circle cx="1070" cy="170" r="1.2" fill="#e8b84a" opacity=".4"/>
+    <circle cx="280" cy="780" r="1" fill="#e8b84a" opacity=".3"/>
+    <circle cx="940" cy="810" r="1.1" fill="#e8b84a" opacity=".25"/>
+    <circle cx="610" cy="120" r="1" fill="#e86a4a" opacity=".35"/>
+    <circle cx="1240" cy="590" r="1.1" fill="#e86a4a" opacity=".28"/>
+    <circle cx="380" cy="440" r=".8" fill="#e86a4a" opacity=".32"/>
+    <circle cx="160" cy="240" r="1" fill="#4a8ae8" opacity=".3"/>
+    <circle cx="750" cy="790" r=".9" fill="#4a8ae8" opacity=".35"/>
+    <circle cx="1350" cy="110" r="1" fill="#4a8ae8" opacity=".28"/>
+    <circle cx="70" cy="620" r=".8" fill="#3ddc84" opacity=".22"/>
+    <circle cx="1530" cy="720" r=".9" fill="#3ddc84" opacity=".2"/>
+  </g>
+
+  <!-- ══ HERO ICON ══ -->
+  <g transform="translate(800,288)">
+
+    <!-- Mega glow blob behind everything -->
+    <circle cx="0" cy="0" r="160" fill="#3ddc84" filter="url(#megaGlow)" opacity=".28"/>
+
+    <!-- Mid glow -->
+    <circle cx="0" cy="0" r="90" fill="#3ddc84" filter="url(#midGlow)" opacity=".25"/>
+
+    <!-- Core radial glow -->
+    <circle cx="0" cy="0" r="110" fill="url(#coreG)"/>
+
+    <!-- Outer dashed orbit -->
+    <ellipse cx="0" cy="0" rx="118" ry="118" fill="none" stroke="#3ddc84" stroke-width=".8" opacity=".14" stroke-dasharray="4,9"/>
+
+    <!-- Diamond ring 1 — outer -->
+    <rect x="-80" y="-80" width="160" height="160" rx="8" transform="rotate(45)"
+          fill="none" stroke="url(#ringG1)" stroke-width="1.8" opacity=".7"/>
+
+    <!-- Diamond ring 2 — mid -->
+    <rect x="-56" y="-56" width="112" height="112" rx="6" transform="rotate(45)"
+          fill="none" stroke="url(#ringG2)" stroke-width="1.3" opacity=".45"/>
+
+    <!-- Diamond ring 3 — inner -->
+    <rect x="-34" y="-34" width="68" height="68" rx="4" transform="rotate(45)"
+          fill="none" stroke="#3ddc84" stroke-width="1" opacity=".28"/>
+
+    <!-- Shield body -->
+    <path d="M0,-44 L36,-24 L36,10 Q36,38 0,52 Q-36,38 -36,10 L-36,-24 Z"
+          fill="url(#shieldFill)" stroke="#3ddc84" stroke-width="1.8"
+          stroke-linejoin="round" filter="url(#hardGlow)" opacity=".95"/>
+
+    <!-- Checkmark -->
+    <path d="M-15,4 L-4,16 L18,-9" fill="none" stroke="#3ddc84" stroke-width="2.6"
+          stroke-linecap="round" stroke-linejoin="round" filter="url(#hardGlow)" opacity=".9"/>
+
+    <!-- Core dot -->
+    <circle cx="0" cy="0" r="7" fill="#3ddc84" filter="url(#hardGlow)"/>
+    <circle cx="0" cy="0" r="3.5" fill="#ffffff" opacity=".9"/>
+
+    <!-- Cardinal accent dots -->
+    <circle cx="0" cy="-112" r="2.5" fill="#3ddc84" opacity=".65" filter="url(#tinyGlow)"/>
+    <circle cx="112" cy="0" r="2.5" fill="#e8b84a" opacity=".6" filter="url(#tinyGlow)"/>
+    <circle cx="0" cy="112" r="2.5" fill="#e86a4a" opacity=".55" filter="url(#tinyGlow)"/>
+    <circle cx="-112" cy="0" r="2.5" fill="#4a8ae8" opacity=".5" filter="url(#tinyGlow)"/>
+  </g>
+
+  <!-- ══ TYPOGRAPHY ══ -->
+
+  <!-- Wordmark with glow -->
+  <text x="800" y="496" text-anchor="middle"
+        font-family="'Cormorant Garamond', Georgia, 'Times New Roman', serif"
+        font-size="74" fill="#eaeae6" letter-spacing="5" font-weight="400"
+        filter="url(#textGlow)" opacity=".15">FinPilot</text>
+  <text x="800" y="496" text-anchor="middle"
+        font-family="'Cormorant Garamond', Georgia, 'Times New Roman', serif"
+        font-size="74" fill="#eaeae6" letter-spacing="5" font-weight="400">Fin<tspan fill="url(#acG)">Pilot</tspan></text>
+
+  <!-- Tagline -->
+  <text x="800" y="542" text-anchor="middle"
+        font-family="'Cormorant Garamond', Georgia, serif"
+        font-size="23" fill="#3ddc84" font-style="italic" letter-spacing="1" opacity=".6">AI that earns trust. One decision at a time.</text>
+
+  <!-- Divider -->
+  <line x1="700" y1="566" x2="900" y2="566" stroke="#1c2a1e" stroke-width="1"/>
+
+  <!-- Category label -->
+  <text x="800" y="600" text-anchor="middle"
+        font-family="'JetBrains Mono', 'Courier New', monospace"
+        font-size="10" fill="#3ddc84" letter-spacing="4" opacity=".45">AI AGENT PLATFORM · ENTERPRISE FINTECH · TRUST-LAYER DESIGN</text>
+
+  <!-- ══ KEYWORD PILLS ══ -->
+  <g transform="translate(800,640)" font-family="'DM Sans', sans-serif" font-size="11">
+    <rect x="-294" y="-14" width="108" height="28" rx="14" fill="none" stroke="#1a2e1e" stroke-width="1"/>
+    <text x="-240" y="4" text-anchor="middle" fill="#3ddc84" opacity=".5">Compliance UX</text>
+
+    <rect x="-174" y="-14" width="96" height="28" rx="14" fill="none" stroke="#1a2e1e" stroke-width="1"/>
+    <text x="-126" y="4" text-anchor="middle" fill="#3ddc84" opacity=".5">Risk Analysis</text>
+
+    <rect x="-66" y="-14" width="108" height="28" rx="14" fill="none" stroke="#1a2e1e" stroke-width="1"/>
+    <text x="-12" y="4" text-anchor="middle" fill="#3ddc84" opacity=".5">AI Trust Layers</text>
+
+    <rect x="54" y="-14" width="96" height="28" rx="14" fill="none" stroke="#1a2e1e" stroke-width="1"/>
+    <text x="102" y="4" text-anchor="middle" fill="#3ddc84" opacity=".5">Audit Trails</text>
+
+    <rect x="162" y="-14" width="132" height="28" rx="14" fill="none" stroke="#1a2e1e" stroke-width="1"/>
+    <text x="228" y="4" text-anchor="middle" fill="#3ddc84" opacity=".5">Confidence Scores</text>
+  </g>
+
+  <!-- ══ TRUST SIGNAL DOTS ══ -->
+  <g transform="translate(800,698)">
+    <circle cx="-45" cy="0" r="4" fill="#3ddc84" opacity=".8" filter="url(#tinyGlow)"/>
+    <circle cx="-15" cy="0" r="4" fill="#e8b84a" opacity=".8" filter="url(#tinyGlow)"/>
+    <circle cx="15" cy="0" r="4" fill="#e86a4a" opacity=".8" filter="url(#tinyGlow)"/>
+    <circle cx="45" cy="0" r="4" fill="#4a8ae8" opacity=".75" filter="url(#tinyGlow)"/>
+  </g>
+  <g transform="translate(800,716)" font-family="'JetBrains Mono', monospace" font-size="7" fill="#3ddc84" opacity=".35" letter-spacing="1">
+    <text x="-45" y="0" text-anchor="middle">VERIFIED</text>
+    <text x="-15" y="0" text-anchor="middle">FLAGGED</text>
+    <text x="15" y="0" text-anchor="middle">RISK</text>
+    <text x="45" y="0" text-anchor="middle">REVIEW</text>
+  </g>
+
+  <!-- ══ AUTHOR ══ -->
+  <text x="800" y="816" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="12" fill="#2a3a2e" letter-spacing="1">Designed by Dheeraj Allu</text>
+  <text x="800" y="838" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#1e2e22" letter-spacing="2">dheerajallu.art</text>
+
+  <!-- ══ CORNER ACCENTS — green tinted ══ -->
+  <line x1="40" y1="40" x2="40" y2="80" stroke="#1a2e1e" stroke-width="1"/>
+  <line x1="40" y1="40" x2="80" y2="40" stroke="#1a2e1e" stroke-width="1"/>
+  <line x1="1560" y1="40" x2="1560" y2="80" stroke="#1a2e1e" stroke-width="1"/>
+  <line x1="1560" y1="40" x2="1520" y2="40" stroke="#1a2e1e" stroke-width="1"/>
+  <line x1="40" y1="860" x2="40" y2="820" stroke="#1a2e1e" stroke-width="1"/>
+  <line x1="40" y1="860" x2="80" y2="860" stroke="#1a2e1e" stroke-width="1"/>
+  <line x1="1560" y1="860" x2="1560" y2="820" stroke="#1a2e1e" stroke-width="1"/>
+  <line x1="1560" y1="860" x2="1520" y2="860" stroke="#1a2e1e" stroke-width="1"/>
+</svg>

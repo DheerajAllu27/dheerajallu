@@ -3,1145 +3,1032 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dheeraj Allu - Interface & Experience Designer</title>
-
-  <meta
-    name="description"
-    content="Resume page for Dheeraj Allu — Interface & Experience Designer with 6+ years of experience across enterprise products, workflow-heavy platforms, and digital systems."
-  />
-
+  <title>About — Dheeraj Allu</title>
+  <meta name="description" content="Dheeraj Allu — UX / Interaction Designer. 5.8 years designing enterprise software, AI-native products, and workflows people actually get through." />
   <link rel="icon" type="image/png" href="./favicon.png" />
   <link rel="shortcut icon" href="./favicon.png" />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --bg-main: #060606;
-      --bg-section: #0b0b0b;
-      --bg-card: rgba(255, 255, 255, 0.04);
-      --bg-card-2: rgba(255, 255, 255, 0.06);
-      --stroke: rgba(255, 255, 255, 0.10);
-      --stroke-strong: rgba(255, 255, 255, 0.16);
-      --text-main: #f5f5f5;
-      --text-soft: rgba(255, 255, 255, 0.76);
-      --text-muted: rgba(255, 255, 255, 0.50);
-      --text-dark: #0f0f10;
+      --bg: #000000;
+      --bg-card: rgba(255,255,255,0.04);
+      --bg-card-h: rgba(255,255,255,0.07);
+      --stroke: rgba(255,255,255,0.09);
+      --stroke-h: rgba(255,255,255,0.20);
       --white: #ffffff;
-      --shadow-lg: 0 24px 60px rgba(0, 0, 0, 0.28);
-      --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.20);
-      --radius-xl: 28px;
-      --radius-lg: 20px;
-      --radius-md: 14px;
-      --radius-pill: 999px;
+      --soft: rgba(255,255,255,0.68);
+      --muted: rgba(255,255,255,0.38);
+      --font: 'Josefin Sans', sans-serif;
     }
 
-    html {
-      scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      line-height: 1.6;
-      color: var(--text-main);
-      background:
-        radial-gradient(circle at top center, rgba(255,255,255,0.06), transparent 28%),
-        linear-gradient(180deg, #030303 0%, #090909 45%, #060606 100%);
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--white);
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
+    a { color: inherit; text-decoration: none; }
 
-    .container {
-      max-width: 1380px;
-      margin: 0 auto;
-      padding: 0 64px;
-    }
-
-    .top-strip {
+    /* ── NAV ── */
+    nav {
       position: sticky;
       top: 0;
-      z-index: 50;
-      backdrop-filter: blur(16px);
-      background: rgba(6, 6, 6, 0.72);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
+      z-index: 100;
+      backdrop-filter: blur(20px);
+      background: rgba(0,0,0,0.80);
+      border-bottom: 1px solid var(--stroke);
     }
 
-    .top-strip-inner {
-      min-height: 78px;
+    .nav-inner {
+      max-width: 1340px;
+      margin: 0 auto;
+      padding: 0 60px;
+      height: 70px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 18px;
     }
 
-    .top-left {
+    .nav-brand {
       display: flex;
       align-items: center;
       gap: 14px;
     }
 
-    .top-logo {
-      width: 42px;
-      height: 42px;
-      border-radius: 14px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.10);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .nav-logo {
+      width: 36px; height: 36px;
+      border-radius: 10px;
+      border: 1px solid var(--stroke);
+      display: flex; align-items: center; justify-content: center;
       overflow: hidden;
     }
 
-    .top-logo img {
-      width: 24px;
-      height: 24px;
-      object-fit: contain;
-    }
+    .nav-logo img { width: 20px; height: 20px; object-fit: contain; }
 
-    .top-meta h1 {
-      font-size: 16px;
-      font-weight: 700;
-      line-height: 1.1;
+    .nav-name {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
       color: var(--white);
     }
 
-    .top-meta p {
-      font-size: 13px;
-      color: var(--text-muted);
-      margin-top: 3px;
-    }
-
-    .top-actions {
+    .nav-links {
       display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      justify-content: flex-end;
+      align-items: center;
+      gap: 32px;
     }
 
-    .btn {
-      padding: 15px 22px;
-      font-size: 14px;
+    .nav-links a {
+      font-size: 11px;
       font-weight: 600;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--white); }
+
+    .nav-right { display: flex; align-items: center; gap: 10px; }
+
+    /* shared pill base for nav buttons */
+    .nav-back,
+    .nav-cta {
+      padding: 10px 22px;
+      font-family: var(--font);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
       border-radius: 999px;
-      border: 1px solid var(--stroke);
       cursor: pointer;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: all 0.28s ease;
+      display: inline-flex; align-items: center; gap: 6px;
+      transition: all 0.22s ease;
       white-space: nowrap;
     }
 
-    .btn-primary {
-      background: var(--white);
-      color: var(--text-dark);
-      border-color: var(--white);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      background: #ececec;
-      box-shadow: var(--shadow-md);
-    }
-
-    .btn-secondary {
-      background: rgba(255,255,255,0.05);
+    /* Portfolio — black pill */
+    .nav-back {
+      background: #111;
       color: var(--white);
+      border: 1px solid rgba(255,255,255,0.15);
     }
 
-    .btn-secondary:hover {
-      transform: translateY(-2px);
-      background: rgba(255,255,255,0.10);
-      box-shadow: var(--shadow-md);
+    .nav-back:hover {
+      background: #222;
+      border-color: rgba(255,255,255,0.28);
+      transform: translateY(-1px);
     }
 
-    .hero-section {
-      min-height: calc(100vh - 78px);
-      display: flex;
-      align-items: center;
-      padding: 90px 0 80px;
+    /* Resume — white pill */
+    .nav-cta {
+      background: var(--white);
+      color: #000;
+      border: none;
+    }
+
+    .nav-cta:hover { background: #e0e0e0; transform: translateY(-1px); }
+
+    /* ── WRAP ── */
+    .wrap {
+      max-width: 1340px;
+      margin: 0 auto;
+      padding: 0 60px;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 130px 0 110px;
       position: relative;
       overflow: hidden;
     }
 
-    .hero-section::before {
+    /* subtle grid bg — same vibe as your portfolio particle section */
+    .hero::before {
       content: "";
       position: absolute;
-      top: 10%;
-      right: -120px;
-      width: 680px;
-      height: 680px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,255,255,0.08), transparent 68%);
-      filter: blur(60px);
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 60px 60px;
       pointer-events: none;
+      mask-image: radial-gradient(ellipse at 60% 40%, rgba(0,0,0,0.6) 0%, transparent 70%);
     }
 
-    .hero-content {
+    .hero-grid {
       display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      gap: 72px;
+      grid-template-columns: 1fr 380px;
+      gap: 80px;
       align-items: center;
-      width: 100%;
     }
 
-    .hero-text {
-      z-index: 2;
-    }
-
-    .hero-label {
+    /* kicker — matches your "Hey," style */
+    .hero-kicker {
       font-size: 13px;
-      font-weight: 700;
+      font-weight: 400;
       letter-spacing: 2px;
       text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 22px;
+      color: var(--muted);
+      margin-bottom: 24px;
     }
 
-    .hero-name {
+    /* THE HEADLINE — v1 spirit, Josefin, bold, clean */
+    .hero-headline {
       font-size: 72px;
-      font-weight: 800;
-      line-height: 1.02;
+      font-weight: 700;
+      line-height: 1.0;
+      letter-spacing: -1px;
       color: var(--white);
-      margin-bottom: 22px;
-      letter-spacing: -2.2px;
+      margin-bottom: 8px;
     }
 
-    .hero-subtitle {
-      font-size: 20px;
-      line-height: 1.8;
-      color: var(--text-soft);
+    .hero-headline .dim {
+      font-weight: 300;
+      color: var(--soft);
+    }
+
+    /* proof line — matches your sub_title style */
+    .hero-proof {
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--muted);
       margin-bottom: 40px;
-      max-width: 620px;
-    }
-
-    .hero-stats {
+      margin-top: 18px;
       display: flex;
       align-items: center;
-      gap: 28px;
-      margin-bottom: 40px;
-      padding: 24px 0;
-      border-top: 1px solid rgba(255,255,255,0.08);
-      border-bottom: 1px solid rgba(255,255,255,0.08);
+      gap: 0;
       flex-wrap: wrap;
     }
 
-    .stat-item {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
+    .hero-proof span { color: var(--soft); }
+    .hero-proof .dot {
+      margin: 0 12px;
+      color: var(--muted);
+      font-size: 10px;
     }
 
-    .stat-number {
-      font-size: 34px;
+    .hero-body {
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 1.9;
+      color: var(--soft);
+      max-width: 560px;
+      margin-bottom: 48px;
+      letter-spacing: 0.3px;
+    }
+
+    .hero-body strong {
+      color: var(--white);
+      font-weight: 600;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .pill {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 12px 22px;
+      font-family: var(--font);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border-radius: 999px;
+      transition: all 0.22s ease;
+    }
+
+    .pill-solid {
+      background: var(--white);
+      color: #000;
+      border: none;
+    }
+
+    .pill-solid:hover { background: #e0e0e0; transform: translateY(-2px); }
+
+    .pill-outline {
+      background: transparent;
+      color: var(--soft);
+      border: 1px solid var(--stroke-h);
+    }
+
+    .pill-outline:hover {
+      background: var(--bg-card-h);
+      color: var(--white);
+      transform: translateY(-2px);
+    }
+
+    .pill svg { width: 13px; height: 13px; flex-shrink: 0; }
+
+    /* ── PORTRAIT ── */
+    .portrait-wrap {
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--stroke);
+      position: relative;
+      background: #0a0a0a;
+    }
+
+    .portrait-wrap img {
+      width: 100%;
+      display: block;
+      filter: grayscale(100%);
+      aspect-ratio: 3/4;
+      object-fit: cover;
+    }
+
+    .portrait-overlay {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.88));
+      padding: 32px 24px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .p-stat { }
+
+    .p-num {
+      font-size: 28px;
       font-weight: 700;
       color: var(--white);
       line-height: 1;
     }
 
-    .stat-label {
-      font-size: 12px;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 1.2px;
-    }
-
-    .stat-divider {
-      width: 1px;
-      height: 40px;
-      background: rgba(255,255,255,0.12);
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 14px;
-      margin-bottom: 28px;
-      flex-wrap: wrap;
-    }
-
-    .hero-links {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
-
-    .hero-link {
-      width: 46px;
-      height: 46px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(255,255,255,0.05);
-      border-radius: 50%;
-      color: var(--white);
-      text-decoration: none;
-      transition: all 0.28s ease;
-      border: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .hero-link:hover {
-      background: rgba(255,255,255,0.12);
-      transform: translateY(-2px);
-    }
-
-    .hero-image-container {
-      position: relative;
-      height: 720px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .hero-image {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 24px;
-      position: relative;
-      z-index: 2;
-      box-shadow: var(--shadow-lg);
-      filter: grayscale(100%);
-    }
-
-    .image-overlay-grid {
-      position: absolute;
-      top: -24px;
-      right: -24px;
-      width: 100%;
-      height: 100%;
-      border-radius: 24px;
-      z-index: 1;
-      background:
-        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
-      background-size: 28px 28px;
-      opacity: 0.55;
-    }
-
-    .image-accent {
-      position: absolute;
-      bottom: -30px;
-      left: -30px;
-      width: 180px;
-      height: 180px;
-      background: rgba(255,255,255,0.08);
-      border-radius: 24px;
-      z-index: 1;
-      backdrop-filter: blur(8px);
-    }
-
-    .section {
-      padding: 110px 0;
-    }
-
-    .section-white {
-      background: #0a0a0a;
-    }
-
-    .section-gray {
-      background: #050505;
-    }
-
-    .section-dark {
-      background: linear-gradient(135deg, #0a0a0a 0%, #121212 100%);
-    }
-
-    .section-label {
-      font-size: 13px;
-      font-weight: 700;
+    .p-lbl {
+      font-size: 10px;
+      font-weight: 600;
       letter-spacing: 2px;
       text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 14px;
+      color: var(--muted);
+      margin-top: 4px;
     }
 
-    .section-title {
-      font-size: 48px;
-      font-weight: 750;
-      color: var(--white);
-      margin-bottom: 56px;
-      letter-spacing: -1px;
+    .p-sep {
+      width: 1px;
+      height: 36px;
+      background: rgba(255,255,255,0.15);
     }
 
-    .summary-content {
-      max-width: 900px;
-      margin-bottom: 52px;
-    }
+    /* ── SECTION ── */
+    section { padding: 100px 0; }
+    section.alt { background: #050505; }
 
-    .summary-text {
-      font-size: 18px;
-      line-height: 1.9;
-      color: var(--text-soft);
-      margin-bottom: 22px;
-    }
-
-    .summary-text strong {
-      color: var(--white);
-      font-weight: 700;
-    }
-
-    .summary-highlights {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-    }
-
-    .highlight-card,
-    .education-card,
-    .skill-category-card,
-    .card {
-      background: var(--bg-card);
-      border: 1px solid var(--stroke);
-      border-radius: 22px;
-      transition: all 0.3s ease;
-      backdrop-filter: blur(12px);
-    }
-
-    .highlight-card {
-      display: flex;
-      gap: 18px;
-      padding: 28px;
-    }
-
-    .highlight-card:hover,
-    .education-card:hover,
-    .skill-category-card:hover,
-    .card:hover {
-      transform: translateY(-4px);
-      background: var(--bg-card-2);
-      border-color: var(--stroke-strong);
-      box-shadow: var(--shadow-md);
-    }
-
-    .highlight-icon {
-      flex-shrink: 0;
-      width: 56px;
-      height: 56px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(255,255,255,0.08);
-      color: var(--white);
-      border-radius: 14px;
-    }
-
-    .highlight-text h4 {
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: 8px;
-    }
-
-    .highlight-text p {
-      font-size: 15px;
-      color: var(--text-soft);
-      line-height: 1.65;
-    }
-
-    .timeline {
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-    }
-
-    .card {
-      border-left: 3px solid rgba(255,255,255,0.22);
-      padding: 30px;
-    }
-
-    .experience-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 22px;
-      gap: 24px;
-    }
-
-    .experience-role {
-      font-size: 24px;
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: 8px;
-    }
-
-    .experience-company {
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--text-soft);
-      margin-bottom: 8px;
-    }
-
-    .experience-meta {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-      font-size: 14px;
-      color: var(--text-muted);
-    }
-
-    .experience-icon {
-      flex-shrink: 0;
-      width: 56px;
-      height: 56px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(255,255,255,0.06);
-      color: var(--white);
-      border-radius: 14px;
-    }
-
-    .experience-highlights {
-      list-style: none;
-      padding: 0;
-    }
-
-    .experience-highlights li {
-      font-size: 15px;
-      line-height: 1.8;
-      color: var(--text-soft);
-      padding-left: 26px;
-      position: relative;
-      margin-bottom: 12px;
-    }
-
-    .experience-highlights li::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 11px;
-      width: 6px;
-      height: 6px;
-      background: rgba(255,255,255,0.72);
-      border-radius: 50%;
-    }
-
-    .education-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-    }
-
-    .education-card {
-      padding: 30px;
-    }
-
-    .education-icon-container {
-      width: 62px;
-      height: 62px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(255,255,255,0.08);
-      color: var(--white);
-      border-radius: 14px;
-      margin-bottom: 22px;
-    }
-
-    .education-institution {
-      font-size: 22px;
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: 8px;
-    }
-
-    .education-degree {
-      font-size: 16px;
+    .sec-kicker {
+      font-size: 11px;
       font-weight: 600;
-      color: var(--text-soft);
-      margin-bottom: 6px;
-    }
-
-    .education-concentration {
-      font-size: 14px;
-      color: var(--text-muted);
-      margin-bottom: 12px;
-    }
-
-    .education-location {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 14px;
-      color: var(--text-muted);
-      margin-bottom: 16px;
-    }
-
-    .badge {
-      display: inline-block;
-      padding: 8px 14px;
-      font-size: 13px;
-      font-weight: 600;
-      border-radius: 999px;
-      margin-top: 8px;
-    }
-
-    .badge-primary {
-      background: rgba(255,255,255,0.10);
-      color: var(--white);
-      border: 1px solid rgba(255,255,255,0.12);
-    }
-
-    .badge-outline {
-      background: transparent;
-      border: 1px solid rgba(255,255,255,0.10);
-      color: var(--text-soft);
-    }
-
-    .coursework-label {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--text-muted);
-      margin-bottom: 12px;
+      letter-spacing: 3px;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      color: var(--muted);
+      margin-bottom: 12px;
     }
 
-    .coursework-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .skills-grid {
-      display: grid;
-      gap: 22px;
-    }
-
-    .skill-category-card {
-      padding: 30px;
-    }
-
-    .skill-category-title {
-      font-size: 20px;
+    .sec-title {
+      font-size: 48px;
       font-weight: 700;
+      letter-spacing: -1px;
       color: var(--white);
+      margin-bottom: 52px;
+      line-height: 1.05;
+    }
+
+    .sec-title .dim {
+      font-weight: 300;
+      color: var(--soft);
+    }
+
+    /* ── MANIFESTO ── */
+    .manifesto {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border: 1px solid var(--stroke);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .m-item {
+      padding: 48px 50px;
+      border-right: 1px solid var(--stroke);
+      border-bottom: 1px solid var(--stroke);
+      transition: background 0.22s ease;
+    }
+
+    .m-item:nth-child(2n) { border-right: none; }
+    .m-item:nth-last-child(-n+2) { border-bottom: none; }
+    .m-item:hover { background: var(--bg-card); }
+
+    .m-num {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--muted);
       margin-bottom: 20px;
     }
 
-    .skill-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
+    .m-heading {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.2px;
+      color: var(--white);
+      margin-bottom: 14px;
+      line-height: 1.3;
     }
 
-    .skill-badge {
-      background: rgba(255,255,255,0.05);
-      color: var(--text-soft);
+    .m-body {
       font-size: 14px;
-      font-weight: 500;
-      padding: 10px 16px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.08);
-      transition: all 0.28s ease;
+      font-weight: 300;
+      line-height: 1.9;
+      color: var(--soft);
+      letter-spacing: 0.2px;
     }
 
-    .skill-badge:hover {
-      background: rgba(255,255,255,0.14);
+    /* ── ORIGIN ── */
+    .origin-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .origin-text p {
+      font-size: 15px;
+      font-weight: 300;
+      line-height: 1.95;
+      color: var(--soft);
+      margin-bottom: 22px;
+      letter-spacing: 0.2px;
+    }
+
+    .origin-text p strong { color: var(--white); font-weight: 600; }
+    .origin-text p:last-child { margin-bottom: 0; }
+
+    .info-stack { display: flex; flex-direction: column; gap: 14px; }
+
+    .info-card {
+      background: var(--bg-card);
+      border: 1px solid var(--stroke);
+      border-radius: 14px;
+      padding: 22px 26px;
+      transition: all 0.22s ease;
+    }
+
+    .info-card:hover {
+      background: var(--bg-card-h);
+      border-color: var(--stroke-h);
+      transform: translateX(4px);
+    }
+
+    .info-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .info-val {
+      font-size: 14px;
+      font-weight: 600;
       color: var(--white);
-      border-color: rgba(255,255,255,0.14);
-      transform: translateY(-2px);
+      letter-spacing: 0.3px;
     }
 
-    .footer-cta {
-      background: linear-gradient(135deg, #0b0b0b 0%, #151515 100%);
-      padding: 110px 0;
-      text-align: center;
-      border-top: 1px solid rgba(255,255,255,0.06);
+    .info-sub {
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--muted);
+      margin-top: 3px;
+      letter-spacing: 0.2px;
     }
 
-    .cta-title {
-      font-size: 46px;
-      font-weight: 750;
+    /* ── CHAPTERS ── */
+    .chapters { display: flex; flex-direction: column; }
+
+    .chapter {
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      gap: 44px;
+      padding: 48px 0;
+      border-bottom: 1px solid var(--stroke);
+      transition: background 0.2s ease;
+    }
+
+    .chapter:last-child { border-bottom: none; }
+
+    .ch-time { padding-top: 2px; }
+
+    .ch-year {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .ch-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.25);
+      margin-top: 14px;
+    }
+
+    .ch-role {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
       color: var(--white);
+      margin-bottom: 4px;
+    }
+
+    .ch-co {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
       margin-bottom: 16px;
-      letter-spacing: -1px;
     }
 
-    .cta-subtitle {
-      font-size: 20px;
-      color: var(--text-soft);
-      margin-bottom: 42px;
+    .ch-desc {
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.9;
+      color: var(--soft);
+      letter-spacing: 0.2px;
     }
 
-    .cta-buttons {
-      display: flex;
+    .ch-tags {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      margin-top: 18px;
+    }
+
+    .tag {
+      padding: 5px 14px;
+      font-family: var(--font);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      border-radius: 999px;
+      background: var(--bg-card);
+      border: 1px solid var(--stroke);
+      color: var(--muted);
+    }
+
+    /* ── BUILDING ── */
+    .build-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
       gap: 16px;
-      justify-content: center;
-      flex-wrap: wrap;
     }
 
-    .btn-cta-primary {
-      background: var(--white);
-      color: var(--text-dark);
-      padding: 18px 36px;
-      font-size: 16px;
-      font-weight: 600;
-      border-radius: 999px;
-      border: none;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: all 0.28s ease;
+    .build-card {
+      background: var(--bg-card);
+      border: 1px solid var(--stroke);
+      border-radius: 16px;
+      padding: 34px 30px;
+      transition: all 0.25s ease;
     }
 
-    .btn-cta-primary:hover {
-      background: #ececec;
-      transform: translateY(-2px);
+    .build-card:hover {
+      background: var(--bg-card-h);
+      border-color: var(--stroke-h);
+      transform: translateY(-4px);
     }
 
-    .btn-cta-outline {
-      background: transparent;
+    .build-icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      border: 1px solid var(--stroke);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--soft);
+      margin-bottom: 22px;
+    }
+
+    .build-icon svg { width: 18px; height: 18px; }
+
+    .build-title {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
       color: var(--white);
-      border: 1px solid rgba(255,255,255,0.18);
-      padding: 18px 36px;
+      margin-bottom: 12px;
+    }
+
+    .build-desc {
+      font-size: 13px;
+      font-weight: 300;
+      line-height: 1.85;
+      color: var(--soft);
+      letter-spacing: 0.2px;
+    }
+
+    /* ── EDUCATION ── */
+    .edu-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    .edu-card {
+      background: var(--bg-card);
+      border: 1px solid var(--stroke);
+      border-radius: 16px;
+      padding: 30px 28px;
+      transition: all 0.22s ease;
+    }
+
+    .edu-card:hover {
+      background: var(--bg-card-h);
+      border-color: var(--stroke-h);
+    }
+
+    .edu-deg {
       font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -0.2px;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+
+    .edu-school {
+      font-size: 11px;
       font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--soft);
+      margin-bottom: 4px;
+    }
+
+    .edu-meta {
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+
+    .edu-courses { display: flex; flex-wrap: wrap; gap: 7px; }
+
+    .c-tag {
+      padding: 5px 12px;
+      font-family: var(--font);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
       border-radius: 999px;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: all 0.28s ease;
+      border: 1px solid var(--stroke);
+      color: var(--muted);
     }
 
-    .btn-cta-outline:hover {
-      background: rgba(255,255,255,0.08);
-      transform: translateY(-2px);
+    /* ── CTA ── */
+    .cta-section {
+      padding: 120px 0;
+      border-top: 1px solid var(--stroke);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
     }
 
-    .icon {
-      width: 18px;
-      height: 18px;
+    .cta-section::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      mask-image: radial-gradient(ellipse at 50% 60%, rgba(0,0,0,0.5) 0%, transparent 70%);
     }
 
-    .icon-lg {
-      width: 24px;
-      height: 24px;
+    .cta-kicker {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 20px;
     }
 
-    @media (max-width: 1200px) {
-      .container {
-        padding: 0 40px;
-      }
+    .cta-headline {
+      font-size: 60px;
+      font-weight: 700;
+      letter-spacing: -1.5px;
+      color: var(--white);
+      margin-bottom: 20px;
+      line-height: 1.05;
+    }
 
-      .hero-content {
-        grid-template-columns: 1fr;
-        gap: 56px;
-      }
+    .cta-headline .dim {
+      font-weight: 300;
+      color: var(--soft);
+    }
 
-      .hero-image-container {
-        height: 540px;
-      }
+    .cta-sub {
+      font-size: 14px;
+      font-weight: 300;
+      letter-spacing: 0.3px;
+      line-height: 1.8;
+      color: var(--soft);
+      margin-bottom: 44px;
+      max-width: 440px;
+      margin-left: auto;
+      margin-right: auto;
+    }
 
-      .hero-name {
-        font-size: 56px;
-      }
+    .cta-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
 
-      .education-grid {
-        grid-template-columns: 1fr;
-      }
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1100px) {
+      .wrap { padding: 0 40px; }
+      .nav-inner { padding: 0 40px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 52px; }
+      .portrait-wrap { max-width: 360px; }
+      .manifesto { grid-template-columns: 1fr; }
+      .m-item { border-right: none; }
+      .m-item:nth-last-child(-n+2) { border-bottom: 1px solid var(--stroke); }
+      .m-item:last-child { border-bottom: none; }
+      .origin-grid { grid-template-columns: 1fr; gap: 44px; }
+      .build-grid { grid-template-columns: 1fr 1fr; }
+      .edu-row { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 768px) {
-      .container {
-        padding: 0 22px;
-      }
-
-      .hero-section,
-      .section,
-      .footer-cta {
-        padding: 72px 0;
-      }
-
-      .top-strip-inner {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 14px 0;
-      }
-
-      .top-actions {
-        width: 100%;
-        justify-content: flex-start;
-      }
-
-      .hero-name {
-        font-size: 40px;
-      }
-
-      .section-title,
-      .cta-title {
-        font-size: 34px;
-      }
-
-      .hero-stats {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 18px;
-      }
-
-      .stat-divider {
-        display: none;
-      }
-
-      .hero-actions,
-      .cta-buttons {
-        flex-direction: column;
-        width: 100%;
-      }
-
-      .btn,
-      .btn-cta-primary,
-      .btn-cta-outline {
-        width: 100%;
-        justify-content: center;
-      }
-
-      .summary-highlights {
-        grid-template-columns: 1fr;
-      }
-
-      .experience-header {
-        flex-direction: column;
-      }
-
-      .hero-links {
-        flex-wrap: wrap;
-      }
-
-      .hero-image-container {
-        height: 420px;
-      }
+      .wrap { padding: 0 22px; }
+      .nav-inner { padding: 0 22px; }
+      .nav-links { display: none; }
+      .hero-headline { font-size: 48px; }
+      .sec-title { font-size: 34px; }
+      .cta-headline { font-size: 38px; }
+      .chapter { grid-template-columns: 1fr; gap: 6px; }
+      .build-grid { grid-template-columns: 1fr; }
+      .m-item { padding: 34px 30px; }
+      section { padding: 72px 0; }
+      .hero { padding: 90px 0 80px; }
     }
   </style>
 </head>
-
 <body>
-  <div class="top-strip">
-    <div class="container">
-      <div class="top-strip-inner">
-        <div class="top-left">
-          <div class="top-logo">
-            <img src="./favicon.png" alt="Logo">
-          </div>
-          <div class="top-meta">
-            <h1>Dheeraj Allu</h1>
-            <p>Interface &amp; Experience Designer</p>
-          </div>
-        </div>
 
-        <div class="top-actions">
-          <a href="./ux_ui resume.pdf" class="btn btn-primary" download>Download Resume</a>
-          <a href="home.html" target="_blank" class="btn btn-secondary">Back to Portfolio</a>
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <a href="/" class="nav-brand">
+        <div class="nav-logo">
+          <img src="./favicon.png" alt="Logo" />
         </div>
+        <span class="nav-name">Dheeraj Allu</span>
+      </a>
+      <div class="nav-links">
+        <a href="work.html">Work</a>
+        <a href="about.html" class="active">About</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="nav-right">
+        <a href="home.html" class="nav-back">
+          <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 12H5m7-7l-7 7 7 7"/></svg>
+          Portfolio
+        </a>
+        <a href="./ux_ui resume.pdf" class="nav-cta" download>
+          <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+          Resume
+        </a>
       </div>
     </div>
-  </div>
+  </nav>
 
-  <section class="hero-section">
-    <div class="container">
-      <div class="hero-content">
-        <div class="hero-text">
-          <div class="hero-label">Interface &amp; Experience Designer</div>
-          <h1 class="hero-name">Dheeraj<br>Allu</h1>
-          <p class="hero-subtitle">
-            Crafting intuitive digital experiences through research-driven design, enterprise workflows, and scalable systems.
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+
+        <div>
+          <div class="hero-kicker">About me</div>
+
+          <h1 class="hero-headline">
+            Most designers<br>
+            join a team.<br>
+            <span class="dim">I built one.</span>
+          </h1>
+
+          <div class="hero-proof">
+            <span>5.8 Years</span>
+            <span class="dot">•</span>
+            <span>Enterprise B2B</span>
+            <span class="dot">•</span>
+            <span>AI-Native Design</span>
+            <span class="dot">•</span>
+            <span>500+ Daily Users</span>
+          </div>
+
+          <p class="hero-body">
+            First design hire at Helson. No process, no system, no one to ask. Left with <strong>80+ components</strong>, five products, and 500+ people who could finally do their jobs without friction.
           </p>
 
-          <div class="hero-stats">
-            <div class="stat-item">
-              <span class="stat-number">6+</span>
-              <span class="stat-label">Years Experience</span>
-            </div>
-            <div class="stat-divider"></div>
-            <div class="stat-item">
-              <span class="stat-number">7+</span>
-              <span class="stat-label">Design Strengths</span>
-            </div>
-            <div class="stat-divider"></div>
-            <div class="stat-item">
-              <span class="stat-number">10+</span>
-              <span class="stat-label">Tools & Platforms</span>
-            </div>
-          </div>
-
-
-          <div class="hero-links">
-            <a href="mailto:dheerajallu27@gmail.com" class="hero-link" aria-label="Email">
-              <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-              </svg>
+          <div class="hero-actions">
+            <a href="mailto:dheerajallu27@gmail.com" class="pill pill-solid">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+              Get in touch
             </a>
-
-            <a href="https://www.linkedin.com/in/dheeraj-allu-/" target="_blank" class="hero-link" aria-label="LinkedIn">
-              <svg class="icon" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-              </svg>
+            <a href="https://www.linkedin.com/in/dheeraj-allu-/" target="_blank" class="pill pill-outline">
+              <svg fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              LinkedIn
             </a>
-
           </div>
         </div>
 
-        <div class="hero-image-container">
-          <div class="image-overlay-grid"></div>
-          <img src="./portrait-watermark.png" alt="Dheeraj Allu" class="hero-image" />
-          <div class="image-accent"></div>
+        <div>
+          <div class="portrait-wrap">
+            <img src="./portrait-watermark.png" alt="Dheeraj Allu" />
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW I THINK -->
+  <section class="alt">
+    <div class="wrap">
+      <div class="sec-kicker">Design philosophy</div>
+      <h2 class="sec-title">How I think<br><span class="dim">about the work</span></h2>
+
+      <div class="manifesto">
+        <div class="m-item">
+          <div class="m-num">01</div>
+          <div class="m-heading">Remove the step. Don't design around it.</div>
+          <div class="m-body">The best design call I've made wasn't adding something — it was cutting steps nobody needed. Complexity usually means something wasn't understood clearly enough. I start by questioning whether each step earns its place.</div>
+        </div>
+        <div class="m-item">
+          <div class="m-num">02</div>
+          <div class="m-heading">Opinions are part of the job.</div>
+          <div class="m-body">I don't wait to be told what to fix. I dig into the problem, form a view on what's actually causing it, and bring that alongside a proposed fix — not just a diagnosis. Someone has to be willing to say "we're solving the wrong thing."</div>
+        </div>
+        <div class="m-item">
+          <div class="m-num">03</div>
+          <div class="m-heading">Trust has to be visible. Not just true.</div>
+          <div class="m-body">Designing FinPilot — an AI copilot for compliance officers — taught me that users don't trust AI because it's accurate. They trust it because it shows its reasoning. That instinct shapes every interface I build with risk or consequence.</div>
+        </div>
+        <div class="m-item">
+          <div class="m-num">04</div>
+          <div class="m-heading">The messy part is where the work happens.</div>
+          <div class="m-body">The wrong turn at week two. The research finding that broke your first assumption. The constraint that forced a better solution. I design with that friction, not around it — and my case studies show the thinking, not just the final screen.</div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section section-white">
-    <div class="container">
-      <div class="section-label">About Me</div>
-      <h2 class="section-title">Designing with Purpose</h2>
-
-      <div class="summary-content">
-        <p class="summary-text">
-          Interface &amp; Experience Designer with <strong>6+ years of experience</strong> designing intuitive and scalable digital products for enterprise platforms. Skilled in user research, wireframing, prototyping, usability thinking, and design systems.
-        </p>
-        <p class="summary-text">
-          Experienced in translating complex workflows into clear user-centered interfaces. I collaborate with product managers, developers, and stakeholders to create solutions that balance business goals with user needs.
-        </p>
-        <p class="summary-text">
-          Currently pursuing a <strong>Master’s in Computers &amp; IT Services</strong>, strengthening technical and strategic product thinking while bridging the gap between design and development.
-        </p>
-      </div>
-
-      <div class="summary-highlights">
-        <div class="highlight-card">
-          <div class="highlight-icon">
-            <svg class="icon-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-            </svg>
-          </div>
-          <div class="highlight-text">
-            <h4>Enterprise Focus</h4>
-            <p>Specialized in workflow-heavy products, structured platforms, and scalable digital experiences.</p>
-          </div>
+  <!-- ORIGIN STORY -->
+  <section>
+    <div class="wrap">
+      <div class="origin-grid">
+        <div class="origin-text">
+          <div class="sec-kicker">Where I came from</div>
+          <h2 class="sec-title">The first<br><span class="dim">design hire story</span></h2>
+          <p>I joined Helson Software Solutions with no design team, no process, no component library, and no one to ask "is this right?" I was the company's first dedicated designer — and I had to build the function from scratch.</p>
+          <p>That meant deciding what usability testing looked like, what a design review meant, and how to talk to developers who'd never worked with a designer before. <strong>Uncomfortable in exactly the right way.</strong></p>
+          <p>By the time I left: 80+ reusable components, a design system governing five products, 40+ user flows, and 500+ people whose daily workflows I'd rethought from the ground up. The most valuable thing I learned wasn't a method. It was <strong>how to build conviction in the absence of a playbook.</strong></p>
         </div>
 
-        <div class="highlight-card">
-          <div class="highlight-icon">
-            <svg class="icon-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6l4 2"/>
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
-            </svg>
+        <div class="info-stack">
+          <div class="info-card">
+            <div class="info-label">Based in</div>
+            <div class="info-val">Chicago, IL</div>
+            <div class="info-sub">Open to remote & select on-site roles</div>
           </div>
-          <div class="highlight-text">
-            <h4>Continuous Growth</h4>
-            <p>Focused on sharpening product thinking, systems design, and new workflows with emerging tools.</p>
+          <div class="info-card">
+            <div class="info-label">Currently pursuing</div>
+            <div class="info-val">MS — Technology Management</div>
+            <div class="info-sub">Avila University · GPA 3.83 · Dec 2026</div>
           </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section-gray">
-    <div class="container">
-      <div class="section-label">Professional Journey</div>
-      <h2 class="section-title">Experience</h2>
-
-      <div class="timeline">
-        <div class="card">
-          <div class="experience-header">
-            <div>
-              <h3 class="experience-role">User Experience Designer</h3>
-              <div class="experience-company">Helson Software Solutions Pvt. Ltd.</div>
-              <div class="experience-meta">
-                <span>2021 - 2024</span>
-                <span>•</span>
-                <span>India</span>
-              </div>
-            </div>
-            <div class="experience-icon">
-              <svg class="icon-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-              </svg>
-            </div>
+          <div class="info-card">
+            <div class="info-label">Work authorization</div>
+            <div class="info-val">F-1 OPT through 2030</div>
+            <div class="info-sub">No sponsorship required</div>
           </div>
-
-          <ul class="experience-highlights">
-            <li>Led end-to-end UX design for enterprise workflow and content management platforms.</li>
-            <li>Conducted discovery sessions, workflow analysis, and user research to identify usability
-                issues.</li>
-            <li>Designed user flows, wireframes, and high-fidelity prototypes using Figma.</li>
-            <li>Collaborated with cross‑functional teams including product managers, developers, and
-                stakeholders.</li>
-            <li>Facilitated usability testing sessions and converted insights into iterative design
-                improvements.<li>
-            <li>Developed reusable design components and scalable design system patterns.<li>
-            <li>Created UX documentation, including interaction guidelines and developer handoff
-                specifications.<li>
-            <li>Partnered with engineering teams during development cycles to validate implementation and
-                resolve edge cases.
-          </ul>
-        </div>
-
-        <div class="card">
-          <div class="experience-header">
-            <div>
-              <h3 class="experience-role">Jr. UX Designer</h3>
-              <div class="experience-company">Helson Software Solutions Pvt. Ltd.</div>
-              <div class="experience-meta">
-                <span>2018 - 2021</span>
-                <span>•</span>
-                <span>India</span>
-              </div>
-            </div>
-            <div class="experience-icon">
-              <svg class="icon-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L6 20.75V14h6.75L9 17.75M14.25 7L18 3.25V10h-6.75L15 6.25"/>
-              </svg>
-            </div>
-          </div>
-
-          <ul class="experience-highlights">
-            <li>Designed interfaces for Document Management System (DMS) and Records Management
-System (RMS) modules.</li>
-            <li>Created wireframes, interaction flows, and high‑fidelity UI designs for enterprise
-applications.</li>
-            <li>Participated in usability testing and analyzed user feedback to improve product usability.</li>
-            <li>Collaborated with developers and product managers to translate business requirements into
-UX solutions.</li>
-            <li>Maintained design documentation and reusable UI components to ensure product consistency.
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section-white">
-    <div class="container">
-      <div class="section-label">Academic Background</div>
-      <h2 class="section-title">Education</h2>
-
-      <div class="education-grid">
-        <div class="education-card">
-          <div class="education-icon-container">
-            <svg class="icon-lg" style="width: 32px; height: 32px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/>
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
-            </svg>
-          </div>
-
-          <h3 class="education-institution">Avila University</h3>
-          <div class="education-degree">Master of Science - Technology Management</div>
-          <div class="education-concentration">Concentration: Computers &amp; IT Services</div>
-          <div class="education-location">Kansas City, MO</div>
-          <span class="badge badge-primary">Graduate Program</span>
-
-          <div style="margin-top: 20px;">
-            <div class="coursework-label">Relevant Coursework</div>
-            <div class="coursework-tags">
-              <span class="badge badge-outline">System Analysis</span>
-              <span class="badge badge-outline">Enterprise Architecture</span>
-              <span class="badge badge-outline">Database Management</span>
-              <span class="badge badge-outline">Cloud & Big Data</span>
-              <span class="badge badge-outline">AI & ML</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="education-card">
-          <div class="education-icon-container">
-            <svg class="icon-lg" style="width: 32px; height: 32px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/>
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
-            </svg>
-          </div>
-
-          <h3 class="education-institution">Nova Academy of Education & Research</h3>
-          <div class="education-degree">Bachelor’s Degree</div>
-          <div class="education-concentration">Computer Science</div>
-          <div class="education-location">India</div>
-          <span class="badge badge-primary">Undergraduate</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section-gray">
-    <div class="container">
-      <div class="section-label">Expertise</div>
-      <h2 class="section-title">Skills &amp; Tools</h2>
-
-      <div class="skills-grid">
-        <div class="skill-category-card">
-          <h3 class="skill-category-title">Design Tools</h3>
-          <div class="skill-tags">
-            <span class="skill-badge">Figma</span>
-            <span class="skill-badge">FigJam</span>
-            <span class="skill-badge">Miro</span>
-            <span class="skill-badge">Adobe XD</span>
-            <span class="skill-badge">Sketch</span>
-            <span class="skill-badge">Photoshop</span>
-            <span class="skill-badge">Illustrator</span>
-            <span class="skill-badge">Jira</span>
-          </div>
-        </div>
-
-        <div class="skill-category-card">
-          <h3 class="skill-category-title">UX / Product Design</h3>
-          <div class="skill-tags">
-            <span class="skill-badge">User Research</span>
-            <span class="skill-badge">Wireframing</span>
-            <span class="skill-badge">Prototyping</span>
-            <span class="skill-badge">Usability Testing</span>
-            <span class="skill-badge">Information Architecture</span>
-            <span class="skill-badge">User Flows</span>
-            <span class="skill-badge">Interaction Design</span>
-            <span class="skill-badge">Design Systems</span>
-            <span class="skill-badge">Visual Design</span>
-          </div>
-        </div>
-
-        <div class="skill-category-card">
-          <h3 class="skill-category-title">Technical Skills</h3>
-          <div class="skill-tags">
-            <span class="skill-badge">HTML</span>
-            <span class="skill-badge">CSS</span>
-            <span class="skill-badge">Responsive Design</span>
-            <span class="skill-badge">Accessibility</span>
+          <div class="info-card">
+            <div class="info-label">Started designing</div>
+            <div class="info-val">2018 — Krr Infotech, Hyderabad</div>
+            <div class="info-sub">CRM platforms for sales & marketing clients</div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="footer-cta">
-    <div class="container">
-      <h3 class="cta-title">Let’s Create Something Great Together</h3>
-      <p class="cta-subtitle">Available for Interface, Experience, and Product Design opportunities.</p>
+  <!-- CHAPTERS -->
+  <section class="alt">
+    <div class="wrap">
+      <div class="sec-kicker">Career</div>
+      <h2 class="sec-title">The <span class="dim">chapters</span></h2>
 
-      <div class="cta-buttons">
-        <a href="mailto:dheerajallu27@gmail.com" class="btn-cta-primary">
-          <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-          </svg>
+      <div class="chapters">
+        <div class="chapter">
+          <div class="ch-time">
+            <div class="ch-year">2022 – 2024</div>
+            <div class="ch-dot"></div>
+          </div>
+          <div>
+            <div class="ch-role">UX Designer (Senior)</div>
+            <div class="ch-co">Helson Software Solutions · India</div>
+            <div class="ch-desc">Owned end-to-end UX across three enterprise platforms — workflow automation, CMS, DMS, CRM — used by 500+ people daily. Ran quarterly usability testing that cut reported navigation friction by 35%. Built and governed an 80+ component design system across five products. Managed priorities across three concurrent platforms and multiple engineering teams simultaneously.</div>
+            <div class="ch-tags">
+              <span class="tag">Workflow Automation</span>
+              <span class="tag">Design Systems</span>
+              <span class="tag">Usability Testing</span>
+              <span class="tag">Enterprise B2B</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="chapter">
+          <div class="ch-time">
+            <div class="ch-year">2020 – 2022</div>
+            <div class="ch-dot"></div>
+          </div>
+          <div>
+            <div class="ch-role">UI/UX Designer — First Design Hire</div>
+            <div class="ch-co">Helson Software Solutions · India</div>
+            <div class="ch-desc">Joined with no design function in place. Built it. Established the first usability testing practice, first component library, and first design standards the company ever had. Designed DMS and RMS modules from scratch — end-to-end flows for workflows with strict procedural requirements and zero margin for confusion.</div>
+            <div class="ch-tags">
+              <span class="tag">DMS / RMS</span>
+              <span class="tag">From Scratch</span>
+              <span class="tag">Process Building</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="chapter">
+          <div class="ch-time">
+            <div class="ch-year">2018 – 2020</div>
+            <div class="ch-dot"></div>
+          </div>
+          <div>
+            <div class="ch-role">Jr. UI/UX Designer</div>
+            <div class="ch-co">Krr Infotech Pvt. Ltd. · Hyderabad, India</div>
+            <div class="ch-desc">Designed CRM interfaces for sales and marketing companies. Learned what it means to design for users who have real jobs and zero patience for friction. Competitive analysis, usability evaluations, flows, wireframes — the full cycle, every time.</div>
+            <div class="ch-tags">
+              <span class="tag">CRM Design</span>
+              <span class="tag">Enterprise UX</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="chapter">
+          <div class="ch-time">
+            <div class="ch-year">2018</div>
+            <div class="ch-dot"></div>
+          </div>
+          <div>
+            <div class="ch-role">UX Design Intern</div>
+            <div class="ch-co">Krr Infotech Pvt. Ltd. · Hyderabad, India</div>
+            <div class="ch-desc">First professional design exposure, alongside the final year of my bachelor's. CRM modules, developer collaboration, Agile team structure. Where I learned the gap between a design in Figma and a design in production — and why that gap matters.</div>
+            <div class="ch-tags">
+              <span class="tag">Internship</span>
+              <span class="tag">Figma</span>
+              <span class="tag">Agile</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CURRENTLY BUILDING -->
+  <section>
+    <div class="wrap">
+      <div class="sec-kicker">Right now</div>
+      <h2 class="sec-title">What I'm <span class="dim">building</span></h2>
+
+      <div class="build-grid">
+        <div class="build-card">
+          <div class="build-icon">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+          </div>
+          <div class="build-title">Agentic UX patterns</div>
+          <div class="build-desc">Designing for AI that acts, not just responds. How do you show a user what an agent did, why it did it, and when they should step in? Working through this daily.</div>
+        </div>
+        <div class="build-card">
+          <div class="build-icon">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+          </div>
+          <div class="build-title">D.AI — Adaptive AI Interface</div>
+          <div class="build-desc">A working React prototype where the entire UI — agents, tools, theme — reconfigures itself based on the user's profession. 28 personas, live Claude API. The AI that becomes you.</div>
+        </div>
+        <div class="build-card">
+          <div class="build-icon">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+          </div>
+          <div class="build-title">MS — Technology Management</div>
+          <div class="build-desc">Finishing at Avila University, December 2026. GPA 3.83. AI & ML, enterprise architecture, system analysis — building the technical depth behind the design instinct.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section class="alt">
+    <div class="wrap">
+      <div class="sec-kicker">Education</div>
+      <h2 class="sec-title">Academic <span class="dim">background</span></h2>
+
+      <div class="edu-row">
+        <div class="edu-card">
+          <div class="edu-deg">MS — Technology Management</div>
+          <div class="edu-school">Avila University · Kansas City, MO</div>
+          <div class="edu-meta">Jan 2025 – Dec 2026 · GPA 3.83 · In Progress</div>
+          <div class="edu-courses">
+            <span class="c-tag">AI & Machine Learning</span>
+            <span class="c-tag">Enterprise Architecture</span>
+            <span class="c-tag">System Analysis</span>
+            <span class="c-tag">Cloud Computing</span>
+          </div>
+        </div>
+        <div class="edu-card">
+          <div class="edu-deg">BS — Computer Science Management</div>
+          <div class="edu-school">Nova Academy · Tamil Nadu, India</div>
+          <div class="edu-meta">Jun 2014 – Mar 2017</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section" id="contact">
+    <div class="wrap">
+      <div class="cta-kicker">Let's talk</div>
+      <h2 class="cta-headline">
+        Complex problems.<br>
+        <span class="dim">That's the good stuff.</span>
+      </h2>
+      <p class="cta-sub">Open to full-time, contract, and internship roles. Enterprise UX, AI-native design, workflows that need someone who actually digs into them.</p>
+      <div class="cta-actions">
+        <a href="mailto:dheerajallu27@gmail.com" class="pill pill-solid">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
           dheerajallu27@gmail.com
         </a>
-
+        <a href="https://www.linkedin.com/in/dheeraj-allu-/" target="_blank" class="pill pill-outline">
+          <svg fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
       </div>
     </div>
   </section>
+
 </body>
 </html>
